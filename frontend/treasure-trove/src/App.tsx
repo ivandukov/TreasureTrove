@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {Box, Button, Container, Heading, HStack, Stack, Text} from "@chakra-ui/react";
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <Container h={"100%"}>
+            <Stack
+                as={Box}
+                textAlign={'center'}
+                spacing={{base: 8, md: 14}}
+                py={{base: 20, md: 36}}>
+                <Heading
+                    fontWeight={600}
+                    fontSize={{base: '2xl', sm: '4xl', md: '8xl'}}
+                    lineHeight={'110%'}>
+                    Treasure <br/>
+                    <Text as={'span'} color={'blue.400'}>
+                        Trove
+                    </Text>
+                </Heading>
+                <Text
+                    fontSize={{base: 'sm', sm: 'md', md: 'lg'}}
+                    color={'gray.500'}>
+                    Discover, Share, and Unleash the Hidden Treasures Within.
+                </Text>
+            </Stack>
+            <HStack spacing={8} justifyContent={"center"}>
+                <Button size={"lg"}>Login</Button>
+                <Button size={"lg"}>Register</Button>
+            </HStack>
+
+        </Container>
+    )
 }
 
 export default App

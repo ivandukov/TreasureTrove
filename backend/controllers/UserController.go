@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserController struct{}
@@ -27,14 +28,24 @@ func (u UserController) Create(c *gin.Context) {
 	db := services.GetDB()
 
 	var user models.User
+
 	c.BindJSON(&user)
 
-	err := validator.Struct(user)
+	validationErr := validator.Struct(user)
 
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if validationErr != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 		return
 	}
+
+	//hash password
+	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(user.Password), 8)
+
+	if errHash != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": errHash.Error()})
+	}
+
+	user.Password = string(hashedPassword)
 
 	dbErr := db.Create(&user).Error
 
@@ -125,5 +136,5 @@ func (u UserController) Delete(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	c.JSON(http.StatusOK, gin.H{"message": "User deleted"})
 }

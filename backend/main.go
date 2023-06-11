@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	services.InitAndConnectDatabase()
 
 	r := gin.Default()

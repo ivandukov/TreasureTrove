@@ -18,7 +18,7 @@ func InitAndConnectDatabase() {
 	dbConnection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		panic("failed to connect database")
+		panic("Failed to connect database")
 	}
 
 	db = dbConnection
@@ -45,7 +45,8 @@ func MigrateModels() {
 	db.AutoMigrate(
 		&models.User{},
 		&models.Giveaway{},
-		&models.Giveaway{},
 		&models.UserGiveaway{},
+		&models.Category{},
+		&models.Comment{},
 	)
 }

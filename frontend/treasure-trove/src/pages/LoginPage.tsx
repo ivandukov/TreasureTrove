@@ -19,7 +19,7 @@ function LoginPage() {
             <Stack align={'center'}>
                <Heading fontSize={'4xl'}>Log in to your account</Heading>
                <Text fontSize={'lg'} color={'gray.600'}>
-                  Don't have an account? <Link color={'blue.400'}>Sign up</Link>
+                  Don't have an account? <Link color={'blue.400'} href='/signup'>Sign up</Link>
                </Text>
             </Stack>
             <Box

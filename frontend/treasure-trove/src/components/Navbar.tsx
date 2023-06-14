@@ -16,6 +16,11 @@ import {
    useDisclosure,
    useColorMode,
    Spacer,
+   Select,
+   Menu,
+   MenuButton,
+   MenuItem,
+   MenuList,
 } from '@chakra-ui/react';
 
 import {
@@ -27,10 +32,11 @@ import {
    ChevronRightIcon,
 } from '@chakra-ui/icons';
 
-import SearchBar from "./SearchBar.tsx"
+import SearchBar from "./SearchBar.tsx";
+import DropDownButton from "./DropDownButton.tsx";
 
 /** 
- * 
+ * renders a Navigation bar with various buttons, inputs etc.
  */
 export default function Navbar() {
 
@@ -57,7 +63,7 @@ export default function Navbar() {
                <IconButton
                   onClick={onToggle}
                   icon={
-                     isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
+                     isOpen ? <CloseIcon w={3} h={3}/> : <HamburgerIcon w={5} h={5}/>
                   }
                   variant={'ghost'}
                   aria-label={'Toggle Navigation'}
@@ -73,25 +79,30 @@ export default function Navbar() {
                <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                   <DesktopNav/>
                </Flex>
+
             </Flex>
 
             <Stack flex={{ base: 1, md: 0 }}
                justify={'flex-end'}
                direction={'row'}
-               spacing={7}>
-               <SearchBar width="250px" ph="Search"/>
-               <SearchBar width="230px" ph="Zip Code / location"/>
+               spacing={6}
+            >
+               <SearchBar width="280px" ph="Search"/>
+               <SearchBar width="280px" ph="Zip Code / location"/>
+               <DropDownButton/>
             </Stack>
+
             <Spacer/>
 
             <Stack
                flex={{ base: 1, md: 0 }}
                justify={'flex-end'}
                direction={'row'}
-               spacing={6}>
+               spacing={6}
+            >
 
                <Button onClick={toggleColorMode}>
-                  {colorMode === 'light' ? <MoonIcon/> : <SunIcon />}
+                  {colorMode === 'light' ? <MoonIcon/> : <SunIcon/>}
                </Button>
 
                <Button
@@ -295,19 +306,7 @@ const NAV_ITEMS: Array<NavItem> = [
       ],
    },
    {
-      label: 'About',
-      children: [
-         {
-            label: 'Job Board',
-            subLabel: 'Find your dream design job',
-            href: 'home',
-         },
-         {
-            label: 'Freelance Projects',
-            subLabel: 'An exclusive list for contract work',
-            href: 'home',
-         },
-      ],
+      label: 'Contact',
    },
    {
       label: 'Help',

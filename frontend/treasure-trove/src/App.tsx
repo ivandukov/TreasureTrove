@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
+import RegisterPage from "./pages/RegisterPage";
+import UserPage from "./pages/UserPage";
+import ProductPage from "./pages/ProductPage";
 
 /**
  * defines all accessible links/pages 
@@ -14,7 +16,9 @@ function App() {
          <Routes>
             <Route path="/home" element={<HomePage/>}/>
             <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/signup" element={<SignUpPage/>}/>
+            <Route path="/register" element={<RegisterPage/>}/>
+            <Route path="/user" element={<UserPage/>}/>
+            <Route path="/product" element={<ProductPage/>}/>
          </Routes>
       </Router>
    );

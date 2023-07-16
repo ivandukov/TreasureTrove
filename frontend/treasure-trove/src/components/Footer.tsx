@@ -96,7 +96,7 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
  * @returns JSX element (a combination of Javascript and HTML),
  *          which will be displayed in the browser
  */
-export default function LargeWithNewsletter() {
+export default function Footer() {
    return (
       <Box
          bg={useColorModeValue('gray.50', 'gray.900')}
@@ -110,35 +110,31 @@ export default function LargeWithNewsletter() {
                      <Logo color={useColorModeValue('gray.700', 'white')} />
                   </Box>
                   <Text fontSize={'sm'}>
-                     © 2022 Chakra Templates. All rights reserved
+                     © 2023 TreasureTrove. All rights reserved
                   </Text>
                   <Stack direction={'row'} spacing={6}>
-                     <SocialButton label={'Twitter'} href={'#'}>
-                        <FaTwitter />
-                     </SocialButton>
                      <SocialButton label={'YouTube'} href={'#'}>
-                        <FaYoutube />
+                        <FaYoutube/>
                      </SocialButton>
                      <SocialButton label={'Instagram'} href={'#'}>
-                        <FaInstagram />
+                        <FaInstagram/>
+                     </SocialButton>
+                     <SocialButton label={'Twitter'} href={'#'}>
+                        <FaTwitter/>
                      </SocialButton>
                   </Stack>
                </Stack>
                <Stack align={'flex-start'}>
-                  <ListHeader>Company</ListHeader>
-                  <Link href={'#'}>About us</Link>
+                  <ListHeader>TreasureTrove</ListHeader>
+                  <Link href={'#'}>About</Link>
                   <Link href={'#'}>Blog</Link>
-                  <Link href={'#'}>Contact us</Link>
-                  <Link href={'#'}>Pricing</Link>
-                  <Link href={'#'}>Testimonials</Link>
+                  <Link href={'#'}>Contact</Link>
                </Stack>
                <Stack align={'flex-start'}>
                   <ListHeader>Support</ListHeader>
                   <Link href={'#'}>Help Center</Link>
                   <Link href={'#'}>Terms of Service</Link>
-                  <Link href={'#'}>Legal</Link>
                   <Link href={'#'}>Privacy Policy</Link>
-                  <Link href={'#'}>Satus</Link>
                </Stack>
                <Stack align={'flex-start'}>
                   <ListHeader>Stay up to date</ListHeader>

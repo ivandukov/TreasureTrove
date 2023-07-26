@@ -65,18 +65,14 @@ function OtherRegisterOptions() {
 function RegisterButton() {
 
    return (
-      <Stack spacing={10} pt={2}>
-         <Button
-            loadingText="Submitting"
-            size="lg"
-            bg={'blue.400'}
-            color={'white'}
-            _hover={{
-               bg: 'blue.500',
-            }}>
-            Register
-         </Button>
-      </Stack>
+      <Button
+      bg={'blue.400'}
+      color={'white'}
+      _hover={{
+         bg: 'blue.500',
+      }}>
+      Register
+   </Button>
    );
 }
 
@@ -116,7 +112,7 @@ export default function RegisterPage() {
 
    return (
       <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'} minH="100vh" display="flex">
-         <Stack spacing={6} mx={'auto'} maxW={'lg'} py={12} px={6}>
+         <Stack spacing={6} mx={'auto'} maxW={'lg'} py={12}>
             <Stack align={'center'}>
                <Heading fontSize={'4xl'}>
                   Sign up to TreasureTrove
@@ -130,7 +126,7 @@ export default function RegisterPage() {
                <Stack spacing={3}>
                   <FormControl id="email" isRequired>
                      <FormLabel>Email address</FormLabel>
-                     <Input type="email" />
+                     <Input type="email"/>
                   </FormControl>
                   <InputPassword/>
                   <RegisterButton/>

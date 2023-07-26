@@ -14,9 +14,9 @@ const providers = [
  *          which will be displayed in the browser
  */
 export const OAuthButtonGroup = () => (
-   <ButtonGroup variant="tertiary" spacing="4" width="full">
+   <ButtonGroup variant="secondary" spacing="4">
       {providers.map(({ name, icon }) => (
-         <Button key={name} width="full">
+         <Button key={name} flexGrow={1}>
             <VisuallyHidden>Sign in with {name}</VisuallyHidden>
             {icon}
          </Button>

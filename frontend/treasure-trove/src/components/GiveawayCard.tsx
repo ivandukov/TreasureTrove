@@ -42,9 +42,9 @@ function DropDownButton() {
             colorScheme="gray"
          />
          <MenuList>
-            <MenuItem icon={<Icon as={BsShare} />}>Share</MenuItem>
+            <MenuItem icon={<Icon as={BsShare}/>}>Share</MenuItem>
             <MenuItem icon={<Icon as={BsFillXCircleFill}/>}>Not Interested</MenuItem>
-            <MenuItem icon={<Icon as={BsFlag} />}>Report</MenuItem>
+            <MenuItem icon={<Icon as={BsFlag}/>}>Report</MenuItem>
          </MenuList>
       </Menu>
    );

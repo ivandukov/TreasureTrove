@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import UserPage from "./pages/UserPage";
 import ProductPage from "./pages/ProductPage";
+import UserSettingsPage from "./pages/UserSettingsPage";
 
 /**
  * defines all accessible links/pages 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/register" element={<RegisterPage/>}/>
             <Route path="/user" element={<UserPage/>}/>
             <Route path="/product" element={<ProductPage/>}/>
+            <Route path="/settings" element={<UserSettingsPage/>}/>
          </Routes>
       </Router>
    );

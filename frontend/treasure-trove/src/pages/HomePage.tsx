@@ -128,7 +128,7 @@ function LoggedOutHomepage({isLoggedIn} : {isLoggedIn:boolean}) {
 export default function HomePage() {
 
    const { colorMode } = useColorMode();
-   const isLoggedIn = true; 
+   const isLoggedIn = false; 
 
    return (
       <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'}>

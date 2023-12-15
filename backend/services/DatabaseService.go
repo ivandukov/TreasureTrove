@@ -7,12 +7,12 @@ import (
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+// contains the database connection
+var database *gorm.DB
 
-/**
- * Initializes the database connection and migrates the models
- * @return: void
- */
+ // Functionname: InitAndConnectDatabase
+ // 
+ // Description: Initializes the database connection using the provided DSN (Data Source Name).
 func InitAndConnectDatabase() {
 	dsn := "host=localhost user=sabo password=example dbname=ttDB port=5432 sslmode=disable TimeZone=Europe/Berlin"
 	dbConnection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -21,28 +21,30 @@ func InitAndConnectDatabase() {
 		panic("Failed to connect database")
 	}
 
-	db = dbConnection
+	database = dbConnection
 }
 
-/**
- * Returns the database connection
- * @return: *gorm.DB
- */
-func GetDB() *gorm.DB {
-	return db
+// Functionname: GetDatabase
+// 
+// Description: Returns the database connection
+func GetDatabase() *gorm.DB {
+	return database
 }
 
-/**
- * Migrates the available models. When the database connection is not initialized, a panic will be thrown.
- * @return: void
- */
+// Functionname: MigrateModels
+// 
+// Description: Migrates the available models to the connected database. When the database connection is not initialized, 
+// a panic will be thrown. 
+// The models include User, Giveaway, UserGiveaway, Category, and Comment.
 func MigrateModels() {
 
-	if db == nil {
+	// Check if the database connection is initialized
+	if database == nil {
 		panic("Database connection not initialized")
 	}
 
-	db.AutoMigrate(
+	// Create tables and their relationships based on the provided model structs
+	database.AutoMigrate(
 		&models.User{},
 		&models.Giveaway{},
 		&models.UserGiveaway{},

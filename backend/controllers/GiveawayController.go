@@ -9,122 +9,160 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-type GiveawayController struct{}
+type GiveawayController struct {}
 
-func (u GiveawayController) List(c *gin.Context) {
+// Functionname: GetAllGivaways
+//
+// Description:
+//   - retrieves all giveaways and returns them as a JSON-Object
+//   - GET giveaways/
+//
+// Parameters:
+//   - context: The context of the request
+func (giveawaycontroller GiveawayController) GetAllGiveaways(context *gin.Context) {
 
-	db := services.GetDB()
-
+	database := services.GetDatabase()
 	var giveaways []models.UserGiveaway
-	db.Find(&giveaways)
-
-	c.JSON(http.StatusOK, gin.H{"giveaways": giveaways})
+	database.Find(&giveaways) // get all giveaways from database
+	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways}) // return all giveaways
 }
 
-func (u GiveawayController) Create(c *gin.Context) {
+// Functionname: CreateGiveaway
+//
+// Description:
+//   - Creates a new giveaway
+//   - POST givaways/
+//
+// Parameters:
+//   - context: The context of the request
+func (giveawaycontroller GiveawayController) CreateGiveaway(context *gin.Context) {
 
 	validator := validator.New()
-	db := services.GetDB()
+	database := services.GetDatabase()
 
 	var giveaway models.Giveaway
 
-	c.BindJSON(&giveaway)
+	context.BindJSON(&giveaway)
 
 	validationErr := validator.Struct(giveaway)
 
 	if validationErr != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 		return
 	}
 
-	dbErr := db.Create(&giveaway).Error
+	dbErr := database.Create(&giveaway).Error
 
 	if dbErr != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": giveaway})
+	context.JSON(http.StatusOK, gin.H{"user": giveaway})
 }
 
-func (u GiveawayController) Get(c *gin.Context) {
+// Functionname: GetGiveawayById
+//
+// Description:
+//   - Searches the database for giveaway by its id
+//   - GET giveaways/:id
+//
+// Parameters:
+//   - context: The context of the request
+func (giveawaycontroller GiveawayController) GetGiveawayById(context *gin.Context) {
 
-	id := c.Param("id")
+	giveawayId := context.Param("id") // get giveaway-id from the request
 
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+	if giveawayId == "" {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
 		return
 	}
 
-	db := services.GetDB()
+	database := services.GetDatabase() // connect with database
 
 	var giveaway models.Giveaway
-	err := db.First(&giveaway, c.Param("id")).Error
+	err := database.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
+		context.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"giveaway": giveaway})
+	context.JSON(http.StatusOK, gin.H{"giveaway": giveaway})
 }
 
-func (u GiveawayController) Update(c *gin.Context) {
+// Functionname: UpdateGiveawayById
+//
+// Description:
+//   - updates an existing Giveaway by its ID
+//   - PUT giveaways/:id
+//
+// Parameters:
+//   - context: The context of the request
+func (giveawaycontroller GiveawayController) UpdateGiveawayById(context *gin.Context) {
 
-	id := c.Param("id")
+	giveawayId := context.Param("id")
 
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+	if giveawayId == "" {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
 		return
 	}
 
-	db := services.GetDB()
+	database := services.GetDatabase()
 
 	var giveaway models.Giveaway
-	err := db.First(&giveaway, c.Param("id")).Error
+	err := database.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
+		context.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
 		return
 	}
 
-	c.BindJSON(&giveaway)
+	context.BindJSON(&giveaway)
 
-	err = db.Save(&giveaway).Error
+	err = database.Save(&giveaway).Error
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": giveaway})
+	context.JSON(http.StatusOK, gin.H{"user": giveaway})
 }
 
-func (u GiveawayController) Delete(c *gin.Context) {
+// Functionname: DeleteGiveawayById
+//
+// Description:
+//   - deletes a Giveaway by its ID
+//   - DELETE giveaways/:id
+//
+// Parameters:
+//   - context: The context of the request
+func (giveawaycontroller GiveawayController) DeleteGiveawayById(context *gin.Context) {
 
-	id := c.Param("id")
+	giveawayId := context.Param("id")
 
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+	if giveawayId == "" {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
 		return
 	}
 
-	db := services.GetDB()
+	database := services.GetDatabase()
 
 	var giveaway models.Giveaway
-	err := db.First(&giveaway, c.Param("id")).Error
+	err := database.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
+		context.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
 		return
 	}
 
-	err = db.Delete(&giveaway).Error
+	err = database.Delete(&giveaway).Error
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Giveaway deleted"})
+	context.JSON(http.StatusOK, gin.H{"message": "Giveaway deleted"})
 }

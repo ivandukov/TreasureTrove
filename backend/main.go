@@ -9,8 +9,9 @@ import (
 
 func main() {
 	services.InitAndConnectDatabase()
+	services.MigrateModels()
 
-	r := gin.Default()
-	routes.InitRoutes(r)
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	router := gin.Default()
+	routes.InitRoutes(router)
+	router.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

@@ -10,131 +10,168 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type UserController struct{}
+type UserController struct {}
 
-func (u UserController) List(c *gin.Context) {
-
-	db := services.GetDB()
-
+// Functionname: GetAllUsers
+//
+// Description:
+//   - retrieves all users and returns them as a JSON-Object
+//   - GET users/
+//
+// Parameters:
+//   - context: The context of the request
+func (usercontroller UserController) GetAllUsers(context *gin.Context) {
+	database := services.GetDatabase()
 	var users []models.User
-	db.Find(&users)
-
-	c.JSON(http.StatusOK, gin.H{"users": users})
+	database.Find(&users)
+	context.JSON(http.StatusOK, gin.H{"users": users})
 }
 
-func (u UserController) Create(c *gin.Context) {
+// Functionname: CreateUser
+//
+// Description:
+//   - retrieves all users and returns them as a JSON-Object
+//   - GET users/
+//
+// Parameters:
+//   - context: The context of the request
+func (usercontroller UserController) CreateUser(context *gin.Context) {
 
 	validator := validator.New()
-	db := services.GetDB()
+	database := services.GetDatabase()
 
 	var user models.User
 
-	c.BindJSON(&user)
+	context.BindJSON(&user)
 
 	validationErr := validator.Struct(user)
 
 	if validationErr != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 		return
 	}
 
-	//hash password
+	// hash password
 	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(user.Password), 8)
 
 	if errHash != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": errHash.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"error": errHash.Error()})
 	}
 
 	user.Password = string(hashedPassword)
 
-	dbErr := db.Create(&user).Error
+	dbErr := database.Create(&user).Error
 
 	if dbErr != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-func (u UserController) Get(c *gin.Context) {
+// Functionname: GetUserById
+//
+// Description:
+//   - retrieves a specific user by ID
+//   - GET users/:id
+//
+// Parameters:
+//   - context: The context of the request
+func (usercontroller UserController) GetUserById(context *gin.Context) {
 
-	id := c.Param("id")
+	userId := context.Param("id")
 
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+	if userId == "" {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
 		return
 	}
 
-	db := services.GetDB()
+	database := services.GetDatabase()
 
 	var user models.User
-	err := db.First(&user, c.Param("id")).Error
+	err := database.First(&user, context.Param("id")).Error
 
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-func (u UserController) Update(c *gin.Context) {
+// Functionname: UpdateUserById
+//
+// Description:
+//   - updates an existing User by ID
+//   - PUT users/:id
+//
+// Parameters:
+//   - context: The context of the request
+func (usercontroller UserController) UpdateUserById(context *gin.Context) {
 
-	id := c.Param("id")
+	userId := context.Param("id")
 
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+	if userId == "" {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
 		return
 	}
 
-	db := services.GetDB()
+	database := services.GetDatabase()
 
 	var user models.User
-	err := db.First(&user, c.Param("id")).Error
+	err := database.First(&user, context.Param("id")).Error
 
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 
-	c.BindJSON(&user)
+	context.BindJSON(&user)
 
-	err = db.Save(&user).Error
+	err = database.Save(&user).Error
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": user})
+	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-func (u UserController) Delete(c *gin.Context) {
+// Functionname: DeleteUserById
+//
+// Description:
+//   - deletes an existing User by ID
+//   - DELETE users/:id
+//
+// Parameters:
+//   - context: The context of the request
+func (usercontroller UserController) DeleteUserById(context *gin.Context) {
 
-	id := c.Param("id")
+	userId := context.Param("id")
 
-	if id == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+	if userId == "" {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
 		return
 	}
 
-	db := services.GetDB()
+	database := services.GetDatabase()
 
 	var user models.User
-	err := db.First(&user, c.Param("id")).Error
+	err := database.First(&user, context.Param("id")).Error
 
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 
-	err = db.Delete(&user).Error
+	err = database.Delete(&user).Error
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "User deleted"})
+	context.JSON(http.StatusOK, gin.H{"message": "User deleted"})
 }

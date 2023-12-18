@@ -11,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./backend
     steps:
       - name: "Checkout repository code"
         uses: actions/checkout@v3
@@ -19,10 +21,8 @@ jobs:
         with:
           go-version: '1.20'
       - name: "Build"
-        working-directory: ./backend
         run: go build -v ./...
       - name: "Test"
-        working-directory: ./backend
         run: go test -v ./...
       - name: "Staticcheck"
         uses: dominikh/staticcheck-action@v1.3.0

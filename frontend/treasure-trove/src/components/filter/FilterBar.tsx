@@ -1,5 +1,5 @@
-import {Box, Button, Heading, HStack, Stack, useColorMode} from "@chakra-ui/react";
-import DropDownButton from "./DropDownButton";
+import {Box, Button, Heading, HStack, Stack, useColorMode, useDisclosure} from "@chakra-ui/react";
+import NewFilterModal from "./NewFilterModal.tsx";
 
 /**
  * renders a separate Box with three Buttons:
@@ -10,6 +10,9 @@ import DropDownButton from "./DropDownButton";
  */
 export default function FilterBar() {
     const {colorMode} = useColorMode();
+
+
+    const {onOpen, isOpen, onClose} = useDisclosure();
 
     return (
         <Stack>
@@ -26,16 +29,14 @@ export default function FilterBar() {
                     bg={colorMode === 'dark' ? 'gray.800' : 'white'}
                 >
                     <HStack spacing={3}>
-                        <Button variant="outline" colorScheme="blue">
-                            Top
+                        <Button colorScheme="green" onClick={onOpen}>
+                            ✨ New
                         </Button>
-                        <Button variant="outline" colorScheme="blue">
-                            New
-                        </Button>
-                        <DropDownButton defaultValue="Germany"/>
+
                     </HStack>
                 </Box>
             </Stack>
+            <NewFilterModal isOpen={isOpen} onClose={onClose}/>
         </Stack>
     );
-}
+};

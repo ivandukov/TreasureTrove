@@ -1,6 +1,6 @@
 import FeaturedCardGrid from "./featured/FeaturedCardGrid";
 import Navbar from "../Navbar";
-import FilterBar from "../FilterBar";
+import FilterBar from "../filter/FilterBar.tsx";
 import {Stack} from "@chakra-ui/react";
 
 /**

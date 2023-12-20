@@ -1,4 +1,4 @@
-import {Box, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Stack, Text} from "@chakra-ui/react";
+import {Box, Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
 import {useState} from "react";
 import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {BsFillXCircleFill, BsFlag, BsShare, BsThreeDotsVertical} from "react-icons/bs";
@@ -59,40 +59,33 @@ function DropDownButton() {
  *                   this Giveaway
  * @returns JSX element
  */
-export default function GiveawayCard({title, authorname}: { title: string, authorname: string }) {
+export default function GiveawayCard({title, location, imgUrl}: { title: string, location: string, imgUrl: string }) {
 
     return (
-        <Stack
-            borderWidth="1px"
-            borderRadius="lg"
-            transition="background-color 0.3s"
-            _hover={{bg: "gray.100"}}
+        <Card
+            direction={'row'}
         >
-            <Box>
-                <Link href="product">
-                    <Image
-                        src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'"
-                        alt="Giveaway Image"
-                        boxSize="180px"
-                        objectFit="cover"
-                        w="100%"
-                    />
-                </Link>
-            </Box>
-            <HStack px={4} py={2} spacing={4}>
-                <FavoriteButton/>
-                <HStack w={'100%'} justifyContent={'space-between'}>
+            <Image
+                src={imgUrl}
+                alt="Giveaway Image"
+                boxSize='230px'
+                objectFit='cover'
+                borderRadius='md'
+            />
+            <CardBody>
+                <HStack w={'100%'} h={'100%'} justifyContent={'space-between'}>
                     <Box>
                         <Heading size="md">
                             <Link href="/product">{title}</Link>
                         </Heading>
                         <Text color="gray.500">
-                            <Link href="/user">{authorname}</Link>
+                            <Link href="/user">{location}</Link>
                         </Text>
+                        <Text color="gray.500">2 days ago</Text>
                     </Box>
                     <DropDownButton/>
                 </HStack>
-            </HStack>
-        </Stack>
+            </CardBody>
+        </Card>
     );
 }

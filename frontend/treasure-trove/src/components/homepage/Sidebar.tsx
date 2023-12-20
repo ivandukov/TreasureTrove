@@ -1,49 +1,27 @@
-
-import {
-    IconButton,
-    Box,
-    CloseButton,
-    Flex,
-    Icon,
-    useColorModeValue,
-    Link,
-    Drawer,
-    DrawerContent,
-    Text,
-    useDisclosure,
-    BoxProps,
-    FlexProps,
-} from '@chakra-ui/react';
-import {
-    FiHome,
-    FiTrendingUp,
-    FiCompass,
-    FiStar,
-    FiSettings,
-    FiMenu,
-} from 'react-icons/fi';
-import { IconType } from 'react-icons';
+import {Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
+import {FiCompass, FiHeart, FiHome, FiMenu, FiSettings,} from 'react-icons/fi';
+import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
 
 interface LinkItemProps {
     name: string;
     icon: IconType;
 }
+
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Home', icon: FiHome },
-    { name: 'Trending', icon: FiTrendingUp },
-    { name: 'Explore', icon: FiCompass },
-    { name: 'Favourites', icon: FiStar },
-    { name: 'Settings', icon: FiSettings },
+    {name: 'Home', icon: FiHome},
+    {name: 'Explore', icon: FiCompass},
+    {name: 'Favourites', icon: FiHeart},
+    {name: 'Settings', icon: FiSettings},
 ];
 
-export default function SimpleSidebar({ children }: { children: ReactNode }) {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+export default function SimpleSidebar({children}: { children: ReactNode }) {
+    const {isOpen, onOpen, onClose} = useDisclosure();
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
             <SidebarContent
                 onClose={() => onClose}
-                display={{ base: 'none', md: 'block' }}
+                display={{base: 'none', md: 'block'}}
             />
             <Drawer
                 autoFocus={false}
@@ -54,11 +32,11 @@ export default function SimpleSidebar({ children }: { children: ReactNode }) {
                 onOverlayClick={onClose}
                 size="full">
                 <DrawerContent>
-                    <SidebarContent onClose={onClose} />
+                    <SidebarContent onClose={onClose}/>
                 </DrawerContent>
             </Drawer>
-            <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} p="4">
+            <MobileNav display={{base: 'flex', md: 'none'}} onOpen={onOpen}/>
+            <Box ml={{base: 0, md: 60}} p="4">
                 {children}
             </Box>
         </Box>
@@ -69,13 +47,13 @@ interface SidebarProps extends BoxProps {
     onClose: () => void;
 }
 
-const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
     return (
         <Box
             bg={useColorModeValue('white', 'gray.900')}
             borderRight="1px"
             borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-            w={{ base: 'full', md: 72 }}
+            w={{base: 'full', md: 72}}
             pos="fixed"
             h="full"
             {...rest}>
@@ -83,10 +61,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
                     Treasure
                     <Text as={'span'} color={'green.400'}>
-                       Trove
+                        Trove
                     </Text>
                 </Text>
-                <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+                <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose}/>
             </Flex>
             {LinkItems.map((link) => (
                 <NavItem key={link.name} icon={link.icon}>
@@ -101,9 +79,10 @@ interface NavItemProps extends FlexProps {
     icon: IconType;
     children: ReactText;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+
+const NavItem = ({icon, children, ...rest}: NavItemProps) => {
     return (
-        <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link href="#" style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
             <Flex
                 align="center"
                 p="4"
@@ -135,11 +114,12 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 interface MobileProps extends FlexProps {
     onOpen: () => void;
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+
+const MobileNav = ({onOpen, ...rest}: MobileProps) => {
     return (
         <Flex
-            ml={{ base: 0, md: 60 }}
-            px={{ base: 4, md: 24 }}
+            ml={{base: 0, md: 60}}
+            px={{base: 4, md: 24}}
             height="20"
             alignItems="center"
             bg={useColorModeValue('white', 'gray.900')}
@@ -151,7 +131,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 variant="outline"
                 onClick={onOpen}
                 aria-label="open menu"
-                icon={<FiMenu />}
+                icon={<FiMenu/>}
             />
 
             <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">

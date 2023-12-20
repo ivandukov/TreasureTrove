@@ -1,5 +1,5 @@
 import {Stack} from "@chakra-ui/react";
-import FilterBar from "../FilterBar";
+import FilterBar from "../filter/FilterBar.tsx";
 import FeaturedCardGrid from "./featured/FeaturedCardGrid";
 import SimpleSidebar from "./Sidebar.tsx";
 
@@ -17,7 +17,7 @@ export default function LoggedOutHomepage() {
                 mt={4}
                 mb={4}
                 p={6}
-                w={{base: "100%", md: "70%", xl: "70%"}}
+                w={{base: "100%", md: "80%", xl: "80%"}}
             >
                 <FilterBar/>
                 <FeaturedCardGrid/>

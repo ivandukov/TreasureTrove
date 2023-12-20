@@ -10,10 +10,8 @@ import (
 // contains the database connection
 var database *gorm.DB
 
- // Functionname: InitAndConnectDatabase
- // 
- // Description: Initializes the database connection using the provided DSN (Data Source Name).
-func InitAndConnectDatabase() {
+// ConnectToDatabase initializes the database connection using the provided DSN (Data Source Name).
+func ConnectToDatabase() {
 	dsn := "host=localhost user=sabo password=example dbname=ttDB port=5432 sslmode=disable TimeZone=Europe/Berlin"
 	dbConnection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 

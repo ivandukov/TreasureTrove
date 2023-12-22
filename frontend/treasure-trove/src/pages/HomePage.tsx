@@ -1,7 +1,6 @@
 import {Box, useColorMode} from "@chakra-ui/react";
 import Footer from "../components/Footer";
 import LoggedOutHomepage from "../components/homepage/LoggedOutHomepage.tsx";
-import LoggedInHomepage from "../components/homepage/LoggedInHomepage.tsx";
 
 
 /**
@@ -12,17 +11,10 @@ import LoggedInHomepage from "../components/homepage/LoggedInHomepage.tsx";
 export default function HomePage() {
 
     const {colorMode} = useColorMode();
-    const isLoggedIn = false;
 
     return (
         <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'}>
-            {isLoggedIn ? (
-                // show this content when the user is logged in
-                <LoggedInHomepage/>
-            ) : (
-                // show this content when the user is NOT logged in
-                <LoggedOutHomepage/>
-            )}
+            <LoggedOutHomepage/>
             <Footer/>
         </Box>
     )

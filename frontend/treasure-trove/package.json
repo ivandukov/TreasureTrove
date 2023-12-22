@@ -14,6 +14,7 @@
     "@chakra-ui/react": "^2.6.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "esbuild": "^0.19.10",
     "framer-motion": "^10.12.16",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",

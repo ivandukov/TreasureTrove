@@ -1,28 +1,6 @@
 import {Box, Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
-import {useState} from "react";
-import {FaHeart, FaRegHeart} from "react-icons/fa";
 import {BsFillXCircleFill, BsFlag, BsShare, BsThreeDotsVertical} from "react-icons/bs";
 
-/**
- * renders a small Heart-Button, which can be toggled.
- * @returns JSX element
- */
-const FavoriteButton = () => {
-    const [isFavorite, setIsFavorite] = useState(false);
-
-    const handleToggleFavorite = () => {
-        setIsFavorite(!isFavorite);
-    };
-
-    return (
-        <IconButton
-            aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-            icon={<Icon as={isFavorite ? FaHeart : FaRegHeart}/>}
-            colorScheme={isFavorite ? 'red' : 'gray'}
-            onClick={handleToggleFavorite}
-        />
-    );
-};
 
 /**
  * renders a small Dropdown-Button with three options:

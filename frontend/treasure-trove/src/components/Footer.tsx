@@ -46,7 +46,7 @@ const Logo = (props: any) => {
  * @param param0 
  * @returns 
  */
-const SocialButton = ({
+export const SocialButton = ({
    children,
    label,
    href,

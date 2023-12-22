@@ -1,4 +1,4 @@
-import {Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
+import {Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
 import {FiCompass, FiHeart, FiHome, FiMenu, FiSettings,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
@@ -6,16 +6,17 @@ import {ReactNode, ReactText} from 'react';
 interface LinkItemProps {
     name: string;
     icon: IconType;
+    path: string;
 }
 
 const LinkItems: Array<LinkItemProps> = [
-    {name: 'Home', icon: FiHome},
-    {name: 'Explore', icon: FiCompass},
-    {name: 'Favourites', icon: FiHeart},
-    {name: 'Settings', icon: FiSettings},
+    {name: 'Home', icon: FiHome, path: '/'},
+    {name: 'Explore', icon: FiCompass, path: '/explore'},
+    {name: 'Favourites', icon: FiHeart, path: '/favourites'},
+    {name: 'Settings', icon: FiSettings, path: '/settings'},
 ];
 
-export default function SimpleSidebar({children}: { children: ReactNode }) {
+export default function Sidebar({children}: { children: ReactNode }) {
     const {isOpen, onOpen, onClose} = useDisclosure();
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -57,20 +58,34 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
             pos="fixed"
             h="full"
             {...rest}>
-            <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-                    Treasure
-                    <Text as={'span'} color={'green.400'}>
-                        Trove
+            <Stack spacing={0} justifyContent={"space-between"} h={'100%'}>
+                <Box>
+                    <Flex h="20" alignItems="center" mx="8">
+                        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+                            Treasure
+                            <Text as={'span'} color={'green.400'}>
+                                Trove
+                            </Text>
+                        </Text>
+                        <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose}/>
+                    </Flex>
+                    {LinkItems.map((link) => (
+                        <NavItem key={link.name} icon={link.icon} path={link.path}>
+                            {link.name}
+                        </NavItem>
+                    ))}
+                    <Box px="8">
+                        <Text fontWeight="bold" textTransform="uppercase" fontSize="xs" color="gray.500" my="2">
+                            Account
+                        </Text>
+                    </Box>
+                </Box>
+                <Stack alignItems={"start"} pb={4}>
+                    <Text px="8" fontWeight="semi-bold" fontSize="xs" color="gray.500" my="2">
+                        © 2023 TreasureTrove
                     </Text>
-                </Text>
-                <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose}/>
-            </Flex>
-            {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
-                    {link.name}
-                </NavItem>
-            ))}
+                </Stack>
+            </Stack>
         </Box>
     );
 };
@@ -78,11 +93,12 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
 interface NavItemProps extends FlexProps {
     icon: IconType;
     children: ReactText;
+    path: string;
 }
 
-const NavItem = ({icon, children, ...rest}: NavItemProps) => {
+const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
     return (
-        <Link href="#" style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
+        <Link href={path} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
             <Flex
                 align="center"
                 p="4"

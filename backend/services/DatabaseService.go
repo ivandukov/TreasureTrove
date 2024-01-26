@@ -10,9 +10,10 @@ import (
 // contains the database connection
 var database *gorm.DB
 
-// ConnectToDatabase initializes the database connection using the provided DSN (Data Source Name).
+// ConnectToDatabase initializes the database connection 
+// using the provided DSN (Data Source Name).
 func ConnectToDatabase() {
-	dsn := "host=localhost user=sabo password=example dbname=ttDB port=5432 sslmode=disable TimeZone=Europe/Berlin"
+	var dsn string = "host=localhost user=sabo password=example dbname=ttDB port=5432 sslmode=disable TimeZone=Europe/Berlin"
 	dbConnection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
@@ -22,17 +23,17 @@ func ConnectToDatabase() {
 	database = dbConnection
 }
 
-// Functionname: GetDatabase
-// 
-// Description: Returns the database connection
+// GetDatabase returns the database connection
 func GetDatabase() *gorm.DB {
 	return database
 }
 
-// Functionname: MigrateModels
-// 
-// Description: Migrates the available models to the connected database. When the database connection is not initialized, 
-// a panic will be thrown. 
+func SetDatabase(newDatabase *gorm.DB) {
+	database = newDatabase
+}
+
+// MigrateModels migrates the available models to the connected database. 
+// When the database connection is not initialized, a panic will be thrown. 
 // The models include User, Giveaway, UserGiveaway, Category, and Comment.
 func MigrateModels() {
 

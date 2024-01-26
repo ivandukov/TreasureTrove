@@ -11,36 +11,36 @@ import (
 
 type GiveawayController struct {}
 
-// Functionname: GetAllGivaways
+// GetAllGivaways retrieves all giveaways and returns them as a JSON-Object
 //
-// Description:
-//   - retrieves all giveaways and returns them as a JSON-Object
-//   - GET giveaways/
+// HTTP-Request: GET giveaway/
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (giveawaycontroller GiveawayController) GetAllGiveaways(context *gin.Context) {
-
+	
+	var giveaways []models.Giveaway
 	database := services.GetDatabase()
-	var giveaways []models.UserGiveaway
+
 	database.Find(&giveaways) // get all giveaways from database
 	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways}) // return all giveaways
 }
 
-// Functionname: CreateGiveaway
+func (giveawaycontroller GiveawayController) GetAllGiveawaysByUsername(context *gin.Context) {
+	
+}
+
+// CreateGiveaway Creates a new giveaway
 //
-// Description:
-//   - Creates a new giveaway
-//   - POST givaways/
+// HTTP-Request: POST givaway/
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (giveawaycontroller GiveawayController) CreateGiveaway(context *gin.Context) {
-
-	validator := validator.New()
-	database := services.GetDatabase()
-
+	
 	var giveaway models.Giveaway
+	database := services.GetDatabase()
+	validator := validator.New()
 
 	context.BindJSON(&giveaway)
 
@@ -61,16 +61,16 @@ func (giveawaycontroller GiveawayController) CreateGiveaway(context *gin.Context
 	context.JSON(http.StatusOK, gin.H{"user": giveaway})
 }
 
-// Functionname: GetGiveawayById
+// GetGiveawayById searches the database for giveaway by its id
 //
-// Description:
-//   - Searches the database for giveaway by its id
-//   - GET giveaways/:id
+// HTTP-Request: GET giveaway/:id
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (giveawaycontroller GiveawayController) GetGiveawayById(context *gin.Context) {
 
+	var giveaway models.Giveaway
+	database := services.GetDatabase() // connect with database
 	giveawayId := context.Param("id") // get giveaway-id from the request
 
 	if giveawayId == "" {
@@ -78,9 +78,6 @@ func (giveawaycontroller GiveawayController) GetGiveawayById(context *gin.Contex
 		return
 	}
 
-	database := services.GetDatabase() // connect with database
-
-	var giveaway models.Giveaway
 	err := database.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
@@ -91,16 +88,16 @@ func (giveawaycontroller GiveawayController) GetGiveawayById(context *gin.Contex
 	context.JSON(http.StatusOK, gin.H{"giveaway": giveaway})
 }
 
-// Functionname: UpdateGiveawayById
+// UpdateGiveawayById updates an existing Giveaway by its ID
 //
-// Description:
-//   - updates an existing Giveaway by its ID
-//   - PUT giveaways/:id
+// HTTP-Request: PUT giveaway/:id
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (giveawaycontroller GiveawayController) UpdateGiveawayById(context *gin.Context) {
 
+	var giveaway models.Giveaway
+	database := services.GetDatabase()
 	giveawayId := context.Param("id")
 
 	if giveawayId == "" {
@@ -108,9 +105,6 @@ func (giveawaycontroller GiveawayController) UpdateGiveawayById(context *gin.Con
 		return
 	}
 
-	database := services.GetDatabase()
-
-	var giveaway models.Giveaway
 	err := database.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
@@ -130,16 +124,16 @@ func (giveawaycontroller GiveawayController) UpdateGiveawayById(context *gin.Con
 	context.JSON(http.StatusOK, gin.H{"user": giveaway})
 }
 
-// Functionname: DeleteGiveawayById
+// DeleteGiveawayById deletes a Giveaway by its ID
 //
-// Description:
-//   - deletes a Giveaway by its ID
-//   - DELETE giveaways/:id
+// HTTP-Request: DELETE giveaway/:id
 //
 // Parameters:
 //   - context: The context of the request
 func (giveawaycontroller GiveawayController) DeleteGiveawayById(context *gin.Context) {
 
+	var giveaway models.Giveaway
+	database := services.GetDatabase()
 	giveawayId := context.Param("id")
 
 	if giveawayId == "" {
@@ -147,9 +141,6 @@ func (giveawaycontroller GiveawayController) DeleteGiveawayById(context *gin.Con
 		return
 	}
 
-	database := services.GetDatabase()
-
-	var giveaway models.Giveaway
 	err := database.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {

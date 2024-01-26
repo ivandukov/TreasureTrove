@@ -12,14 +12,12 @@ import (
 
 type UserController struct {}
 
-// Functionname: GetAllUsers
+// GetAllUsers retrieves all users and returns them as a JSON-Object
 //
-// Description:
-//   - retrieves all users and returns them as a JSON-Object
-//   - GET users/
+// HTTP-Request: GET user/
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (usercontroller UserController) GetAllUsers(context *gin.Context) {
 	database := services.GetDatabase()
 	var users []models.User
@@ -27,14 +25,16 @@ func (usercontroller UserController) GetAllUsers(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"users": users})
 }
 
-// Functionname: CreateUser
-//
-// Description:
-//   - retrieves all users and returns them as a JSON-Object
-//   - GET users/
+func (usercontroller UserController) GetUserByGiveaway(context *gin.Context) {
+
+}
+
+// CreateUser retrieves all users and returns them as a JSON-Object
+// 
+// HTTP-Request: GET user/
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (usercontroller UserController) CreateUser(context *gin.Context) {
 
 	validator := validator.New()
@@ -70,14 +70,12 @@ func (usercontroller UserController) CreateUser(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-// Functionname: GetUserById
-//
-// Description:
-//   - retrieves a specific user by ID
-//   - GET users/:id
+// GetUserById retrieves a specific user by ID
+//  
+// HTTP-Request: GET user/:id
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (usercontroller UserController) GetUserById(context *gin.Context) {
 
 	userId := context.Param("id")
@@ -100,14 +98,12 @@ func (usercontroller UserController) GetUserById(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-// Functionname: UpdateUserById
-//
-// Description:
-//   - updates an existing User by ID
-//   - PUT users/:id
+// UpdateUserById updates an existing User by ID
+// 
+// HTTP-Request: PUT user/:id
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (usercontroller UserController) UpdateUserById(context *gin.Context) {
 
 	userId := context.Param("id")
@@ -139,14 +135,12 @@ func (usercontroller UserController) UpdateUserById(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-// Functionname: DeleteUserById
-//
-// Description:
-//   - deletes an existing User by ID
-//   - DELETE users/:id
+// DeleteUserById deletes an existing User by ID
+// 
+// HTTP-Request: DELETE user/:id
 //
 // Parameters:
-//   - context: The context of the request
+//  - context: The context of the request
 func (usercontroller UserController) DeleteUserById(context *gin.Context) {
 
 	userId := context.Param("id")

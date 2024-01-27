@@ -1,9 +1,8 @@
 package routes
 
 import (
-	"treasuretrove/controllers"
-
 	"github.com/gin-gonic/gin"
+	"treasuretrove/api/controllers"
 )
 
 // InitializeUserRoutes initializes the routes for user-related operations.
@@ -11,7 +10,7 @@ import (
 // updating a user by ID, and deleting a user by ID.
 //
 // Parameters:
-//  - ginEngine: A pointer to a gin.Engine instance.
+//   - ginEngine: A pointer to a gin.Engine instance.
 func InitializeUserRoutes(ginEngine *gin.Engine) {
 
 	userGroup := ginEngine.Group("/user")

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"treasuretrove/controllers"
 	"github.com/gin-gonic/gin"
+	"treasuretrove/api/controllers"
 )
 
 // InitializeCategoryRoutes initializes the routes for category-related operations.
@@ -19,12 +19,12 @@ func InitializeCategoryRoutes(ginEngine *gin.Engine) {
 	categoryGroup.GET("/", controllers.CategoryController{}.GetAllCategories)
 	categoryGroup.GET("/:id", controllers.CategoryController{}.DeleteCategoryById)
 	categoryGroup.GET("/name/:name", controllers.CategoryController{}.DeleteCategoryByUsername)
-	
+
 	categoryGroup.POST("/", controllers.CategoryController{}.CreateCategory)
-	
+
 	categoryGroup.PUT("/:id", controllers.CategoryController{}.UpdateCategoryById)
 	categoryGroup.PUT("/name/:name", controllers.CategoryController{}.UpdateCategoryByName)
-	
+
 	categoryGroup.DELETE("/:id", controllers.CategoryController{}.DeleteCategoryById)
 	categoryGroup.DELETE("/name/:name", controllers.CategoryController{}.DeleteCategoryByUsername)
 }

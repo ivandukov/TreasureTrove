@@ -1,50 +1,53 @@
 package controllers
 
 import (
-	"net/http"
-	"treasuretrove/models"
-	"treasuretrove/services"
-
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"net/http"
+	"treasuretrove/api/models"
+	"treasuretrove/api/services"
 )
 
-type GiveawayController struct {}
+type GiveawayController struct{}
 
-// GetAllGivaways retrieves all giveaways and returns them as a JSON-Object
+// GetAllGiveaways retrieves all giveaways and returns them as a JSON-Object
 //
 // HTTP-Request: GET giveaway/
 //
 // Parameters:
-//  - context: The context of the request
-func (giveawaycontroller GiveawayController) GetAllGiveaways(context *gin.Context) {
-	
+//   - context: The context of the request
+func (giveawayController GiveawayController) GetAllGiveaways(context *gin.Context) {
+
 	var giveaways []models.Giveaway
 	database := services.GetDatabase()
 
-	database.Find(&giveaways) // get all giveaways from database
+	database.Find(&giveaways)                                  // get all giveaways from database
 	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways}) // return all giveaways
 }
 
-func (giveawaycontroller GiveawayController) GetAllGiveawaysByUsername(context *gin.Context) {
-	
+func (giveawayController GiveawayController) GetAllGiveawaysByUsername(context *gin.Context) {
+
 }
 
 // CreateGiveaway Creates a new giveaway
 //
-// HTTP-Request: POST givaway/
+// HTTP-Request: POST giveaway/
 //
 // Parameters:
-//  - context: The context of the request
-func (giveawaycontroller GiveawayController) CreateGiveaway(context *gin.Context) {
-	
+//   - context: The context of the request
+func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context) {
+
 	var giveaway models.Giveaway
 	database := services.GetDatabase()
-	validator := validator.New()
+	validation := validator.New()
 
-	context.BindJSON(&giveaway)
+	jsonBindErr := context.BindJSON(&giveaway)
+	if jsonBindErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": jsonBindErr.Error()})
+		return
+	}
 
-	validationErr := validator.Struct(giveaway)
+	validationErr := validation.Struct(giveaway)
 
 	if validationErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
@@ -66,12 +69,12 @@ func (giveawaycontroller GiveawayController) CreateGiveaway(context *gin.Context
 // HTTP-Request: GET giveaway/:id
 //
 // Parameters:
-//  - context: The context of the request
-func (giveawaycontroller GiveawayController) GetGiveawayById(context *gin.Context) {
+//   - context: The context of the request
+func (giveawayController GiveawayController) GetGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
 	database := services.GetDatabase() // connect with database
-	giveawayId := context.Param("id") // get giveaway-id from the request
+	giveawayId := context.Param("id")  // get giveaway-id from the request
 
 	if giveawayId == "" {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
@@ -93,8 +96,8 @@ func (giveawaycontroller GiveawayController) GetGiveawayById(context *gin.Contex
 // HTTP-Request: PUT giveaway/:id
 //
 // Parameters:
-//  - context: The context of the request
-func (giveawaycontroller GiveawayController) UpdateGiveawayById(context *gin.Context) {
+//   - context: The context of the request
+func (giveawayController GiveawayController) UpdateGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
 	database := services.GetDatabase()
@@ -112,7 +115,10 @@ func (giveawaycontroller GiveawayController) UpdateGiveawayById(context *gin.Con
 		return
 	}
 
-	context.BindJSON(&giveaway)
+	jsonBindErr := context.BindJSON(&giveaway)
+	if jsonBindErr != nil {
+		return
+	}
 
 	err = database.Save(&giveaway).Error
 
@@ -130,7 +136,7 @@ func (giveawaycontroller GiveawayController) UpdateGiveawayById(context *gin.Con
 //
 // Parameters:
 //   - context: The context of the request
-func (giveawaycontroller GiveawayController) DeleteGiveawayById(context *gin.Context) {
+func (giveawayController GiveawayController) DeleteGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
 	database := services.GetDatabase()

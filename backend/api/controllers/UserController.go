@@ -1,50 +1,49 @@
 package controllers
 
 import (
-	"net/http"
-	"treasuretrove/models"
-	"treasuretrove/services"
-
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/crypto/bcrypt"
+	"net/http"
+	"treasuretrove/api/models"
+	"treasuretrove/api/services"
 )
 
-type UserController struct {}
+type UserController struct{}
 
 // GetAllUsers retrieves all users and returns them as a JSON-Object
 //
 // HTTP-Request: GET user/
 //
 // Parameters:
-//  - context: The context of the request
-func (usercontroller UserController) GetAllUsers(context *gin.Context) {
+//   - context: The context of the request
+func (userController UserController) GetAllUsers(context *gin.Context) {
 	database := services.GetDatabase()
 	var users []models.User
 	database.Find(&users)
 	context.JSON(http.StatusOK, gin.H{"users": users})
 }
 
-func (usercontroller UserController) GetUserByGiveaway(context *gin.Context) {
-
-}
-
 // CreateUser retrieves all users and returns them as a JSON-Object
-// 
+//
 // HTTP-Request: GET user/
 //
 // Parameters:
-//  - context: The context of the request
-func (usercontroller UserController) CreateUser(context *gin.Context) {
+//   - context: The context of the request
+func (userController UserController) CreateUser(context *gin.Context) {
 
-	validator := validator.New()
+	validation := validator.New()
 	database := services.GetDatabase()
 
 	var user models.User
 
-	context.BindJSON(&user)
+	bindJsonErr := context.BindJSON(&user)
+	if bindJsonErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": bindJsonErr.Error()})
+		return
+	}
 
-	validationErr := validator.Struct(user)
+	validationErr := validation.Struct(user)
 
 	if validationErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
@@ -52,7 +51,7 @@ func (usercontroller UserController) CreateUser(context *gin.Context) {
 	}
 
 	// hash password
-	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(user.Password), 8)
+	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 
 	if errHash != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": errHash.Error()})
@@ -71,12 +70,12 @@ func (usercontroller UserController) CreateUser(context *gin.Context) {
 }
 
 // GetUserById retrieves a specific user by ID
-//  
+//
 // HTTP-Request: GET user/:id
 //
 // Parameters:
-//  - context: The context of the request
-func (usercontroller UserController) GetUserById(context *gin.Context) {
+//   - context: The context of the request
+func (userController UserController) GetUserById(context *gin.Context) {
 
 	userId := context.Param("id")
 
@@ -99,12 +98,12 @@ func (usercontroller UserController) GetUserById(context *gin.Context) {
 }
 
 // UpdateUserById updates an existing User by ID
-// 
+//
 // HTTP-Request: PUT user/:id
 //
 // Parameters:
-//  - context: The context of the request
-func (usercontroller UserController) UpdateUserById(context *gin.Context) {
+//   - context: The context of the request
+func (userController UserController) UpdateUserById(context *gin.Context) {
 
 	userId := context.Param("id")
 
@@ -123,7 +122,11 @@ func (usercontroller UserController) UpdateUserById(context *gin.Context) {
 		return
 	}
 
-	context.BindJSON(&user)
+	bindJsonErr := context.BindJSON(&user)
+	if bindJsonErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": bindJsonErr.Error()})
+		return
+	}
 
 	err = database.Save(&user).Error
 
@@ -136,12 +139,12 @@ func (usercontroller UserController) UpdateUserById(context *gin.Context) {
 }
 
 // DeleteUserById deletes an existing User by ID
-// 
+//
 // HTTP-Request: DELETE user/:id
 //
 // Parameters:
-//  - context: The context of the request
-func (usercontroller UserController) DeleteUserById(context *gin.Context) {
+//   - context: The context of the request
+func (userController UserController) DeleteUserById(context *gin.Context) {
 
 	userId := context.Param("id")
 

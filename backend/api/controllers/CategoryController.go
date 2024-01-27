@@ -1,24 +1,23 @@
 package controllers
 
 import (
-	"net/http"
-	"treasuretrove/models"
-	"treasuretrove/services"
-
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"net/http"
+	"treasuretrove/api/models"
+	"treasuretrove/api/services"
 )
 
-type CategoryController struct {}
+type CategoryController struct{}
 
 // GetAllCategories retrieves all Categories and returns them as a JSON-Object
 //
 // HTTP-Request: GET category/
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (categoryController CategoryController) GetAllCategories(context *gin.Context) {
-	
+
 	var categories []models.Category
 	database := services.GetDatabase()
 
@@ -31,9 +30,9 @@ func (categoryController CategoryController) GetAllCategories(context *gin.Conte
 // HTTP-Request: GET category/:id
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (categoryController CategoryController) GetCategoryById(context *gin.Context) {
-	
+
 	var category models.Category
 	database := services.GetDatabase()
 	categoryId := context.Param("id") // get category-ID from request
@@ -57,9 +56,9 @@ func (categoryController CategoryController) GetCategoryById(context *gin.Contex
 // HTTP-Request: GET category/name/:name
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (CategoryController CategoryController) GetCategoryByName(context *gin.Context) {
-	
+
 	var category models.Category
 	database := services.GetDatabase()
 	categoryName := context.Param("name") // get category-Name from request
@@ -83,9 +82,9 @@ func (CategoryController CategoryController) GetCategoryByName(context *gin.Cont
 // HTTP-Request: POST category/
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (CategoryController CategoryController) CreateCategory(context *gin.Context) {
-	
+
 	var newCategory models.Category
 	database := services.GetDatabase()
 	validator := validator.New()
@@ -114,9 +113,9 @@ func (CategoryController CategoryController) CreateCategory(context *gin.Context
 // HTTP-Request: PUT category/:id
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (CategoryController CategoryController) UpdateCategoryById(context *gin.Context) {
-	
+
 	var category models.Category
 	database := services.GetDatabase()
 	categoryId := context.Param("id")
@@ -150,7 +149,7 @@ func (CategoryController CategoryController) UpdateCategoryById(context *gin.Con
 // HTTP-Request: PUT category/name/:name
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (CategoryController CategoryController) UpdateCategoryByName(context *gin.Context) {
 
 	var category models.Category
@@ -186,7 +185,7 @@ func (CategoryController CategoryController) UpdateCategoryByName(context *gin.C
 // HTTP-Request: DELETE category/:id
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (CategoryController CategoryController) DeleteCategoryById(context *gin.Context) {
 	var category models.Category
 	database := services.GetDatabase()
@@ -219,7 +218,7 @@ func (CategoryController CategoryController) DeleteCategoryById(context *gin.Con
 // HTTP-Request: PUT category/:name
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (CategoryController CategoryController) DeleteCategoryByUsername(context *gin.Context) {
 	var category models.Category
 	database := services.GetDatabase()

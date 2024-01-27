@@ -1,19 +1,24 @@
 package services
 
 import (
-	"treasuretrove/models"
-
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"os"
+	"treasuretrove/api/models"
 )
 
 // contains the database connection
 var database *gorm.DB
 
-// ConnectToDatabase initializes the database connection 
+// ConnectToDatabase initializes the database connection
 // using the provided DSN (Data Source Name).
 func ConnectToDatabase() {
-	var dsn string = "host=localhost user=sabo password=example dbname=ttDB port=5432 sslmode=disable TimeZone=Europe/Berlin"
+	dsn := os.Getenv("DB_DSN")
+
+	if dsn == "" {
+		panic("Error getting DB_DSN from environment variables")
+	}
+
 	dbConnection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
@@ -32,8 +37,8 @@ func SetDatabase(newDatabase *gorm.DB) {
 	database = newDatabase
 }
 
-// MigrateModels migrates the available models to the connected database. 
-// When the database connection is not initialized, a panic will be thrown. 
+// MigrateModels migrates the available models to the connected database.
+// When the database connection is not initialized, a panic will be thrown.
 // The models include User, Giveaway, UserGiveaway, Category, and Comment.
 func MigrateModels() {
 
@@ -43,11 +48,14 @@ func MigrateModels() {
 	}
 
 	// Create tables and their relationships based on the provided model structs
-	database.AutoMigrate(
+	autoMigrationErr := database.AutoMigrate(
 		&models.User{},
 		&models.Giveaway{},
 		&models.UserGiveaway{},
 		&models.Category{},
 		&models.Comment{},
 	)
+	if autoMigrationErr != nil {
+		panic("Error migrating models to database")
+	}
 }

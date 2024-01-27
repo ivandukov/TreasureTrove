@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"treasuretrove/controllers"
 	"github.com/gin-gonic/gin"
+	"treasuretrove/api/controllers"
 )
 
 func InitializeCommentRoutes(ginEngine *gin.Engine) {

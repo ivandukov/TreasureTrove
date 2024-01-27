@@ -1,22 +1,21 @@
 package controllers
 
 import (
-	"net/http"
-	"treasuretrove/models"
-	"treasuretrove/services"
-
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"net/http"
+	"treasuretrove/api/models"
+	"treasuretrove/api/services"
 )
 
-type CommentController struct {}
+type CommentController struct{}
 
-// GetCommentById retrieves all comments from the database
+// GetAllComments retrieves all comments from the database
 //
 // HTTP-Request: GET comments/
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (commentController CommentController) GetAllComments(context *gin.Context) {
 	var comments []models.Comment
 	database := services.GetDatabase()
@@ -30,7 +29,7 @@ func (commentController CommentController) GetAllComments(context *gin.Context) 
 // HTTP-Request: GET comments/:id
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (commentController CommentController) GetCommentById(context *gin.Context) {
 	var comment models.Comment
 	database := services.GetDatabase()
@@ -55,9 +54,9 @@ func (commentController CommentController) GetCommentById(context *gin.Context) 
 // HTTP-Request: GET comments/:username
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (commentController CommentController) GetCommentsByUsername(context *gin.Context) {
-	
+
 	var comments []models.Comment
 	database := services.GetDatabase()
 	username := context.Param("username") // get Username from request
@@ -75,12 +74,12 @@ func (commentController CommentController) GetCommentsByUsername(context *gin.Co
 	context.JSON(http.StatusOK, gin.H{"comments": comments})
 }
 
-// GetCommentsByUsername retrieves all comments on a specific giveaway
+// GetCommentsByGiveawayId retrieves all comments on a specific giveaway
 //
 // HTTP-Request: GET comments/:username
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (commentController CommentController) GetCommentsByGiveawayId(context *gin.Context) {
 	var comments []models.Comment
 	database := services.GetDatabase()
@@ -92,20 +91,20 @@ func (commentController CommentController) GetCommentsByGiveawayId(context *gin.
 	}
 
 	queryResult := database.Where("giveaway_id = ?", giveawayId).Find(&comments)
-	
+
 	if queryResult.Error != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
 	}
-	
+
 	context.JSON(http.StatusOK, gin.H{"comments": comments})
 }
 
 // CreateComment creates a new comment in the database
-// 
+//
 // HTTP-Request: POST comments/
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (commentController CommentController) CreateComment(context *gin.Context) {
 	var newComment models.Comment
 	database := services.GetDatabase()
@@ -136,9 +135,9 @@ func (commentController CommentController) CreateComment(context *gin.Context) {
 // HTTP-Request: PUT comments/:id
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (commentController CommentController) UpdateCommentById(context *gin.Context) {
-	
+
 	var comment models.Comment
 	database := services.GetDatabase()
 	categoryId := context.Param("id")
@@ -172,7 +171,7 @@ func (commentController CommentController) UpdateCommentById(context *gin.Contex
 // HTTP-Request: DELETE comment/:id
 //
 // Parameters:
-//  - context: The context of the request
+//   - context: The context of the request
 func (commentController CommentController) DeleteCommentById(context *gin.Context) {
 	var comment models.Comment
 	database := services.GetDatabase()

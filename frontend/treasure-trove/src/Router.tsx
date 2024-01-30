@@ -6,6 +6,10 @@ import UserPage from "./pages/UserPage";
 import ProductPage from "./pages/ProductPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
 
+/**
+ * 
+ * @returns Router containing all urls of the web app
+ */
 export default function AppRouter() {
     return <Router>
         <Routes>

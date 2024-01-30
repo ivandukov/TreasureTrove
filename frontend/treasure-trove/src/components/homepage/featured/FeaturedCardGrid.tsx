@@ -25,7 +25,8 @@ export default function FeaturedCardGrid() {
                 <SimpleGrid columns={{base: 1, sm: 1, md: 1}} spacing={6}>
                     {Array.from({length: 2}, (_, index) => (
                         <GiveawayCard
-                            title="Living Room Sofa"
+                            title="Green Sofa"
+                            postalCode="14538"
                             location="Offenbach am Main"
                             imgUrl={'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'}
                             key={index}
@@ -36,7 +37,8 @@ export default function FeaturedCardGrid() {
                     {Array.from({length: 2}, (_, index) => (
                         <GiveawayCard
                             title="Living Room Sofa"
-                            location="Offenbach am Main"
+                            postalCode="60259"
+                            location="Frankfurt am Main"
                             imgUrl={"https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                             key={index}
                         />
@@ -45,9 +47,10 @@ export default function FeaturedCardGrid() {
                 <SimpleGrid columns={{base: 1, sm: 1, md: 1}} spacing={6}>
                     {Array.from({length: 2}, (_, index) => (
                         <GiveawayCard
-                            title="Super Nintendo Entertainment System Konsole SNES + NBA 97 + 2 Controller + Kabel"
-                            location="Offenbach am Main"
-                            imgUrl={"https://plus.unsplash.com/premium_photo-1661765778256-169bf5e561a6?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                            title="Super Nintendo Entertainment System Console SNES + Super Mario + 2 Controllers + Cable"
+                            postalCode="53215"
+                            location="Darmstadt"
+                            imgUrl={"https://images.unsplash.com/photo-1591462392051-d3668711d52d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHN1cGVyJTIwbmludGVuZG98ZW58MHx8MHx8fDA%3D"}
                             key={index}
                         />
                     ))}

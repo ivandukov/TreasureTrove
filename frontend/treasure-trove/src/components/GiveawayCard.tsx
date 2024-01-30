@@ -1,5 +1,6 @@
 import {Box, Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
 import {BsFillXCircleFill, BsFlag, BsShare, BsThreeDotsVertical} from "react-icons/bs";
+import {FaMapMarkerAlt} from "react-icons/fa";
 
 
 /**
@@ -29,20 +30,13 @@ function DropDownButton() {
 }
 
 /**
- * renders a Card containing information about a Giveaway as well as
- * a Favorite-Button and a Dropdown-Menu with additional actions such
- * as sharing or reporting
- * @param title string containing title of the Giveaway
- * @param authorname string containing the username of the person, who posted
- *                   this Giveaway
+ * renders the image of the giveaway
+ * @param {string} imgUrl first image of the giveaway
  * @returns JSX element
  */
-export default function GiveawayCard({title, location, imgUrl}: { title: string, location: string, imgUrl: string }) {
-
+function GiveawayImage({imgUrl}: {imgUrl: string}) {
     return (
-        <Card
-            direction={'row'}
-        >
+        <Link href="/product">
             <Image
                 src={imgUrl}
                 alt="Giveaway Image"
@@ -50,17 +44,55 @@ export default function GiveawayCard({title, location, imgUrl}: { title: string,
                 objectFit='cover'
                 borderRadius='md'
             />
+        </Link>
+    );
+} 
+
+/**
+ * renders main information about Givaway
+ * @param {string} title title of the Giveaway
+ * @param {string} postalCode postalCode of Giveaway 
+ * @param {string} location city of Giveaway
+ * @returns JSX element
+ */
+function GiveawayInformation({title, postalCode, location}: {title: string, postalCode: string, location: string}) {
+    return (
+        <Box>
+            <Heading size="md">
+                <Link href="/product">{title}</Link>
+            </Heading>
+            <Text color="gray.500">
+                <Link href="/product">
+                    <Icon as={FaMapMarkerAlt} boxSize="13px" marginRight="3px"/>
+                    {postalCode}, {location}
+                </Link>
+            </Text>
+            <Text color="gray.500">2 days ago</Text>
+        </Box>
+    );
+}
+
+/**
+ * renders a Card containing information about a Giveaway as well as
+ * a Dropdown-Menu with additional actions such as sharing or reporting
+ * @param {string} title title of the Giveaway
+ * @param {string} postalCode postalCode of Giveaway 
+ * @param {string} location city of Giveaway
+ * @param {string} imgUrl first image of the giveaway
+ * @returns JSX element
+ */
+export default function GiveawayCard({title, postalCode, location, imgUrl}: { title: string, postalCode: string, location: string, imgUrl: string }) {
+
+    return (
+        <Card direction={'row'}>
+            <GiveawayImage imgUrl={imgUrl}/>
             <CardBody>
                 <HStack w={'100%'} h={'100%'} justifyContent={'space-between'}>
-                    <Box>
-                        <Heading size="md">
-                            <Link href="/product">{title}</Link>
-                        </Heading>
-                        <Text color="gray.500">
-                            <Link href="/user">{location}</Link>
-                        </Text>
-                        <Text color="gray.500">2 days ago</Text>
-                    </Box>
+                    <GiveawayInformation 
+                        title={title} 
+                        postalCode={postalCode}
+                        location={location}
+                    />
                     <DropDownButton/>
                 </HStack>
             </CardBody>

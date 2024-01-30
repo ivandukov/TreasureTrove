@@ -1,5 +1,5 @@
-import {Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
-import {FiCompass, FiHeart, FiHome, FiMenu, FiSettings,} from 'react-icons/fi';
+import {Box, BoxProps, CloseButton, Divider, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
+import {FiCompass, FiHeart, FiHelpCircle, FiHome, FiMenu, FiSettings, FiUser,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
 
@@ -9,21 +9,31 @@ interface LinkItemProps {
     path: string;
 }
 
+/**
+ * 
+ */
 const LinkItems: Array<LinkItemProps> = [
     {name: 'Home', icon: FiHome, path: '/'},
     {name: 'Explore', icon: FiCompass, path: '/explore'},
     {name: 'Favourites', icon: FiHeart, path: '/favourites'},
-    {name: 'Settings', icon: FiSettings, path: '/settings'},
 ];
 
+/**
+ * renders a sidebar, which provides navigation
+ * for the user
+ * @returns JSX element 
+ */
 export default function Sidebar({children}: { children: ReactNode }) {
+    
     const {isOpen, onOpen, onClose} = useDisclosure();
+    
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-            <SidebarContent
+            <SidebarContent 
                 onClose={() => onClose}
                 display={{base: 'none', md: 'block'}}
             />
+
             <Drawer
                 autoFocus={false}
                 isOpen={isOpen}
@@ -31,30 +41,43 @@ export default function Sidebar({children}: { children: ReactNode }) {
                 onClose={onClose}
                 returnFocusOnClose={false}
                 onOverlayClick={onClose}
-                size="full">
+                size="full"
+            >
                 <DrawerContent>
                     <SidebarContent onClose={onClose}/>
                 </DrawerContent>
             </Drawer>
+            
             <MobileNav display={{base: 'flex', md: 'none'}} onOpen={onOpen}/>
+            
             <Box ml={{base: 0, md: 60}} p="4">
                 {children}
             </Box>
+            
         </Box>
+        
     );
 }
 
+/**
+ * 
+ */
 interface SidebarProps extends BoxProps {
     onClose: () => void;
 }
 
+/**
+ * 
+ * @param param0 
+ * @returns 
+ */
 const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
     return (
         <Box
             bg={useColorModeValue('white', 'gray.900')}
             borderRight="1px"
             borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-            w={{base: 'full', md: 72}}
+            w={{base: 'full', md: 60}}
             pos="fixed"
             h="full"
             {...rest}>
@@ -74,15 +97,21 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
                             {link.name}
                         </NavItem>
                     ))}
-                    <Box px="8">
-                        <Text fontWeight="bold" textTransform="uppercase" fontSize="xs" color="gray.500" my="2">
-                            Account
-                        </Text>
-                    </Box>
+                    <Divider/>
+                    <NavItem key={'Profile'} icon={FiHelpCircle} path={'/user'}>
+                        {'Help'}
+                    </NavItem>
+                    <NavItem key={'Profile'} icon={FiSettings} path={'/settings'}>
+                        {'Settings'}
+                    </NavItem>
+                    <Divider/>
+                    <NavItem key={'Profile'} icon={FiUser} path={'/user'}>
+                        {'Profile'}
+                    </NavItem>
                 </Box>
                 <Stack alignItems={"start"} pb={4}>
                     <Text px="8" fontWeight="semi-bold" fontSize="xs" color="gray.500" my="2">
-                        © 2023 TreasureTrove
+                        © 2024 TreasureTrove
                     </Text>
                 </Stack>
             </Stack>
@@ -90,12 +119,20 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
     );
 };
 
+/**
+ * 
+ */
 interface NavItemProps extends FlexProps {
     icon: IconType;
     children: ReactText;
     path: string;
 }
 
+/**
+ * 
+ * @param param0 
+ * @returns 
+ */
 const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
     return (
         <Link href={path} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
@@ -127,10 +164,18 @@ const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
     );
 };
 
+/**
+ * 
+ */
 interface MobileProps extends FlexProps {
     onOpen: () => void;
 }
 
+/**
+ * 
+ * @param param0 
+ * @returns 
+ */
 const MobileNav = ({onOpen, ...rest}: MobileProps) => {
     return (
         <Flex
@@ -149,7 +194,6 @@ const MobileNav = ({onOpen, ...rest}: MobileProps) => {
                 aria-label="open menu"
                 icon={<FiMenu/>}
             />
-
             <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
                 Logo
             </Text>

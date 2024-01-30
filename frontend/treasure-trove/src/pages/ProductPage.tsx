@@ -1,5 +1,4 @@
 import {Badge, Box, Container, Divider, Flex, Heading, Link, Text, useColorMode} from "@chakra-ui/react";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ImageGallery from "../components/ImageGallery";
 
@@ -39,7 +38,6 @@ export default function ProductPage() {
         views: 152,
         images: [
             "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-            "https://visualhunt.com/photos/23/enedelia-69-3-w-velvet-rolled-arm-sofa-loveseat.jpg",
             "https://as1.ftcdn.net/v2/jpg/02/51/57/50/1000_F_251575059_m18LpbUI2geMPGQlBd8m9FnKNXm9rytU.jpg",
             "https://www.thespruce.com/thmb/ryub34AWXXi4g0Or_I4OR6IZG0Y=/6720x0/filters:no_upscale():max_bytes(150000):strip_icc()/FollowTheFlowGettyIages-dca5a16c80fa4ac39675b76496f0784d.jpg",
             "https://thewondercottage.com/wp-content/uploads/2020/10/A122367C-4B5D-46AC-A0F5-C507CB358083.jpeg",
@@ -50,7 +48,6 @@ export default function ProductPage() {
 
     return (
         <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'}>
-            <Navbar isLoggedIn={isLoggedIn}/>
             <Container maxW='995px' mt={8} mb={5}>
                 <Flex direction={{base: 'column', lg: 'row'}}>
 

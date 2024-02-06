@@ -92,6 +92,7 @@ export default function ImageGallery({ images, numImagesToShow }: ImageGalleryPr
                src={selectedImage}
                mb={4}
                alt="Selected Image"
+               borderRadius="md"
             />
          </Flex>
 

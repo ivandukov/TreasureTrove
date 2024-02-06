@@ -1,5 +1,7 @@
-import { Box, Divider, FormControl, FormLabel, Heading, Input, Link, Select, Stack, Switch, Tab, TabIndicator, 
-         TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
+import {
+    Box, Button, Divider, FormControl, FormLabel, Heading, Input, Link, Select, SimpleGrid, Stack, Switch, Tab, TabIndicator,
+    TabList, TabPanel, TabPanels, Tabs, useColorMode
+} from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import ChangePasswordButton from "../components/settings/ChangePasswordButton.tsx";
 import DeleteAccountButton from "../components/settings/DeleteAccountButton.tsx";
@@ -21,20 +23,31 @@ function AccountSettings() {
             borderRadius="md"
             p={5}
             bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+            w="80%"
         >
-            <Stack>
+            <Stack spacing={3}>
                 <Heading as='h3' size='lg'>Account</Heading>
-                <Divider />
-                <Heading as='h5' size='sm'>Username</Heading>
-                <Input />
-                <Heading as='h5' size='sm'>Email address</Heading>
-                <Input />
-                <Heading as='h5' size='sm'>Change Password</Heading>
-                <ChangePasswordButton/>
-                <Heading as='h5' size='sm'>Delete Account</Heading>
-                <Box>
-                    <DeleteAccountButton />
-                </Box>
+                <Stack>
+                    <Heading as='h5' size='sm'>Username</Heading>
+                    <Input w="30%"/>
+                </Stack>
+
+                <Stack>
+                    <Heading as='h5' size='sm'>Email address</Heading>
+                    <Input w="30%"/>
+                </Stack>
+
+                <Stack spacing={3}>
+                    <Heading as='h5' size='sm'>Change Password</Heading>
+                    <ChangePasswordButton />
+                </Stack>
+
+                <Stack spacing={3}>
+                    <Heading as='h5' size='sm'>Delete Account</Heading>
+                    <Box>
+                        <DeleteAccountButton />
+                    </Box>
+                </Stack>
             </Stack>
         </Box>
     );
@@ -53,32 +66,41 @@ function SafetyPrivacySettings() {
                 borderRadius="md"
                 p={5}
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                w="80%"
             >
                 <Stack spacing={4}>
                     <Heading as='h3' size='lg'>Safety & Privacy</Heading>
-                    <FormControl display='flex' alignItems='center'>
-                        <FormLabel htmlFor='email-alerts' mb='0'>
+                    <FormControl as={SimpleGrid} columns={{ base: 2, lg: 2 }} spacing={3}>
+                        <FormLabel htmlFor='activity'>
                             Personalize Feed based on your activity
                         </FormLabel>
-                        <Switch id='email-alerts' />
-                    </FormControl>
-                    <FormControl display='flex' alignItems='center'>
-                        <FormLabel htmlFor='email-alerts' mb='0'>
+                        <Switch id='activity' size='lg'/>
+                        
+                        <FormLabel htmlFor='history'>
                             Personalize Feed based on your search history
                         </FormLabel>
-                        <Switch id='email-alerts' />
+                        <Switch id='history' size='lg'/>
                     </FormControl>
+
+                    <Stack spacing={3}>
+                        <Heading as='h5' size='sm'>Request all my data</Heading>
+                        <Box>
+                            <Button>Request Data</Button>
+                        </Box>
+                    </Stack>
                     <Divider />
-                    <Box>
-                        <Link href='https://chakra-ui.com' isExternal>
-                            Terms of Use <ExternalLinkIcon mx='4px' />
-                        </Link>
-                    </Box>
-                    <Box>
-                        <Link href='https://chakra-ui.com' isExternal>
-                            Privacy Policy <ExternalLinkIcon mx='4px' />
-                        </Link>
-                    </Box>
+                    <Stack spacing={4}>
+                        <Box>
+                            <Link href='https://chakra-ui.com' isExternal>
+                                Terms of Use <ExternalLinkIcon mx='4px' />
+                            </Link>
+                        </Box>
+                        <Box>
+                            <Link href='https://chakra-ui.com' isExternal>
+                                Privacy Policy <ExternalLinkIcon mx='4px' />
+                            </Link>
+                        </Box>
+                    </Stack>
                 </Stack>
             </Box>
         </>
@@ -98,15 +120,24 @@ function NotificationSettings() {
                 borderRadius="md"
                 p={5}
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                w="80%"
             >
                 <Stack>
                     <Heading as='h3' size='lg'>Notifications</Heading>
                     <Divider />
-                    <FormControl display='flex' alignItems='center'>
+                    <FormControl as={SimpleGrid} columns={{ base: 2, lg: 2 }} spacing={3}>
+                        <FormLabel htmlFor='push-alerts' mb='0'>
+                            Push notifications
+                        </FormLabel>
+                        <Switch id='push-alerts' size='lg'/>
                         <FormLabel htmlFor='email-alerts' mb='0'>
                             Email alerts
                         </FormLabel>
-                        <Switch id='email-alerts' />
+                        <Switch id='email-alerts' size='lg'/>
+                        <FormLabel htmlFor='recommendation' mb='0'>
+                            Recommendations
+                        </FormLabel>
+                        <Switch id='recommendation' size='lg'/>
                     </FormControl>
                 </Stack>
             </Box>
@@ -128,12 +159,13 @@ function PreferencesSettings() {
                 borderRadius="md"
                 p={5}
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                w="80%"
             >
                 <Stack>
                     <Heading as='h3' size='lg'>Preferences</Heading>
                     <Divider />
                     <Heading as='h5' size='sm'>Language</Heading>
-                    <Select>
+                    <Select w="30%">
                         <option>English (English)</option>
                         <option>Français (French)</option>
                         <option>Deutsch (German)</option>
@@ -160,6 +192,7 @@ function Help() {
                 borderRadius="md"
                 p={3}
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                w="80%"
             >
                 <Stack>
                     <Heading as='h3' size='lg'>Help</Heading>
@@ -207,7 +240,7 @@ export default function UserSettingsPage() {
                                 <PreferencesSettings/>
                             </TabPanel>
                             <TabPanel>
-                                <Help />
+                                <Help/>
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

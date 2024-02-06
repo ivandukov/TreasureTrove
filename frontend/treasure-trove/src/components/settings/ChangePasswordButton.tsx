@@ -13,23 +13,23 @@ export default function ChangePasswordButton() {
         <Box>
             <Button onClick={onOpen}>Change Password</Button>
             <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
+                <ModalOverlay/>
                 <ModalContent>
                     <ModalHeader>Change Password</ModalHeader>
-                    <ModalCloseButton />
+                    <ModalCloseButton/>
                     <ModalBody>
                         <Stack>
                             <FormControl id="old-password">
                                 <FormLabel>Old Password</FormLabel>
-                                <Input type="password" />
+                                <Input type="password"/>
                             </FormControl>
                             <FormControl id="new-password">
                                 <FormLabel>New Password</FormLabel>
-                                <Input type="password" />
+                                <Input type="password"/>
                             </FormControl>
                             <FormControl id="confirm-password">
                                 <FormLabel>Confirm New Password</FormLabel>
-                                <Input type="password" />
+                                <Input type="password"/>
                             </FormControl>
                         </Stack>
                     </ModalBody>

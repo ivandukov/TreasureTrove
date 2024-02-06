@@ -1,6 +1,7 @@
-import {Box, Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
+import {Box, Button, Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
+import { useState } from "react";
 import {BsFillXCircleFill, BsFlag, BsShare, BsThreeDotsVertical} from "react-icons/bs";
-import {FaMapMarkerAlt} from "react-icons/fa";
+import {FaHeart, FaMapMarkerAlt} from "react-icons/fa";
 
 
 /**
@@ -73,6 +74,33 @@ function GiveawayInformation({title, postalCode, location}: {title: string, post
 }
 
 /**
+ * renders a "Save"-Button, which can be toggled.
+ * @returns 
+ */
+function FavoriteButton()
+{
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    function handleFavoriteClick() {
+        setIsFavorite(!isFavorite);
+    }
+
+    return (
+        <>
+            <Box>
+                <Button
+                    aria-label="Toggle favorite"
+                    colorScheme={isFavorite ? 'red' : undefined}
+                    onClick={handleFavoriteClick}
+                >
+                    <Icon as={FaHeart} mr={1}/> Save
+                </Button>
+            </Box>
+        </>
+    );
+}
+
+/**
  * renders a Card containing information about a Giveaway as well as
  * a Dropdown-Menu with additional actions such as sharing or reporting
  * @param {string} title title of the Giveaway
@@ -93,6 +121,7 @@ export default function GiveawayCard({title, postalCode, location, imgUrl}: { ti
                         postalCode={postalCode}
                         location={location}
                     />
+                    <FavoriteButton/>
                     <DropDownButton/>
                 </HStack>
             </CardBody>

@@ -1,8 +1,7 @@
-import {Box, BoxProps, CloseButton, Divider, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
-import {FiCompass, FiHeart, FiHelpCircle, FiHome, FiMenu, FiSettings, FiUser,} from 'react-icons/fi';
+import {Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
+import {FiBookmark, FiHome, FiMail, FiMenu, FiPlus, FiPlusCircle, FiPlusSquare, FiSettings, FiUser,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
-
 interface LinkItemProps {
     name: string;
     icon: IconType;
@@ -14,11 +13,14 @@ interface LinkItemProps {
  */
 const LinkItems: Array<LinkItemProps> = [
     {name: 'Home', icon: FiHome, path: '/'},
-    {name: 'Explore', icon: FiCompass, path: '/explore'},
-    {name: 'Favourites', icon: FiHeart, path: '/favourites'},
+    {name: 'Saved', icon: FiBookmark, path: '/favourites'},
+    {name: 'Submit', icon: FiPlusSquare, path: '/submit'},
+    {name: 'Messages', icon: FiMail, path: '/explore'},
+    {name: 'Profile', icon: FiUser, path: '/user'},
+    {name: 'Settings', icon: FiSettings, path: '/settings'}
 ];
 
-/**
+/** 
  * renders a sidebar, which provides navigation
  * for the user
  * @returns JSX element 
@@ -55,7 +57,6 @@ export default function Sidebar({children}: { children: ReactNode }) {
             </Box>
             
         </Box>
-        
     );
 }
 
@@ -68,7 +69,7 @@ interface SidebarProps extends BoxProps {
 
 /**
  * 
- * @param param0 
+ * @param onClose lambda function 
  * @returns 
  */
 const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
@@ -92,22 +93,12 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
                         </Text>
                         <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose}/>
                     </Flex>
+
                     {LinkItems.map((link) => (
                         <NavItem key={link.name} icon={link.icon} path={link.path}>
                             {link.name}
                         </NavItem>
-                    ))}
-                    <Divider/>
-                    <NavItem key={'Profile'} icon={FiHelpCircle} path={'/user'}>
-                        {'Help'}
-                    </NavItem>
-                    <NavItem key={'Profile'} icon={FiSettings} path={'/settings'}>
-                        {'Settings'}
-                    </NavItem>
-                    <Divider/>
-                    <NavItem key={'Profile'} icon={FiUser} path={'/user'}>
-                        {'Profile'}
-                    </NavItem>
+                    ))}        
                 </Box>
                 <Stack alignItems={"start"} pb={4}>
                     <Text px="8" fontWeight="semi-bold" fontSize="xs" color="gray.500" my="2">
@@ -134,6 +125,9 @@ interface NavItemProps extends FlexProps {
  * @returns 
  */
 const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
+
+    const isCurrentPath = location.pathname === path;
+
     return (
         <Link href={path} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
             <Flex
@@ -155,10 +149,12 @@ const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
                         _groupHover={{
                             color: 'white',
                         }}
-                        as={icon}
+                        as={icon} // TODO: fill this depending on the selected page
                     />
                 )}
-                {children}
+                <Text fontWeight={isCurrentPath ? 'bold' : 'normal'}>
+                    {children}
+                </Text>
             </Flex>
         </Link>
     );

@@ -8,6 +8,8 @@ import SettingsPage from "./pages/SettingsPage";
 import SearchResultPage from "./pages/SearchResultPage";
 import LoggedOutHomepage from "./components/homepage/LoggedOutHomepage";
 import LoggedInHomepage from "./components/homepage/LoggedInHomepage";
+import CreateGiveawayPage from "./pages/CreateGiveawayPage";
+
 /**
  * 
  * @returns Router containing all urls of the web app
@@ -23,6 +25,7 @@ export default function AppRouter() {
             <Route path="/product" element={<GiveawayPage/>}/>
             <Route path="/settings" element={<SettingsPage/>}/>
             <Route path="/results" element={<SearchResultPage/>}/>
+            <Route path="/submit" element={<CreateGiveawayPage/>}/>
         </Routes>
     </Router>;
 }

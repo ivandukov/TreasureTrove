@@ -7,7 +7,7 @@ import ChangePasswordButton from "../components/settings/ChangePasswordButton.ts
 import DeleteAccountButton from "../components/settings/DeleteAccountButton.tsx";
 import ThemeSwitcher from "../components/settings/ThemeSwitcher.tsx";
 
-const TAB_NAMES = ['Account', 'Safety & Privacy', 'Notifications', 'Preferences', 'Help'];
+const TAB_NAMES = ['Account', 'Profile', 'Safety & Privacy', 'Notifications', 'Preferences', 'Help'];
 
 /**
  * 
@@ -39,17 +39,44 @@ function AccountSettings() {
 
                 <Stack spacing={3}>
                     <Heading as='h5' size='sm'>Change Password</Heading>
-                    <ChangePasswordButton />
+                    <ChangePasswordButton/>
                 </Stack>
 
                 <Stack spacing={3}>
                     <Heading as='h5' size='sm'>Delete Account</Heading>
                     <Box>
-                        <DeleteAccountButton />
+                        <DeleteAccountButton/>
                     </Box>
                 </Stack>
             </Stack>
         </Box>
+    );
+}
+
+/**
+ * 
+ * @returns 
+ */
+function ProfileSettings() {
+    const { colorMode } = useColorMode();
+    return (
+        <>
+            <Box
+                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                borderWidth="1px"
+                borderRadius="md"
+                p={5}
+                w="80%"
+            >
+                <Stack spacing={3}>
+                    <Heading as='h3' size='lg'>Profile</Heading>
+                    <Stack>
+                        <Heading as='h5' size='sm'>Display Name</Heading>
+                    <Input w="30%"/>
+                </Stack>
+                </Stack>
+            </Box>
+        </>
     );
 }
 
@@ -62,24 +89,25 @@ function SafetyPrivacySettings() {
     return (
         <>
             <Box
+                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
                 borderWidth="1px"
                 borderRadius="md"
                 p={5}
-                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
                 w="80%"
             >
                 <Stack spacing={4}>
-                    <Heading as='h3' size='lg'>Safety & Privacy</Heading>
+                    <Heading as='h3' size='lg'>
+                        Safety & Privacy
+                    </Heading>
                     <FormControl as={SimpleGrid} columns={{ base: 2, lg: 2 }} spacing={3}>
                         <FormLabel htmlFor='activity'>
                             Personalize Feed based on your activity
                         </FormLabel>
-                        <Switch id='activity' size='lg'/>
-                        
+                        <Switch id='activity' size='lg' />
                         <FormLabel htmlFor='history'>
                             Personalize Feed based on your search history
                         </FormLabel>
-                        <Switch id='history' size='lg'/>
+                        <Switch id='history' size='lg' />
                     </FormControl>
 
                     <Stack spacing={3}>
@@ -124,20 +152,20 @@ function NotificationSettings() {
             >
                 <Stack>
                     <Heading as='h3' size='lg'>Notifications</Heading>
-                    <Divider />
+                    <Divider/>
                     <FormControl as={SimpleGrid} columns={{ base: 2, lg: 2 }} spacing={3}>
-                        <FormLabel htmlFor='push-alerts' mb='0'>
+                        <FormLabel mb='0'>
                             Push notifications
                         </FormLabel>
-                        <Switch id='push-alerts' size='lg'/>
-                        <FormLabel htmlFor='email-alerts' mb='0'>
+                        <Switch size='lg'/>
+                        <FormLabel mb='0'>
                             Email alerts
                         </FormLabel>
-                        <Switch id='email-alerts' size='lg'/>
-                        <FormLabel htmlFor='recommendation' mb='0'>
+                        <Switch size='lg'/>
+                        <FormLabel mb='0'>
                             Recommendations
                         </FormLabel>
-                        <Switch id='recommendation' size='lg'/>
+                        <Switch size='lg'/>
                     </FormControl>
                 </Stack>
             </Box>
@@ -169,6 +197,7 @@ function PreferencesSettings() {
                         <option>English (English)</option>
                         <option>Français (French)</option>
                         <option>Deutsch (German)</option>
+                        <option>Nederlands (Dutch)</option>
                     </Select>
                     <Heading as='h5' size='sm'>Theme</Heading>
                     <Divider />
@@ -228,19 +257,22 @@ export default function UserSettingsPage() {
                         />
                         <TabPanels>
                             <TabPanel>
-                                <AccountSettings/>
+                                <AccountSettings />
                             </TabPanel>
                             <TabPanel>
-                                <SafetyPrivacySettings/>
+                                <ProfileSettings />
                             </TabPanel>
                             <TabPanel>
-                                <NotificationSettings/>
+                                <SafetyPrivacySettings />
                             </TabPanel>
                             <TabPanel>
-                                <PreferencesSettings/>
+                                <NotificationSettings />
                             </TabPanel>
                             <TabPanel>
-                                <Help/>
+                                <PreferencesSettings />
+                            </TabPanel>
+                            <TabPanel>
+                                <Help />
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

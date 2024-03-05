@@ -1,10 +1,10 @@
 import { Box, Button, Divider, Flex, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Text, useColorMode } from "@chakra-ui/react";
 import Footer from "../components/Footer";
 import ImageGallery from "../components/ImageGallery";
-import { FaHeart, FaMapMarkerAlt } from "react-icons/fa";
-import { useState } from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { BsThreeDotsVertical, BsShare, BsFillXCircleFill, BsFlag } from "react-icons/bs";
 import { EmailIcon } from "@chakra-ui/icons";
+import SaveButton from "../components/SaveButton.tsx";
 
 /**
  * Helper function to map the status to the color scheme
@@ -51,14 +51,11 @@ function DropDownButton() {
     );
 }
 
+
+
 function GiveawayInfoBox({productData} : {productData: any}) {
 
     const { colorMode } = useColorMode();
-    const [isFavorite, setIsFavorite] = useState(false);
-    
-    function handleFavoriteClick() {
-        setIsFavorite(!isFavorite);
-    }
 
     return (
         <>
@@ -79,15 +76,7 @@ function GiveawayInfoBox({productData} : {productData: any}) {
                         </Box>
                         <DropDownButton/>
                         <Spacer/>
-                        <Box>
-                            <Button
-                                aria-label="Toggle favorite"
-                                colorScheme={isFavorite ? 'red' : undefined}
-                                onClick={handleFavoriteClick}
-                            >
-                                <Icon as={FaHeart} mr={1}/> Save
-                            </Button>
-                        </Box>
+                        <SaveButton/>
                     </Flex>
                     
                     <Heading>

@@ -1,19 +1,23 @@
-import { Stack } from "@chakra-ui/react";
+import { HStack, Link, Stack } from "@chakra-ui/react";
 import FilterBar from "../filter/FilterBar.tsx";
-import FeaturedCardGrid from "./featured/FeaturedCardGrid";
+import Footer from "../Footer.tsx";
 
 /**
- *
- * @returns
+ * 
+ * @returns JSX element
  */
 export default function LoggedOutHomepage() {
+
     return (
         <>
             <Stack>
+                <HStack>
+                    <Link href="/login">Login</Link>
+                    <Link href="/register">Register</Link>
+                </HStack>
                 <FilterBar/>
-                <FeaturedCardGrid/>
+                <Footer/>
             </Stack>
-
         </>
     );
 }

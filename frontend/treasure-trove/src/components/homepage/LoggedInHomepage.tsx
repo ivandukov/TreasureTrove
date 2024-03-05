@@ -1,10 +1,10 @@
 import { Stack } from "@chakra-ui/react";
-import React from "react";
 import FilterBar from "../filter/FilterBar";
+import FeaturedCardGrid from "./featured/FeaturedCardGrid";
 
 /**
  * 
- * @returns 
+ * @returns JSX element
  */
 export default function LoggedInHomepage() {
 
@@ -12,6 +12,7 @@ export default function LoggedInHomepage() {
         <>
             <Stack>
                 <FilterBar/>
+                <FeaturedCardGrid/>
             </Stack>
         </>
     );

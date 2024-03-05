@@ -13,7 +13,6 @@ export default function FeaturedCardGrid() {
 
     return (
         <Box>
-            <Heading as="h2" fontSize={"xl"} my={2} pl={2}>Feed</Heading>
             <Stack
                 borderWidth="1px"
                 borderRadius="md"
@@ -55,7 +54,6 @@ export default function FeaturedCardGrid() {
                         />
                     ))}
                 </SimpleGrid>
-
             </Stack>
         </Box>
     );

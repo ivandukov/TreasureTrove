@@ -1,3 +1,4 @@
+import { Stack } from "@chakra-ui/react";
 import FilterBar from "../filter/FilterBar.tsx";
 import FeaturedCardGrid from "./featured/FeaturedCardGrid";
 
@@ -8,8 +9,11 @@ import FeaturedCardGrid from "./featured/FeaturedCardGrid";
 export default function LoggedOutHomepage() {
     return (
         <>
-            <FilterBar/>
-            <FeaturedCardGrid/>
+            <Stack>
+                <FilterBar/>
+                <FeaturedCardGrid/>
+            </Stack>
+
         </>
     );
 }

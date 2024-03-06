@@ -1,7 +1,8 @@
-import { Box, Button, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Select, Stack, useColorMode, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Link, Menu, MenuButton, MenuItem, MenuList, Select, Stack, useColorMode, useDisclosure } from "@chakra-ui/react";
 import NewFilterModal from "./NewFilterModal.tsx";
-import { SearchIcon } from "@chakra-ui/icons";
+import { CheckIcon, ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import { FaLocationDot } from "react-icons/fa6";
+import { SetStateAction, useState } from "react";
 
 /**
  * renders a separate Box with three Buttons:
@@ -11,8 +12,14 @@ import { FaLocationDot } from "react-icons/fa6";
  * @returns JSX element
  */
 export default function FilterBar() {
+    
     const { colorMode } = useColorMode();
     const { onOpen, isOpen, onClose } = useDisclosure();
+    const [sortType, setSortType] = useState('newest');
+
+    const handleSortChange = (newSortType: SetStateAction<string>) => {
+        setSortType(newSortType);
+    };
 
     function SearchBar() {
         return (
@@ -36,14 +43,50 @@ export default function FilterBar() {
         );
     }
 
+    function CategoriesMenu() {
+        return (
+            <Select w="18%">
+                <option value='option1'>All Categories</option>
+                <option value='option2'>Books</option>
+                <option value='option3'>Fashion</option>
+            </Select>
+        );
+    }
+
+    /**
+     * 
+     * @returns 
+     */
+    function SortMenu() {
+        return (
+            <>
+            <Stack w="19%">
+                <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        Sort: {sortType}
+                    </MenuButton>
+                    <MenuList>
+                        {['Newest', 'Oldest', 'Popular'].map((option) => (
+                            <MenuItem
+                                key={option}
+                                onClick={() => handleSortChange(option)}
+                            >
+                                <Box flex="1">{option}</Box>
+                                {sortType === option && (
+                                    <CheckIcon ml="auto" />
+                                )}
+                            </MenuItem>
+                        ))}
+                    </MenuList>
+                </Menu>
+                </Stack>
+            </>
+        );
+    }
+
     return (
         <Stack>
-            <Stack
-                spacing={6}
-                h={'100%'}
-                w={'100%'}
-                mt={4}
-            >
+            <Stack>
                 <Box
                     borderWidth="1px"
                     borderRadius="md"
@@ -52,17 +95,13 @@ export default function FilterBar() {
                 >
                     <HStack>
                         <SearchBar/>
-                        <Select w="18%">
-                            <option value='option1'>All Categories</option>
-                            <option value='option2'>Books</option>
-                            <option value='option3'>Fashion</option>
-                        </Select>
+                        <CategoriesMenu/>
                         <LocationSearchBar/>
-                        <Button colorScheme="green">Search</Button>
+                        <SortMenu/>
                     </HStack>
                 </Box>
             </Stack>
-            <NewFilterModal isOpen={isOpen} onClose={onClose} />
+            <NewFilterModal isOpen={isOpen} onClose={onClose}/>
         </Stack>
     );
 };

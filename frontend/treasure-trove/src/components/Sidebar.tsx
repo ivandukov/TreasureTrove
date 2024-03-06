@@ -1,5 +1,5 @@
 import {Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
-import {FiBookmark, FiHome, FiMail, FiMenu, FiPlus, FiPlusCircle, FiPlusSquare, FiSettings, FiUser,} from 'react-icons/fi';
+import {FiBookmark, FiHome, FiMail, FiMenu, FiPlusSquare, FiSettings, FiUser,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
 interface LinkItemProps {
@@ -13,7 +13,7 @@ interface LinkItemProps {
  */
 const LinkItems: Array<LinkItemProps> = [
     {name: 'Home', icon: FiHome, path: '/'},
-    {name: 'Saved', icon: FiBookmark, path: '/favourites'},
+    {name: 'Saved', icon: FiBookmark, path: '/saved'},
     {name: 'Submit', icon: FiPlusSquare, path: '/submit'},
     {name: 'Messages', icon: FiMail, path: '/explore'},
     {name: 'Profile', icon: FiUser, path: '/user'},

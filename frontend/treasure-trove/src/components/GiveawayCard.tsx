@@ -1,4 +1,4 @@
-import {Box, Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
+import {Box, Card, CardBody, CardFooter, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Stack, Text} from "@chakra-ui/react";
 import {BsFillXCircleFill, BsFlag, BsShare, BsThreeDotsVertical} from "react-icons/bs";
 import {FaMapMarkerAlt} from "react-icons/fa";
 import SaveButton from "../components/SaveButton.tsx";
@@ -57,18 +57,20 @@ function GiveawayImage({imgUrl}: {imgUrl: string}) {
  */
 function GiveawayInformation({title, postalCode, location}: {title: string, postalCode: string, location: string}) {
     return (
-        <Box>
-            <Heading size="md">
-                <Link href="/product">{title}</Link>
-            </Heading>
-            <Text color="gray.500">
-                <Link href="/product">
-                    <Icon as={FaMapMarkerAlt} boxSize="13px" marginRight="3px"/>
-                    {postalCode}, {location}
-                </Link>
-            </Text>
-            <Text color="gray.500">2 days ago</Text>
-        </Box>
+        <>
+            <Stack>
+                <Heading size="md">
+                        <Link href="/product">{title}</Link>
+                    </Heading>
+                    <Text color="gray.500">
+                        <Link href="/product">
+                            <Icon as={FaMapMarkerAlt} boxSize="13px" marginRight="3px"/>
+                            {postalCode}, {location}
+                        </Link>
+                    </Text>
+                    <Text color="gray.500">2 days ago</Text>
+            </Stack>
+        </>
     );
 }
 
@@ -81,7 +83,7 @@ function GiveawayInformation({title, postalCode, location}: {title: string, post
  * @param {string} imgUrl first image of the giveaway
  * @returns JSX element
  */
-export default function GiveawayCard({title, postalCode, location, imgUrl}: { title: string, postalCode: string, location: string, imgUrl: string }) {
+export default function GiveawayCard({title, description, postalCode, location, imgUrl}: { title: string, description: string, postalCode: string, location: string, imgUrl: string }) {
 
     return (
         <Card direction={'row'}>

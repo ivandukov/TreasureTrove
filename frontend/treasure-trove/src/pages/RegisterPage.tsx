@@ -49,14 +49,16 @@ function OtherRegisterOptions() {
 function RegisterButton() {
 
     return (
-        <Button
-            bg={'blue.400'}
-            color={'white'}
-            _hover={{
-                bg: 'blue.500',
-            }}>
-            Register
-        </Button>
+        <Link href="/home" style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
+            <Button
+                bg={'blue.400'}
+                color={'white'}
+                _hover={{
+                    bg: 'blue.500',
+                }}>
+                Register
+            </Button>
+        </Link>
     );
 }
 

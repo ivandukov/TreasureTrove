@@ -9,6 +9,7 @@ import SearchResultPage from "./pages/SearchResultPage";
 import LoggedOutHomepage from "./components/homepage/LoggedOutHomepage";
 import LoggedInHomepage from "./components/homepage/LoggedInHomepage";
 import CreateGiveawayPage from "./pages/CreateGiveawayPage";
+import SavedPage from "./pages/SavedPage";
 
 /**
  * 
@@ -26,6 +27,7 @@ export default function AppRouter() {
             <Route path="/settings" element={<SettingsPage/>}/>
             <Route path="/results" element={<SearchResultPage/>}/>
             <Route path="/submit" element={<CreateGiveawayPage/>}/>
+            <Route path="/saved" element={<SavedPage/>}/>
         </Routes>
     </Router>;
 }

@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Flex, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, HStack, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Text, useColorMode } from "@chakra-ui/react";
 import Footer from "../components/Footer";
 import ImageGallery from "../components/ImageGallery";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -22,7 +22,7 @@ function getStatusColor(status: string) {
         default:
             return "gray";
     }
-} 
+}
 
 /**
  * renders a small Dropdown-Button with three options:
@@ -37,23 +37,21 @@ function DropDownButton() {
         <Menu>
             <MenuButton
                 as={IconButton}
-                icon={<Icon as={BsThreeDotsVertical}/>}
+                icon={<Icon as={BsThreeDotsVertical} />}
                 variant="ghost"
                 colorScheme="gray"
                 w="7%"
             />
             <MenuList>
-                <MenuItem icon={<Icon as={BsShare}/>}>Share</MenuItem>
-                <MenuItem icon={<Icon as={BsFillXCircleFill}/>}>Not Interested</MenuItem>
-                <MenuItem icon={<Icon as={BsFlag}/>}>Report</MenuItem>
+                <MenuItem icon={<Icon as={BsShare} />}>Share</MenuItem>
+                <MenuItem icon={<Icon as={BsFillXCircleFill} />}>Not Interested</MenuItem>
+                <MenuItem icon={<Icon as={BsFlag} />}>Report</MenuItem>
             </MenuList>
         </Menu>
     );
 }
 
-
-
-function GiveawayInfoBox({productData} : {productData: any}) {
+function GiveawayInfoBox({ productData }: { productData: any }) {
 
     const { colorMode } = useColorMode();
 
@@ -68,17 +66,15 @@ function GiveawayInfoBox({productData} : {productData: any}) {
                 ml={4}
             >
                 <Stack>
-                    <Flex>
-                        <Box>           
-                            <Button>
-                                <Icon as={EmailIcon} mr={1}/>Contact
-                            </Button>
-                        </Box>
+                    <HStack>
+                        <Stack w="20%">
+                            <SaveButton/>
+                        </Stack>
+                        <Button>
+                            <Icon as={EmailIcon} mr={1} />Contact
+                        </Button>
                         <DropDownButton/>
-                        <Spacer/>
-                        <SaveButton/>
-                    </Flex>
-                    
+                    </HStack>
                     <Heading>
                         {productData.title}
                     </Heading>
@@ -86,16 +82,16 @@ function GiveawayInfoBox({productData} : {productData: any}) {
                     <Text fontSize="md" mr={2}>
                         by <Link fontWeight="bold" href="/user" mr={2}>{productData.user}</Link>
                     </Text>
-                    
+
                     <Text>
-                        <Icon as={FaMapMarkerAlt} boxSize="13px" marginRight="3px"/>
+                        <Icon as={FaMapMarkerAlt} boxSize="13px" marginRight="3px" />
                         <Link>{productData.postalCode}, {productData.location}</Link>
                     </Text>
                     <Divider/>
                     <Heading as='h4' size='md'>
                         Description
                     </Heading>
-                    
+
                     <Text fontSize="lg">
                         {productData.description}
                     </Text>
@@ -134,13 +130,13 @@ export default function GiveawayPage() {
 
     return (
         <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'}>
-            <Flex direction={{ base: 'column', lg: 'row' }}>
-                <ImageGallery images={productData.images} numImagesToShow={5}/>
-                <GiveawayInfoBox productData={productData}/>
-            </Flex>
-            
-            <Divider mb="5"/>
-            <Footer/>
+            <Stack>
+                <HStack>
+                    <ImageGallery images={productData.images} numImagesToShow={5}/>
+                    <GiveawayInfoBox productData={productData}/>
+                </HStack>
+                <Footer/>
+            </Stack>
         </Box>
     );
 }

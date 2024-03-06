@@ -10,10 +10,12 @@ import {
    Input,
    IconButton,
    useColorModeValue,
+   useColorMode,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { BiMailSend } from 'react-icons/bi';
+import { BiMailSend, BiMaleSign } from 'react-icons/bi';
+import { FiMail } from 'react-icons/fi';
 
 /**
  * renders a placeholder for the web app logo displayed
@@ -97,9 +99,12 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
  *          which will be displayed in the browser
  */
 export default function Footer() {
+
+   const { colorMode } = useColorMode();
+
    return (
       <Box
-         bg={useColorModeValue('gray.50', 'gray.900')}
+         bg={colorMode === 'dark' ? 'gray.800' : 'white'}
          color={useColorModeValue('gray.700', 'gray.200')}
          borderRadius="md">
          <Container as={Stack} maxW={'6xl'} py={10}>
@@ -149,13 +154,13 @@ export default function Footer() {
                         }}
                      />
                      <IconButton
-                        bg={useColorModeValue('blue.400', 'blue.800')}
+                        bg={useColorModeValue('green.500', 'green.800')}
                         color={useColorModeValue('white', 'gray.800')}
                         _hover={{
-                           bg: 'blue.500',
+                           bg: 'green.600',
                         }}
                         aria-label="Subscribe"
-                        icon={<BiMailSend />}
+                        icon={<FiMail/>}
                      />
                   </Stack>
                </Stack>

@@ -51,6 +51,11 @@ function DropDownButton() {
     );
 }
 
+/**
+ * 
+ * @param param0 
+ * @returns 
+ */
 function GiveawayInfoBox({ productData }: { productData: any }) {
 
     const { colorMode } = useColorMode();

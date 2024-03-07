@@ -10,6 +10,7 @@ import LoggedOutHomepage from "./components/homepage/LoggedOutHomepage";
 import LoggedInHomepage from "./components/homepage/LoggedInHomepage";
 import CreateGiveawayPage from "./pages/CreateGiveawayPage";
 import SavedPage from "./pages/SavedPage";
+import MessagePage from "./pages/MessagesPage";
 
 /**
  * 
@@ -28,6 +29,7 @@ export default function AppRouter() {
             <Route path="/results" element={<SearchResultPage/>}/>
             <Route path="/submit" element={<CreateGiveawayPage/>}/>
             <Route path="/saved" element={<SavedPage/>}/>
+            <Route path="/messages" element={<MessagePage/>}/>
         </Routes>
     </Router>;
 }

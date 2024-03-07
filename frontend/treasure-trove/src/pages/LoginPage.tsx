@@ -1,6 +1,7 @@
-import {Box, Button, chakra, Checkbox, Container, Divider, FormControl, FormLabel, Heading, HStack, HTMLChakraProps, Input, Link, Stack, Text, useColorMode, useColorModeValue} from "@chakra-ui/react";
-import {OAuthButtonGroup} from "../components/OAuthButtonGroup";
+import { Box, Button, chakra, Checkbox, Container, Divider, FormControl, FormLabel, Heading, HStack, HTMLChakraProps, Input, Link, Stack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { OAuthButtonGroup } from "../components/OAuthButtonGroup";
 import SmallFooter from "../components/SmallFooter";
+import { useForm } from "react-hook-form";
 
 const Logo = (props: HTMLChakraProps<'svg'>) => (
     <chakra.svg
@@ -19,23 +20,6 @@ const Logo = (props: HTMLChakraProps<'svg'>) => (
         />
     </chakra.svg>
 )
-
-/**
- * renders a button with the text "Sign in"
- * @returns JSX element with a Sign in Button
- */
-function SignInButton() {
-    return (
-        <Button
-            bg={'blue.400'}
-            color={'white'}
-            _hover={{
-                bg: 'blue.500',
-            }}>
-            Sign in
-        </Button>
-    );
-}
 
 /**
  * renders three Social Media Buttons as
@@ -83,50 +67,65 @@ function CreateAccountField() {
  */
 export default function LoginPage() {
 
-    const {colorMode} = useColorMode();
+    const { colorMode } = useColorMode();
+
+    const {
+        handleSubmit,
+        register,
+        formState: {errors, isSubmitting},
+    } = useForm();
+
+    function onSubmit(values: any): Promise<void> {
+        
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                resolve();
+            }, 3000)
+        })
+    }
 
     return (
-        <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'} minH="100vh">
-            <Container
-                py={{base: '12', md: '0'}}
-                px={{base: '0', sm: '9'}}>
-                <Stack spacing={6} mx={'auto'} maxW={'lg'} py={12}>
-                    <Stack align={'center'}>
-                        <Heading fontSize={'4xl'}>
-                            Log in to your account
-                        </Heading>
-                    </Stack>
-                    <Box
-                        rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
-                        boxShadow={'lg'}
-                        p={7}>
-                        <Stack spacing={3}>
-                            <FormControl id="email">
-                                <FormLabel>Username or email</FormLabel>
-                                <Input type="email"/>
-                            </FormControl>
-                            <FormControl id="password">
-                                <FormLabel>Password</FormLabel>
-                                <Input type="password"/>
-                            </FormControl>
-                            <Stack spacing={6}>
-                                <Stack
-                                    direction={{base: 'column', sm: 'row'}}
-                                    align={'start'}
-                                    justify={'space-between'}>
-                                    <Checkbox>Remember me</Checkbox>
-                                    <Link color={'blue.400'}>Forgot password?</Link>
-                                </Stack>
-                                <SignInButton/>
-                                <OtherLoginOptions/>
-                            </Stack>
+        <Stack spacing={6} mx={'auto'}>
+            <Heading>
+                Log into your account
+            </Heading>
+            <Box
+                rounded={'lg'}
+                bg={useColorModeValue('white', 'gray.700')}
+                boxShadow={'lg'}
+                p={7}
+            >
+                <Stack spacing={3}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <FormControl id="email">
+                            <FormLabel>Username or email</FormLabel>
+                            <Input type="email" {...register("email")}/>
+                        </FormControl>
+                        <FormControl id="password">
+                            <FormLabel>Password</FormLabel>
+                            <Input type="password" {...register("password")}/>
+                        </FormControl>
+                        <Stack spacing={6}>
+                            <HStack>
+                                <Checkbox>Remember me</Checkbox>
+                                <Link color={'blue.400'}>Forgot password?</Link>
+                            </HStack>
+                            <Button 
+                                colorScheme="green" 
+                                type="submit"
+                                onClick={onSubmit}
+                                isLoading={isSubmitting}
+                            >
+                                Login
+                            </Button>
+                            <OtherLoginOptions/>
                         </Stack>
-                    </Box>
-                    <CreateAccountField/>
-                    <SmallFooter/>
+                    </form>
                 </Stack>
-            </Container>
-        </Box>
+            </Box>
+            <CreateAccountField />
+            <SmallFooter/>
+        </Stack>
     );
 }

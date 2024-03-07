@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Heading, Menu, MenuButton, MenuItem, MenuList, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Heading, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
 import FilterBar from "../components/filter/FilterBar";
 import { SetStateAction, useState } from "react";
 import { CheckIcon, ChevronDownIcon } from "@chakra-ui/icons";
@@ -11,21 +11,66 @@ import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 export default function SearchResultPage() {
 
     const { colorMode } = useColorMode();
+    const [sortType, setSortType] = useState('newest');
+
+    const handleSortChange = (newSortType: SetStateAction<string>) => {
+        setSortType(newSortType);
+    };
+
+    /**
+     * 
+     * @returns 
+     */
+    function SortMenu() {
+        return (
+            <>
+            <Stack w="19%">
+                <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                        Sort: {sortType}
+                    </MenuButton>
+                    <MenuList>
+                        {['Newest', 'Oldest', 'Popular'].map((option) => (
+                            <MenuItem
+                                key={option}
+                                onClick={() => handleSortChange(option)}
+                            >
+                                <Box flex="1">{option}</Box>
+                                {sortType === option && (
+                                    <CheckIcon ml="auto" />
+                                )}
+                            </MenuItem>
+                        ))}
+                    </MenuList>
+                </Menu>
+                </Stack>
+            </>
+        );
+    }
 
     return (
         <>
             <Stack>
                 <FilterBar/>
-                <Box bg={colorMode === 'dark' ? 'gray.800' : 'white'} p={3}>
+                <Heading as='h5' size='sm'>
+                    55.000+ results for: "Sofa"
+                </Heading>
+                <Box 
+                    bg={colorMode === 'dark' ? 'gray.800' : 'white'} 
+                    p={3}
+                    borderWidth="1px"
+                    borderRadius="md"
+                >
                     <Tabs variant='soft-rounded' colorScheme='green'>
                         <Stack>
-                            <Heading as='h5' size='sm'>55.000+ results for: Sofa</Heading>
-                            <HStack>
+                            <Flex>
                                 <TabList>
-                                <Tab>Giveaways</Tab>
-                                <Tab>Requests</Tab>
-                            </TabList>
-                            </HStack>                            
+                                    <Tab>Giveaways</Tab>
+                                    <Tab>Requests</Tab>
+                                </TabList>
+                                <Spacer/>
+                                <SortMenu/>
+                            </Flex>                       
                         </Stack>
                         <TabPanels>
                             <TabPanel>

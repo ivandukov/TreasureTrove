@@ -12,9 +12,13 @@ export default function LoggedOutHomepage() {
         <>
             <Stack>
                 <HStack>
-                    <Link href="/login">Login</Link>
-                    <Link href="/register" style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
-                        <Button colorScheme="green">Register</Button>
+                    <Link href="/register">Register</Link>
+                    <Link 
+                        href="/login" 
+                        style={{textDecoration: 'none'}} 
+                        _focus={{boxShadow: 'none'}}
+                    >
+                        <Button colorScheme="green">Login</Button>
                     </Link>
                 </HStack>
                 <FilterBar/>

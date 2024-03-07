@@ -33,7 +33,10 @@ export default function CreateGiveawayPage() {
     function LocationSearchBar() {
         return (
             <InputGroup>
-                <Input placeholder="City/Postal Code"/>
+                <Input 
+                    placeholder="City/Postal Code"
+                    {...register("location")}
+                />
                 <InputRightElement>
                     <IconButton icon={<FaLocationDot />} onClick={onOpen} aria-label="Location"/>
                 </InputRightElement>
@@ -72,8 +75,10 @@ export default function CreateGiveawayPage() {
                                             minLength: { value: 4, message: "Minimum length should be 4" },
                                         })}
                                     />
-                                </FormControl>       
-                                <LocationSearchBar/>
+                                </FormControl>
+                                <FormControl>
+                                    <LocationSearchBar/>
+                                </FormControl>    
                                 <FormControl>
                                     <Select 
                                         {...register("category")}
@@ -98,7 +103,8 @@ export default function CreateGiveawayPage() {
                                     type="submit" 
                                     colorScheme="green" 
                                     onClick={onSubmit} 
-                                    isLoading={isSubmitting}>
+                                    isLoading={isSubmitting}
+                                >
                                     Post
                                 </Button>
                             </HStack>

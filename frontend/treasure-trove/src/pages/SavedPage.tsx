@@ -1,8 +1,12 @@
 import { ChevronDownIcon, CheckIcon, SearchIcon } from "@chakra-ui/icons";
-import { Box, Button, Card, CardHeader, HStack, Heading, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Card, CardHeader, Flex, HStack, Heading, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
 import { SetStateAction, useState } from "react";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 
+/**
+ * 
+ * @returns 
+ */
 export default function SavedPage() {
 
     const { colorMode } = useColorMode();
@@ -12,6 +16,10 @@ export default function SavedPage() {
         setSortType(newSortType);
     };
 
+    /**
+     * 
+     * @returns 
+     */
     function SearchBar() {
         return (
             <InputGroup w="35%">
@@ -23,10 +31,15 @@ export default function SavedPage() {
         );
     }
 
+    /**
+     * 
+     * @returns 
+     */
     function SortMenu() {
+
         return (
             <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
                     Sort: {sortType}
                 </MenuButton>
                 <MenuList>
@@ -49,21 +62,23 @@ export default function SavedPage() {
     return (
         <>
             <Stack>
-                <Box bg={colorMode === 'dark' ? 'gray.800' : 'white'} p={3}>
+                <Box 
+                    bg={colorMode === 'dark' ? 'gray.800' : 'white'} 
+                    p={3}                     
+                    borderWidth="1px"
+                    borderRadius="md"
+                >
                     <Tabs variant='soft-rounded' colorScheme='green'>
                         <Stack>
-
-                            <TabList>
-                                <Tab>Giveaways</Tab>
-                                <Tab>Requests</Tab>
-                                <Tab>Drafts</Tab>
-                            </TabList>
-
-                            <HStack>
-                                <SearchBar/>
+                            <Flex>
+                                <TabList>
+                                    <Tab>Giveaways</Tab>
+                                    <Tab>Requests</Tab>
+                                    <Tab>Drafts</Tab>
+                                </TabList>
+                                <Spacer/>
                                 <SortMenu/>
-                            </HStack>
-
+                            </Flex>
                             <TabPanels>
                                 <TabPanel>
                                     <FeaturedCardGrid/>

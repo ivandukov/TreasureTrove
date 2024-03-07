@@ -1,5 +1,5 @@
-import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Box, Button, Icon, Menu, MenuButton, MenuItem, MenuList, Stack, useColorMode } from "@chakra-ui/react";
+import { CheckIcon, ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { Box, Button, Checkbox, Icon, Menu, MenuButton, MenuItem, MenuList, Stack, useColorMode } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiMonitor } from "react-icons/fi";
 
@@ -9,7 +9,7 @@ import { FiMonitor } from "react-icons/fi";
  * @returns JSX element
  */
 export default function ThemeSwitcher() {
-    
+
     const { colorMode, setColorMode } = useColorMode();
     const [selectedTheme, setSelectedTheme] = useState(null);
 
@@ -20,23 +20,26 @@ export default function ThemeSwitcher() {
 
     return (
 
-        <Box>  
+        <Stack w="17%">
             <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     {selectedTheme ? selectedTheme : 'Theme'}
                 </MenuButton>
                 <MenuList>
                     <MenuItem onClick={() => { handleThemeChange("light"); }}>
-                        <Icon as={SunIcon} mr={1}/> Light
+                        <Icon as={SunIcon} mr={1} /> Light
+                        {selectedTheme === "light" && <CheckIcon ml="auto" />}
                     </MenuItem>
                     <MenuItem onClick={() => { handleThemeChange("dark"); }}>
-                        <Icon as={MoonIcon} mr={1}/> Dark
+                        <Icon as={MoonIcon} mr={1} /> Dark
+                        {selectedTheme === "dark" && <CheckIcon ml="auto" />}
                     </MenuItem>
                     <MenuItem onClick={() => { handleThemeChange("system"); }}>
-                        <Icon as={FiMonitor} mr={1}/> System
+                        <Icon as={FiMonitor} mr={1} /> System
+                        {selectedTheme === "system" && <CheckIcon ml="auto" />}
                     </MenuItem>
                 </MenuList>
             </Menu>
-        </Box>
+        </Stack>
     );
 }

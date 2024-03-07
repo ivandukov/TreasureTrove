@@ -45,42 +45,11 @@ export default function FilterBar() {
 
     function CategoriesMenu() {
         return (
-            <Select w="18%">
+            <Select w="21%">
                 <option value='option1'>All Categories</option>
                 <option value='option2'>Books</option>
                 <option value='option3'>Fashion</option>
             </Select>
-        );
-    }
-
-    /**
-     * 
-     * @returns 
-     */
-    function SortMenu() {
-        return (
-            <>
-            <Stack w="19%">
-                <Menu>
-                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                        Sort: {sortType}
-                    </MenuButton>
-                    <MenuList>
-                        {['Newest', 'Oldest', 'Popular'].map((option) => (
-                            <MenuItem
-                                key={option}
-                                onClick={() => handleSortChange(option)}
-                            >
-                                <Box flex="1">{option}</Box>
-                                {sortType === option && (
-                                    <CheckIcon ml="auto" />
-                                )}
-                            </MenuItem>
-                        ))}
-                    </MenuList>
-                </Menu>
-                </Stack>
-            </>
         );
     }
 
@@ -97,7 +66,11 @@ export default function FilterBar() {
                         <SearchBar/>
                         <CategoriesMenu/>
                         <LocationSearchBar/>
-                        <SortMenu/>
+                        <Link href="/results">
+                            <Button colorScheme="green">
+                                Search
+                            </Button>
+                        </Link>
                     </HStack>
                 </Box>
             </Stack>

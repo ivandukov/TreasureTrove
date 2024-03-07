@@ -1,15 +1,17 @@
-import {Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputRightElement, Link, Stack, Text, useColorMode, useColorModeValue,} from '@chakra-ui/react';
-import {useState} from 'react';
-import {ViewIcon, ViewOffIcon} from '@chakra-ui/icons';
-import {OAuthButtonGroup} from '../components/OAuthButtonGroup';
+import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputRightElement, Link, Stack, Text, useColorMode, useColorModeValue, } from '@chakra-ui/react';
+import { useState } from 'react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { OAuthButtonGroup } from '../components/OAuthButtonGroup';
 import SmallFooter from '../components/SmallFooter';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * renders a separate box, which contains a hyperlink to the
  * LoginPage
  * @returns a JSX element containing the Link to the LoginPage
  */
-function LoginField() {
+function LoginBox() {
     return (
         <Box
             rounded={'lg'}
@@ -31,34 +33,14 @@ function OtherRegisterOptions() {
     return (
         <>
             <HStack>
-                <Divider/>
+                <Divider />
                 <Text fontSize="sm" whiteSpace="nowrap" color="fg.muted">
                     or continue with
                 </Text>
-                <Divider/>
+                <Divider />
             </HStack>
-            <OAuthButtonGroup/>
+            <OAuthButtonGroup />
         </>
-    );
-}
-
-/**
- * renders a "Register"-Button, which creates a new account
- * @returns JSX element containing Register Button
- */
-function RegisterButton() {
-
-    return (
-        <Link href="/home" style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
-            <Button
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                    bg: 'blue.500',
-                }}>
-                Register
-            </Button>
-        </Link>
     );
 }
 
@@ -70,8 +52,25 @@ function RegisterButton() {
  */
 export default function RegisterPage() {
 
-    const {colorMode} = useColorMode();
+    const navigate = useNavigate();
+    const { colorMode } = useColorMode();
     const [showPassword, setShowPassword] = useState(false);
+
+    const {
+        handleSubmit,
+        register,
+        formState: {errors, isSubmitting},
+    } = useForm();
+
+    function onSubmit(values: any): Promise<void> {
+        
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                resolve();
+            }, 3000)
+        })
+    }
 
     function InputPassword() {
         return (
@@ -79,14 +78,20 @@ export default function RegisterPage() {
                 <FormControl id="password" isRequired>
                     <FormLabel>Password</FormLabel>
                     <InputGroup>
-                        <Input type={showPassword ? 'text' : 'password'} placeholder="At least 6 characters"/>
+                        <Input 
+                            type={showPassword ? 'text' : 'password'}
+                            id='password' 
+                            placeholder="At least 6 characters"
+                            {...register("password")}
+                        />
                         <InputRightElement h={'full'}>
                             <Button
                                 variant={'ghost'}
                                 onClick={() =>
                                     setShowPassword((showPassword) => !showPassword)
-                                }>
-                                {showPassword ? <ViewIcon/> : <ViewOffIcon/>}
+                                }
+                            >
+                                {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                             </Button>
                         </InputRightElement>
                     </InputGroup>
@@ -96,29 +101,43 @@ export default function RegisterPage() {
     }
 
     return (
-        <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'} minH="100vh" display="flex">
-            <Stack spacing={6} mx={'auto'} maxW={'lg'} py={12}>
-                <Stack align={'center'}>
-                    <Heading fontSize={'4xl'}>
-                        Sign up to TreasureTrove
-                    </Heading>
-                </Stack>
+        <Box
+            bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'}
+            display="flex"
+        >
+            <Stack spacing={6} mx={'auto'}>
+                <Heading fontSize={'4xl'}>
+                    Sign up to TreasureTrove
+                </Heading>
                 <Box
                     rounded={'lg'}
                     bg={useColorModeValue('white', 'gray.700')}
                     boxShadow={'lg'}
                     p={7}>
-                    <Stack spacing={3}>
-                        <FormControl id="email" isRequired>
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email"/>
-                        </FormControl>
-                        <InputPassword/>
-                        <RegisterButton/>
-                        <OtherRegisterOptions/>
-                    </Stack>
+                    <form onSubmit={handleSubmit(onSubmit)}> 
+                        <Stack spacing={3}>
+                            <FormControl id="email" isRequired>
+                                <FormLabel>Email address</FormLabel>
+                                <Input
+                                    id='email'
+                                    type='email'
+                                    {...register("email")}
+                                />
+                            </FormControl>
+                            <InputPassword/>
+                            <Button 
+                                colorScheme='green' 
+                                type="submit" 
+                                onClick={onSubmit}
+                                isLoading={isSubmitting}
+                            >
+                                Register
+                            </Button>
+                            <OtherRegisterOptions/>
+                        </Stack>
+                    </form>
                 </Box>
-                <LoginField/>
+                <LoginBox/>
                 <SmallFooter/>
             </Stack>
         </Box>

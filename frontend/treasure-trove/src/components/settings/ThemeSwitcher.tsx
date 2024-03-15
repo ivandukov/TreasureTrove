@@ -20,23 +20,23 @@ export default function ThemeSwitcher() {
 
     return (
 
-        <Stack w="17%">
+        <Stack w="19%">
             <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     {selectedTheme ? selectedTheme : 'Theme'}
                 </MenuButton>
                 <MenuList>
                     <MenuItem onClick={() => { handleThemeChange("light"); }}>
-                        <Icon as={SunIcon} mr={1} /> Light
-                        {selectedTheme === "light" && <CheckIcon ml="auto" />}
+                        <Icon as={SunIcon} mr={3}/> Light
+                        {selectedTheme === "light" && <CheckIcon ml="auto"/>}
                     </MenuItem>
                     <MenuItem onClick={() => { handleThemeChange("dark"); }}>
-                        <Icon as={MoonIcon} mr={1} /> Dark
-                        {selectedTheme === "dark" && <CheckIcon ml="auto" />}
+                        <Icon as={MoonIcon} mr={3}/> Dark
+                        {selectedTheme === "dark" && <CheckIcon ml="auto"/>}
                     </MenuItem>
                     <MenuItem onClick={() => { handleThemeChange("system"); }}>
-                        <Icon as={FiMonitor} mr={1} /> System
-                        {selectedTheme === "system" && <CheckIcon ml="auto" />}
+                        <Icon as={FiMonitor} mr={3}/> System
+                        {selectedTheme === "system" && <CheckIcon ml="auto"/>}
                     </MenuItem>
                 </MenuList>
             </Menu>

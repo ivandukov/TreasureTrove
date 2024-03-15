@@ -1,4 +1,5 @@
 import { Box, Card, Heading, useColorMode } from "@chakra-ui/react";
+import ImageCarousel from "../components/ImageCarousel";
 
 /**
  * 
@@ -14,8 +15,9 @@ export default function MessagePage() {
                 bg={colorMode === 'dark' ? 'gray.900' : 'white'}
                 borderWidth="1px"
                 borderRadius="md"
-                p={5}
-            >  
+                p={8}
+            > 
+                
             </Box>
         </>
     );

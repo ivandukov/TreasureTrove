@@ -6,6 +6,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import ChangePasswordButton from "../components/settings/ChangePasswordButton.tsx";
 import DeleteAccountButton from "../components/settings/DeleteAccountButton.tsx";
 import ThemeSwitcher from "../components/settings/ThemeSwitcher.tsx";
+import Dropzone from "../components/Dropzone.tsx";
 
 const TAB_NAMES = ['Account', 'Profile', 'Safety & Privacy', 'Notifications', 'Preferences', 'Help'];
 
@@ -72,8 +73,12 @@ function ProfileSettings() {
                     <Heading as='h3' size='lg'>Profile</Heading>
                     <Stack>
                         <Heading as='h5' size='sm'>Display Name</Heading>
-                    <Input w="30%"/>
-                </Stack>
+                        <Input w="30%"/>
+                    </Stack>
+                    <Stack w="50%">
+                        <Heading as='h5' size='sm'>Profile Picture</Heading>
+                        <Dropzone/>
+                    </Stack>
                 </Stack>
             </Box>
         </>
@@ -225,7 +230,7 @@ function Help() {
             >
                 <Stack>
                     <Heading as='h3' size='lg'>Help</Heading>
-                    <Divider />
+                    <Divider/>
                 </Stack>
             </Box>
         </>

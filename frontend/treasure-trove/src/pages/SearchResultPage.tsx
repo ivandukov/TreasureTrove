@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Heading, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, Heading, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode, HStack } from "@chakra-ui/react";
 import FilterBar from "../components/filter/FilterBar";
 import { SetStateAction, useState } from "react";
 import { CheckIcon, ChevronDownIcon } from "@chakra-ui/icons";
@@ -24,25 +24,25 @@ export default function SearchResultPage() {
     function SortMenu() {
         return (
             <>
-            <Stack w="19%">
-                <Menu>
-                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                        Sort: {sortType}
-                    </MenuButton>
-                    <MenuList>
-                        {['Newest', 'Oldest', 'Popular'].map((option) => (
-                            <MenuItem
-                                key={option}
-                                onClick={() => handleSortChange(option)}
-                            >
-                                <Box flex="1">{option}</Box>
-                                {sortType === option && (
-                                    <CheckIcon ml="auto" />
-                                )}
-                            </MenuItem>
-                        ))}
-                    </MenuList>
-                </Menu>
+                <Stack>
+                    <Menu>
+                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                            {sortType}
+                        </MenuButton>
+                        <MenuList>
+                            {['Newest', 'Oldest', 'Popular'].map((option) => (
+                                <MenuItem
+                                    key={option}
+                                    onClick={() => handleSortChange(option)}
+                                >
+                                    <Box flex="1">{option}</Box>
+                                    {sortType === option && (
+                                        <CheckIcon ml="auto" />
+                                    )}
+                                </MenuItem>
+                            ))}
+                        </MenuList>
+                    </Menu>
                 </Stack>
             </>
         );
@@ -69,7 +69,10 @@ export default function SearchResultPage() {
                                     <Tab>Requests</Tab>
                                 </TabList>
                                 <Spacer/>
-                                <SortMenu/>
+                                <HStack>
+                                    <Text>Sort by</Text>
+                                    <SortMenu/>
+                                </HStack>
                             </Flex>                       
                         </Stack>
                         <TabPanels>

@@ -1,10 +1,13 @@
 import { Box, Button, Divider, Flex, HStack, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Text, useColorMode } from "@chakra-ui/react";
 import Footer from "../components/Footer";
-import ImageGallery from "../components/ImageGallery";
+import ImageGallery from "../components/ImageGallery.tsx";
+import ImageCarousel from "../components/ImageCarousel.tsx";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { BsThreeDotsVertical, BsShare, BsFillXCircleFill, BsFlag } from "react-icons/bs";
 import { EmailIcon } from "@chakra-ui/icons";
 import SaveButton from "../components/SaveButton.tsx";
+import FilterBar from "../components/filter/FilterBar.tsx";
+import { FaCalendar } from "react-icons/fa6";
 
 /**
  * Helper function to map the status to the color scheme
@@ -40,11 +43,9 @@ function DropDownButton() {
                 icon={<Icon as={BsThreeDotsVertical} />}
                 variant="ghost"
                 colorScheme="gray"
-                w="7%"
             />
             <MenuList>
                 <MenuItem icon={<Icon as={BsShare} />}>Share</MenuItem>
-                <MenuItem icon={<Icon as={BsFillXCircleFill} />}>Not Interested</MenuItem>
                 <MenuItem icon={<Icon as={BsFlag} />}>Report</MenuItem>
             </MenuList>
         </Menu>
@@ -64,33 +65,38 @@ function GiveawayInfoBox({ productData }: { productData: any }) {
         <>
             <Box
                 bg={colorMode === 'dark' ? 'gray.900' : 'white'}
-                flex="1"
                 borderWidth="1px"
                 borderRadius="md"
                 p={6}
-                ml={4}
+                flex="1"
             >
                 <Stack>
-                    <HStack>
-                        <Stack w="20%">
-                            <SaveButton/>
-                        </Stack>
-                        <Button>
-                            <Icon as={EmailIcon} mr={1} />Contact
-                        </Button>
-                        <DropDownButton/>
-                    </HStack>
-                    <Heading>
-                        {productData.title}
-                    </Heading>
-
+                    <Flex>
+                        <Heading>
+                            {productData.title}
+                        </Heading>
+                        <Spacer/>
+                        <HStack>
+                            <Stack>
+                                <SaveButton/>
+                            </Stack>
+                            <Button>
+                                <Icon as={EmailIcon} mr={1}/>Contact
+                            </Button>
+                            <DropDownButton />
+                        </HStack>
+                    </Flex>
                     <Text fontSize="md" mr={2}>
                         by <Link fontWeight="bold" href="/user" mr={2}>{productData.user}</Link>
                     </Text>
 
                     <Text>
-                        <Icon as={FaMapMarkerAlt} boxSize="13px" marginRight="3px" />
-                        <Link>{productData.postalCode}, {productData.location}</Link>
+                        <Icon as={FaMapMarkerAlt} boxSize="13px" marginRight="5px"/>
+                        {productData.postalCode}, {productData.location}
+                    </Text>
+                    <Text>
+                        <Icon as={FaCalendar} boxSize="13px" marginRight="5px"/>
+                        {productData.date}
                     </Text>
                     <Divider/>
                     <Heading as='h4' size='md'>
@@ -120,6 +126,7 @@ export default function GiveawayPage() {
         imageurl: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
         description: "This is a high-quality sofa perfect for your living room. Its classic design complements both modern and traditional settings, making it an excellent addition to any home. Rest assured that this sofa has been well taken care of. It comes from a pet-free and smoke-free home, so you can bring it into your living space worry-free. The sturdy frame also ensures long-lasting durability.",
         user: "John Doe",
+        date: "14.03.2024",
         giveawaystatus: "Reserved",
         location: "Offenbach am Main",
         postalCode: "14538",
@@ -127,21 +134,21 @@ export default function GiveawayPage() {
             "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
             "https://as1.ftcdn.net/v2/jpg/02/51/57/50/1000_F_251575059_m18LpbUI2geMPGQlBd8m9FnKNXm9rytU.jpg",
             "https://www.thespruce.com/thmb/ryub34AWXXi4g0Or_I4OR6IZG0Y=/6720x0/filters:no_upscale():max_bytes(150000):strip_icc()/FollowTheFlowGettyIages-dca5a16c80fa4ac39675b76496f0784d.jpg",
-            "https://thewondercottage.com/wp-content/uploads/2020/10/A122367C-4B5D-46AC-A0F5-C507CB358083.jpeg",
-            "https://w7.pngwing.com/pngs/332/597/png-transparent-100-quality-badge-thumbnail.png",
-            "https://cdn2.vectorstock.com/i/1000x1000/91/21/best-choose-premium-quality-badge-vector-2249121.jpg",
+            "https://assets.kogan.com/files/product/2022/MBMARV2SSGA/dinal/MBMARV2SSGA-6.jpg?auto=webp&bg-color=fff&canvas=753%2C502&fit=bounds&height=502&quality=75&width=753",
+            "https://media.diy.com/is/image/KingfisherDigital/modern-loveseat-2-seater-velvet-sofa-with-2-bolster-pillows-for-living-room-guest-room-bedroom-office~9331601715668_01c_MP?$MOB_PREV$&$width=618&$height=618",
         ],
     };
 
+    // <ImageGallery images={productData.images} numImagesToShow={5} />
+
     return (
-        <Box bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'}>
-            <Stack>
-                <HStack>
-                    <ImageGallery images={productData.images} numImagesToShow={5}/>
-                    <GiveawayInfoBox productData={productData}/>
-                </HStack>
-                <Footer/>
-            </Stack>
-        </Box>
+        <Stack>
+            <FilterBar/>
+            <Box>
+                <ImageCarousel images={productData.images}/>
+            </Box>  
+            <GiveawayInfoBox productData={productData}/>
+            <Footer/>
+        </Stack>
     );
 }

@@ -1,7 +1,8 @@
-import {Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
-import {FiBookmark, FiHome, FiMail, FiMenu, FiPlusSquare, FiSettings, FiUser,} from 'react-icons/fi';
+import {Avatar, Box, BoxProps, Button, CloseButton, Drawer, DrawerContent, Flex, FlexProps, HStack, Icon, IconButton, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
+import {FiBookmark, FiHelpCircle, FiHome, FiMail, FiMenu, FiPlusSquare, FiSettings, FiUser,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
+import { BsThreeDotsVertical } from "react-icons/bs";
 interface LinkItemProps {
     name: string;
     icon: IconType;
@@ -14,10 +15,9 @@ interface LinkItemProps {
 const LinkItems: Array<LinkItemProps> = [
     {name: 'Home', icon: FiHome, path: '/'},
     {name: 'Saved', icon: FiBookmark, path: '/saved'},
-    {name: 'Submit', icon: FiPlusSquare, path: '/submit'},
     {name: 'Messages', icon: FiMail, path: '/messages'},
-    {name: 'Profile', icon: FiUser, path: '/user'},
-    {name: 'Settings', icon: FiSettings, path: '/settings'}
+    {name: 'Submit', icon: FiPlusSquare, path: '/submit'},
+    {name: 'Help Center', icon: FiHelpCircle, path: '/settings'},
 ];
 
 /** 
@@ -55,7 +55,6 @@ export default function Sidebar({children}: { children: ReactNode }) {
             <Box ml={{base: 0, md: 60}} p="4">
                 {children}
             </Box>
-            
         </Box>
     );
 }
@@ -81,7 +80,8 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
             w={{base: 'full', md: 60}}
             pos="fixed"
             h="full"
-            {...rest}>
+            {...rest}
+        >
             <Stack spacing={0} justifyContent={"space-between"} h={'100%'}>
                 <Box>
                     <Flex h="20" alignItems="center" mx="8">
@@ -100,10 +100,29 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
                         </NavItem>
                     ))}        
                 </Box>
-                <Stack alignItems={"start"} pb={4}>
-                    <Text px="8" fontWeight="semi-bold" fontSize="xs" color="gray.500" my="2">
-                        © 2024 TreasureTrove
-                    </Text>
+                
+                <Stack px="4" my="4">
+                    <Menu>
+                        <MenuButton as={Button}>        
+                            <Text>John Doe</Text>      
+                        </MenuButton>
+                        <MenuList>
+                            <Link href="/user" style={{textDecoration: 'none'}}>
+                                <MenuItem>
+                                    Profile
+                                </MenuItem>
+                            </Link>
+                            <Link href="/settings" style={{textDecoration: 'none'}}>
+                                <MenuItem>   
+                                    Settings
+                                </MenuItem>
+                            </Link>
+                            <MenuDivider/>
+                            <MenuItem>
+                                Logout
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
                 </Stack>
             </Stack>
         </Box>

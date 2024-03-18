@@ -1,8 +1,8 @@
-import {Avatar, Box, BoxProps, Button, CloseButton, Drawer, DrawerContent, Flex, FlexProps, HStack, Icon, IconButton, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
-import {FiBookmark, FiHelpCircle, FiHome, FiMail, FiMenu, FiPlusSquare, FiSettings, FiUser,} from 'react-icons/fi';
+import {Box, BoxProps, Button, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
+import {FiBookmark, FiHelpCircle, FiHome, FiMail, FiMenu, FiPlusSquare,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
-import { BsThreeDotsVertical } from "react-icons/bs";
+
 interface LinkItemProps {
     name: string;
     icon: IconType;
@@ -10,7 +10,7 @@ interface LinkItemProps {
 }
 
 /**
- * 
+ *
  */
 const LinkItems: Array<LinkItemProps> = [
     {name: 'Home', icon: FiHome, path: '/'},
@@ -20,18 +20,18 @@ const LinkItems: Array<LinkItemProps> = [
     {name: 'Help Center', icon: FiHelpCircle, path: '/settings'},
 ];
 
-/** 
+/**
  * renders a sidebar, which provides navigation
  * for the user
- * @returns JSX element 
+ * @returns JSX element
  */
 export default function Sidebar({children}: { children: ReactNode }) {
-    
+
     const {isOpen, onOpen, onClose} = useDisclosure();
-    
+
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-            <SidebarContent 
+            <SidebarContent
                 onClose={() => onClose}
                 display={{base: 'none', md: 'block'}}
             />
@@ -49,9 +49,9 @@ export default function Sidebar({children}: { children: ReactNode }) {
                     <SidebarContent onClose={onClose}/>
                 </DrawerContent>
             </Drawer>
-            
+
             <MobileNav display={{base: 'flex', md: 'none'}} onOpen={onOpen}/>
-            
+
             <Box ml={{base: 0, md: 60}} p="4">
                 {children}
             </Box>
@@ -60,16 +60,16 @@ export default function Sidebar({children}: { children: ReactNode }) {
 }
 
 /**
- * 
+ *
  */
 interface SidebarProps extends BoxProps {
     onClose: () => void;
 }
 
 /**
- * 
- * @param onClose lambda function 
- * @returns 
+ *
+ * @param onClose lambda function
+ * @returns
  */
 const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
     return (
@@ -98,13 +98,13 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
                         <NavItem key={link.name} icon={link.icon} path={link.path}>
                             {link.name}
                         </NavItem>
-                    ))}        
+                    ))}
                 </Box>
-                
+
                 <Stack px="4" my="4">
                     <Menu>
-                        <MenuButton as={Button}>        
-                            <Text>John Doe</Text>      
+                        <MenuButton as={Button}>
+                            <Text>John Doe</Text>
                         </MenuButton>
                         <MenuList>
                             <Link href="/user" style={{textDecoration: 'none'}}>
@@ -113,7 +113,7 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
                                 </MenuItem>
                             </Link>
                             <Link href="/settings" style={{textDecoration: 'none'}}>
-                                <MenuItem>   
+                                <MenuItem>
                                     Settings
                                 </MenuItem>
                             </Link>
@@ -130,7 +130,7 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
 };
 
 /**
- * 
+ *
  */
 interface NavItemProps extends FlexProps {
     icon: IconType;
@@ -139,9 +139,9 @@ interface NavItemProps extends FlexProps {
 }
 
 /**
- * 
- * @param param0 
- * @returns 
+ *
+ * @param param0
+ * @returns
  */
 const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
 
@@ -181,16 +181,16 @@ const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
 };
 
 /**
- * 
+ *
  */
 interface MobileProps extends FlexProps {
     onOpen: () => void;
 }
 
 /**
- * 
- * @param param0 
- * @returns 
+ *
+ * @param param0
+ * @returns
  */
 const MobileNav = ({onOpen, ...rest}: MobileProps) => {
     return (

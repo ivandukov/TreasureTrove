@@ -11,6 +11,7 @@ import LoggedInHomepage from "./components/homepage/LoggedInHomepage";
 import CreateGiveawayPage from "./pages/CreateGiveawayPage";
 import SavedPage from "./pages/SavedPage";
 import MessagePage from "./pages/MessagesPage";
+import ChatPage from "./pages/ChatPage";
 
 /**
  * 
@@ -24,12 +25,13 @@ export default function AppRouter() {
             <Route path="/login" element={<LoginPage/>}/>
             <Route path="/register" element={<RegisterPage/>}/>
             <Route path="/user" element={<ProfilePage/>}/>
-            <Route path="/product" element={<GiveawayPage/>}/>
+            <Route path="/giveaway" element={<GiveawayPage/>}/>
             <Route path="/settings" element={<SettingsPage/>}/>
             <Route path="/results" element={<SearchResultPage/>}/>
             <Route path="/submit" element={<CreateGiveawayPage/>}/>
             <Route path="/saved" element={<SavedPage/>}/>
             <Route path="/messages" element={<MessagePage/>}/>
+            <Route path="/chat" element={<ChatPage/>}/>
         </Routes>
     </Router>;
 }

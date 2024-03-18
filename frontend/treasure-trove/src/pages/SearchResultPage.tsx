@@ -5,8 +5,9 @@ import { CheckIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 
 /**
- * 
- * @returns 
+ * renders a Search bar with a list of giveaways or
+ * requests underneath it
+ * @returns JSX element
  */
 export default function SearchResultPage() {
 
@@ -18,16 +19,19 @@ export default function SearchResultPage() {
     };
 
     /**
-     * 
-     * @returns 
+     * displays a Menu with various sorting options
+     * @returns JSX element
      */
     function SortMenu() {
         return (
             <>
-                <Stack>
+                <Stack w="19%">
                     <Menu>
-                        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                            {sortType}
+                        <MenuButton 
+                            as={Button} 
+                            rightIcon={<ChevronDownIcon/>}
+                        >
+                            Sort: {sortType}
                         </MenuButton>
                         <MenuList>
                             {['Newest', 'Oldest', 'Popular'].map((option) => (
@@ -69,10 +73,7 @@ export default function SearchResultPage() {
                                     <Tab>Requests</Tab>
                                 </TabList>
                                 <Spacer/>
-                                <HStack>
-                                    <Text>Sort by</Text>
-                                    <SortMenu/>
-                                </HStack>
+                                <SortMenu/>  
                             </Flex>                       
                         </Stack>
                         <TabPanels>

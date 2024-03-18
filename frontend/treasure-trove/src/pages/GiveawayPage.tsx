@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Flex, HStack, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, FormControl, HStack, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, Stack, Text, Textarea, useColorMode, useDisclosure } from "@chakra-ui/react";
 import Footer from "../components/Footer";
 import ImageGallery from "../components/ImageGallery.tsx";
 import ImageCarousel from "../components/ImageCarousel.tsx";
@@ -8,6 +8,7 @@ import { EmailIcon } from "@chakra-ui/icons";
 import SaveButton from "../components/SaveButton.tsx";
 import FilterBar from "../components/filter/FilterBar.tsx";
 import { FaCalendar } from "react-icons/fa6";
+import { useForm } from "react-hook-form";
 
 /**
  * Helper function to map the status to the color scheme
@@ -52,14 +53,79 @@ function DropDownButton() {
     );
 }
 
+
 /**
  * 
  * @param param0 
- * @returns 
+ * @returns JSX element
  */
 function GiveawayInfoBox({ productData }: { productData: any }) {
 
     const { colorMode } = useColorMode();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const {
+        handleSubmit,
+        register,
+        formState: {errors, isSubmitting},
+    } = useForm();
+
+    function onSubmit(values: any): Promise<void> {
+
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                resolve();
+            }, 3000)
+        })
+        // TODO: Close Modal
+     }
+
+    function MessageModal() {
+
+        return (
+            <>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Modal 
+                        isOpen={isOpen} 
+                        onClose={onClose}
+                    >
+                        <ModalOverlay/>
+                        <ModalContent>
+                            <ModalHeader>
+                                Contact John Doe
+                            </ModalHeader>
+                            <ModalCloseButton/>
+                            <ModalBody>
+                                <FormControl>
+                                    <Textarea
+                                        id='message'  
+                                        placeholder='Your message'
+                                        {...register("message")}
+                                    />
+                                </FormControl>
+                            </ModalBody>
+                            <ModalFooter>
+                                <HStack>           
+                                    <Button onClick={onClose}>
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        type="submit" 
+                                        colorScheme="green" 
+                                        onClick={onSubmit} 
+                                        isLoading={isSubmitting}
+                                    >
+                                        Send
+                                    </Button>
+                                </HStack>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
+                </form>
+            </>
+        );
+    }
 
     return (
         <>
@@ -80,9 +146,10 @@ function GiveawayInfoBox({ productData }: { productData: any }) {
                             <Stack>
                                 <SaveButton/>
                             </Stack>
-                            <Button>
+                            <Button onClick={onOpen}>
                                 <Icon as={EmailIcon} mr={1}/>Contact
                             </Button>
+                            <MessageModal/>
                             <DropDownButton />
                         </HStack>
                     </Flex>
@@ -102,7 +169,6 @@ function GiveawayInfoBox({ productData }: { productData: any }) {
                     <Heading as='h4' size='md'>
                         Description
                     </Heading>
-
                     <Text fontSize="lg">
                         {productData.description}
                     </Text>
@@ -138,8 +204,6 @@ export default function GiveawayPage() {
             "https://media.diy.com/is/image/KingfisherDigital/modern-loveseat-2-seater-velvet-sofa-with-2-bolster-pillows-for-living-room-guest-room-bedroom-office~9331601715668_01c_MP?$MOB_PREV$&$width=618&$height=618",
         ],
     };
-
-    // <ImageGallery images={productData.images} numImagesToShow={5} />
 
     return (
         <Stack>

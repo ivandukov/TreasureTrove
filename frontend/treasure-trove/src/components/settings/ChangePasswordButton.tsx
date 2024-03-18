@@ -39,7 +39,7 @@ export default function ChangePasswordButton() {
                                 Cancel
                             </Button>
                             <Button
-                                colorScheme='blue'
+                                colorScheme='green'
                                 mr={3}
                                 onClick={() => {
                                     toast({

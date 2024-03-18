@@ -106,14 +106,16 @@ export default function Footer() {
       <Box
          bg={colorMode === 'dark' ? 'gray.800' : 'white'}
          color={useColorModeValue('gray.700', 'gray.200')}
-         borderRadius="md">
+         borderRadius="md"
+      >
          <Container as={Stack} maxW={'6xl'} py={10}>
             <SimpleGrid
                templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
-               spacing={8}>
+               spacing={8}
+            >
                <Stack spacing={6}>
                   <Box>
-                     <Logo color={useColorModeValue('gray.700', 'white')} />
+                     <Logo color={useColorModeValue('gray.700', 'white')}/>
                   </Box>
                   <Text fontSize={'sm'}>
                      © 2023 TreasureTrove. All rights reserved

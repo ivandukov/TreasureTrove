@@ -59,7 +59,7 @@ export default function CreateGiveawayPage() {
                         p={5}
                     >
                         <Stack>
-                            <RadioGroup defaultValue='1'>
+                            <RadioGroup defaultValue='1' colorScheme="green">
                                 <HStack>
                                     <Radio value='1'>Giveaway</Radio>
                                     <Radio value='2'>Request</Radio>

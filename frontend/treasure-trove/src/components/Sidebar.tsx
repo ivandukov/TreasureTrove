@@ -14,9 +14,9 @@ interface LinkItemProps {
  */
 const LinkItems: Array<LinkItemProps> = [
     {name: 'Home', icon: FiHome, path: '/'},
+    {name: 'Submit', icon: FiPlusSquare, path: '/submit'},
     {name: 'Saved', icon: FiBookmark, path: '/saved'},
     {name: 'Messages', icon: FiMail, path: '/messages'},
-    {name: 'Submit', icon: FiPlusSquare, path: '/submit'},
     {name: 'Help Center', icon: FiHelpCircle, path: '/settings'},
 ];
 
@@ -157,10 +157,11 @@ const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
                 role="group"
                 cursor="pointer"
                 _hover={{
-                    bg: 'blue.400',
+                    bg: 'green.500',
                     color: 'white',
                 }}
-                {...rest}>
+                {...rest}
+            >
                 {icon && (
                     <Icon
                         mr="4"
@@ -209,8 +210,11 @@ const MobileNav = ({onOpen, ...rest}: MobileProps) => {
                 aria-label="open menu"
                 icon={<FiMenu/>}
             />
-            <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-                Logo
+            <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+                Treasure
+                <Text as={'span'} color={'green.400'}>
+                    Trove
+                </Text>
             </Text>
         </Flex>
     );

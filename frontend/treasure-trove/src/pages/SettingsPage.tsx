@@ -1,5 +1,6 @@
 import {
-    Box, Button, Divider, FormControl, FormLabel, Heading, Input, Link, Select, SimpleGrid, Stack, Switch, Tab, TabIndicator,
+    Avatar,
+    Box, Button, Divider, FormControl, FormLabel, HStack, Heading, Input, Link, Select, SimpleGrid, Stack, Switch, Tab, TabIndicator,
     TabList, TabPanel, TabPanels, Tabs, useColorMode
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
@@ -8,7 +9,7 @@ import DeleteAccountButton from "../components/settings/DeleteAccountButton.tsx"
 import ThemeSwitcher from "../components/settings/ThemeSwitcher.tsx";
 import Dropzone from "../components/Dropzone.tsx";
 
-const TAB_NAMES = ['Account', 'Profile', 'Safety & Privacy', 'Notifications', 'Preferences', 'Help'];
+const TAB_NAMES = ['Account', 'Profile', 'Safety & Privacy', 'Notifications', 'Preferences'];
 
 /**
  * 
@@ -27,15 +28,20 @@ function AccountSettings() {
             w="80%"
         >
             <Stack spacing={3}>
-                <Heading as='h3' size='lg'>Account</Heading>
+                <Heading as='h3' size='lg'>
+                    Account
+                </Heading>
+
                 <Stack>
-                    <Heading as='h5' size='sm'>Username</Heading>
-                    <Input w="30%"/>
+                    <Heading as='h5' size='sm'>
+                        Username
+                    </Heading>
+                    <Input w="35%"/>
                 </Stack>
 
                 <Stack>
                     <Heading as='h5' size='sm'>Email address</Heading>
-                    <Input w="30%"/>
+                    <Input w="35%"/>
                 </Stack>
 
                 <Stack spacing={3}>
@@ -73,11 +79,15 @@ function ProfileSettings() {
                     <Heading as='h3' size='lg'>Profile</Heading>
                     <Stack>
                         <Heading as='h5' size='sm'>Display Name</Heading>
-                        <Input w="30%"/>
+                        <Input w="35%"/>
                     </Stack>
-                    <Stack w="50%">
+                    <Stack w="70%">
                         <Heading as='h5' size='sm'>Profile Picture</Heading>
-                        <Dropzone/>
+                        <HStack>
+                            <Avatar size='2xl'/>
+                            <Dropzone/>
+                        </HStack>
+                        
                     </Stack>
                 </Stack>
             </Box>
@@ -215,30 +225,6 @@ function PreferencesSettings() {
 
 /**
  * 
- * @returns 
- */
-function Help() {
-    const { colorMode } = useColorMode();
-    return (
-        <>
-            <Box
-                borderWidth="1px"
-                borderRadius="md"
-                p={3}
-                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-                w="80%"
-            >
-                <Stack>
-                    <Heading as='h3' size='lg'>Help</Heading>
-                    <Divider/>
-                </Stack>
-            </Box>
-        </>
-    );
-}
-
-/**
- * 
  * @returns JSX element
  */
 export default function UserSettingsPage() {
@@ -276,9 +262,7 @@ export default function UserSettingsPage() {
                             <TabPanel>
                                 <PreferencesSettings />
                             </TabPanel>
-                            <TabPanel>
-                                <Help />
-                            </TabPanel>
+                            
                         </TabPanels>
                     </Tabs>
                 </Stack>

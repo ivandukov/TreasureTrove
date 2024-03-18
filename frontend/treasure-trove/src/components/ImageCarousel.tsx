@@ -22,7 +22,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps)
      */
     const swiperStyle = {
         borderRadius: '6px',
-        height: '400px',
+        height: '360px',
     };
 
     const slideStyle = {

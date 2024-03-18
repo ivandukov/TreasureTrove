@@ -27,7 +27,7 @@ export default function FilterBar() {
                 <InputLeftElement>
                     <SearchIcon/>
                 </InputLeftElement>
-                <Input placeholder="Search TreasureTrove"/>
+                <Input placeholder="Search TreasureTrove" />
             </InputGroup>
         );
     }

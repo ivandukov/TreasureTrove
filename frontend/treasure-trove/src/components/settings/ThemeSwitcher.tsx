@@ -20,7 +20,7 @@ export default function ThemeSwitcher() {
 
     return (
 
-        <Stack w="19%">
+        <Stack w="30%">
             <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     {selectedTheme ? selectedTheme : 'Theme'}

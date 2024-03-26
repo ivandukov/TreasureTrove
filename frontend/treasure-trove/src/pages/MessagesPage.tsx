@@ -27,8 +27,7 @@ export default function MessagePage() {
                             <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
                                 <Avatar name='Anna Doe'/>
                                 <Box>
-                                    <Heading size='sm'>Anna Doe</Heading>
-                                    <Heading size='md'>Green Sofa</Heading>
+                                    <Heading size='sm'>Anna Doe</Heading>                                   
                                     <Text noOfLines={1}>
                                         Hi, I'm quite interested in this giveaway. Could I pick it up next friday at around 5 PM?
                                     </Text>

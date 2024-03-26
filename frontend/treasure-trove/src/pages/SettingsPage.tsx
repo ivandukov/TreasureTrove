@@ -1,9 +1,10 @@
 import {
-    Avatar, Box, Button, Card, CardBody, CardHeader, HStack, Heading, Link, 
-    Select, Spacer, Stack, StackDivider, Switch, Tab, TabIndicator, TabList, 
-    TabPanel, TabPanels, Tabs, Text, useColorMode
+    Avatar, AvatarBadge, Box, Button, Card, CardBody, CardHeader, HStack, Heading, 
+    IconButton, Link, Modal, ModalHeader, ModalContent, ModalOverlay, Select, Spacer, 
+    Stack, StackDivider, Switch, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, 
+    Text, useColorMode, useDisclosure, ModalBody, ModalFooter, ModalCloseButton
 } from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import ChangePasswordButton from "../components/settings/ChangePasswordButton.tsx";
 import DeleteAccountButton from "../components/settings/DeleteAccountButton.tsx";
 import ThemeSwitcher from "../components/settings/ThemeSwitcher.tsx";
@@ -93,6 +94,37 @@ function AccountSettings() {
 function ProfileSettings() {
 
     const { colorMode } = useColorMode();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    /**
+     * displays a Modal with a Box with which
+     * the user can upload a profile picture
+     * 
+     * @returns JSX element
+     */
+    function ProfilePictureModal() {
+
+        return (
+            <>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay/> 
+                    <ModalContent>
+                        <ModalHeader>Change Profile Picture</ModalHeader>
+                        <ModalCloseButton/>
+                        <ModalBody>
+                            <Dropzone/>
+                        </ModalBody>
+                        <ModalFooter>
+                            <HStack>
+                                <Button onClick={onClose}>Cancel</Button>
+                                <Button colorScheme="green">Save</Button>
+                            </HStack>                                                
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </>
+        );
+    }
 
     return (
         <>
@@ -118,11 +150,23 @@ function ProfileSettings() {
                         </Box>
                         <Box>
                             <Stack>
-                                <Heading size='s'>Profile Picutre</Heading>
-                                <HStack spacing={10}>
-                                    <Avatar size='2xl'/>
-                                    <Dropzone/>
-                                </HStack>
+                                <Heading size='s'>Profile Picture</Heading>
+                                <HStack>
+                                    <Avatar size='2xl'>
+                                        <AvatarBadge
+                                            as={IconButton}
+                                            size="sm"
+                                            rounded="full"
+                                            top="-3px"
+                                            colorScheme="red"
+                                            aria-label="remove Image"
+                                            icon={<SmallCloseIcon/>}
+                                        />
+                                    </Avatar>
+                                    <Spacer/>
+                                    <Button w="95px" onClick={onOpen}>Change</Button>
+                                    <ProfilePictureModal/>
+                                </HStack>                               
                             </Stack>
                         </Box>
                     </Stack>
@@ -282,8 +326,8 @@ function NotificationSettings() {
 
 /**
  * displays settings regarding preferences:
- * - Language
- * - Theme (light, dark, system)
+ * - language
+ * - theme (light, dark, system)
  * 
  * @returns JSX element
  */

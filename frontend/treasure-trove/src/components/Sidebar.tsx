@@ -1,4 +1,6 @@
-import {Box, BoxProps, Button, CloseButton, Drawer, DrawerContent, Flex, FlexProps, Icon, IconButton, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
+import {Avatar, Box, BoxProps, Button, CloseButton, Drawer, DrawerContent, Flex, FlexProps, 
+        HStack, Icon, IconButton, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, 
+        Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
 import {FiBookmark, FiHelpCircle, FiHome, FiMail, FiMenu, FiPlusSquare,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
@@ -68,7 +70,7 @@ interface SidebarProps extends BoxProps {
 
 /**
  *
- * @param onClose lambda function
+ * @param {void} onClose lambda function
  * @returns
  */
 const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
@@ -103,12 +105,22 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
 
                 <Stack px="4" my="4">
                     <Menu>
-                        <MenuButton as={Button}>
-                            <Text>John Doe</Text>
+                        <MenuButton>
+                            <HStack>                           
+                                <Avatar size={'sm'}/>                                                       
+                                <Stack 
+                                    display={{ base: 'none', md: 'flex' }}
+                                    alignItems="flex-start"
+                                    spacing="1px"
+                                >
+                                    <Text fontSize="sx">John Doe</Text>
+                                    <Text fontSize="sm" color="gray.600">donjoe.99</Text>
+                                </Stack>
+                            </HStack>                                                 
                         </MenuButton>
                         <MenuList>
                             <Link href="/user" style={{textDecoration: 'none'}}>
-                                <MenuItem>
+                                <MenuItem >
                                     Profile
                                 </MenuItem>
                             </Link>
@@ -118,9 +130,11 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
                                 </MenuItem>
                             </Link>
                             <MenuDivider/>
-                            <MenuItem>
-                                Logout
-                            </MenuItem>
+                            <Link href="/" style={{textDecoration: 'none'}}>
+                                <MenuItem>
+                                    Logout
+                                </MenuItem>
+                            </Link>
                         </MenuList>
                     </Menu>
                 </Stack>
@@ -140,8 +154,9 @@ interface NavItemProps extends FlexProps {
 
 /**
  *
- * @param param0
- * @returns
+ * @param {ReactText} children name of the NavItem to be displayed
+ * @param {string} path contains Link to which the user will be navigated
+ * @returns JSX element
  */
 const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
 
@@ -189,10 +204,11 @@ interface MobileProps extends FlexProps {
 
 /**
  *
- * @param param0
- * @returns
+ * @param {void} onOpen lambda function
+ * @returns JSX element
  */
 const MobileNav = ({onOpen, ...rest}: MobileProps) => {
+    
     return (
         <Flex
             ml={{base: 0, md: 60}}
@@ -203,7 +219,8 @@ const MobileNav = ({onOpen, ...rest}: MobileProps) => {
             borderBottomWidth="1px"
             borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
             justifyContent="flex-start"
-            {...rest}>
+            {...rest}
+        >
             <IconButton
                 variant="outline"
                 onClick={onOpen}

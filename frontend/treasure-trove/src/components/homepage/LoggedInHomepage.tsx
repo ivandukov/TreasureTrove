@@ -95,7 +95,8 @@ export default function LoggedInHomepage() {
                                 <Card 
                                     p={3}  
                                     _hover={{
-                                        boxShadow: "xl",
+                                        
+                                        boxShadow: "lg",
                                         transition: "box-shadow 0.1s",
                                     }}
                                 >

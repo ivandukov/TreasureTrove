@@ -21,7 +21,7 @@ export default function NewFilterModal({ isOpen, onClose }: {isOpen: boolean, on
                             <Button onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button colorScheme="blue" onClick={onClose}>
+                            <Button colorScheme="green" onClick={onClose}>
                                 Save
                             </Button>
                         </HStack>

@@ -1,8 +1,54 @@
-import { Box, Button, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Link, Menu, MenuButton, MenuItem, MenuList, Select, Stack, useColorMode, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, HStack, IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Link, Select, Stack, useColorMode, 
+         useDisclosure } from "@chakra-ui/react";
 import NewFilterModal from "./NewFilterModal.tsx";
-import { CheckIcon, ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons"; 
 import { FaLocationDot } from "react-icons/fa6";
-import { SetStateAction, useState } from "react";
+
+/**
+ * Input-element, which serves as Search Bar
+ * @returns JSX element
+ */
+function SearchBar() {
+    return (
+        <InputGroup w="35%">
+            <InputLeftElement>
+                <SearchIcon/>
+            </InputLeftElement>
+            <Input placeholder="Search TreasureTrove" />
+        </InputGroup>
+    );
+}
+
+/**
+ * displays a Select with different selectable categories
+ * @returns JSX element
+ */
+function CategoriesMenu() {
+    return (
+        <Select w="21%">
+            <option value='option1'>All Categories</option>
+            <option value='option2'>Books</option>
+            <option value='option3'>Fashion</option>
+        </Select>
+    );
+}
+
+/**
+ * displays search bar for locations with a button
+ * that allows the user to select it with a map
+ * @param onOpen hook 
+ * @returns JSX element
+ */
+function LocationSearchBar({onOpen} : any) {
+    return (
+        <InputGroup w="30%">
+            <Input placeholder="City/Postal Code"/>
+            <InputRightElement>
+                <IconButton icon={<FaLocationDot/>} onClick={onOpen} aria-label="Location"/>
+            </InputRightElement>
+        </InputGroup>
+    );
+}
 
 /**
  * renders a separate Box with three Buttons:
@@ -15,43 +61,6 @@ export default function FilterBar() {
     
     const { colorMode } = useColorMode();
     const { onOpen, isOpen, onClose } = useDisclosure();
-    const [sortType, setSortType] = useState('newest');
-
-    const handleSortChange = (newSortType: SetStateAction<string>) => {
-        setSortType(newSortType);
-    };
-
-    function SearchBar() {
-        return (
-            <InputGroup w="35%">
-                <InputLeftElement>
-                    <SearchIcon/>
-                </InputLeftElement>
-                <Input placeholder="Search TreasureTrove" />
-            </InputGroup>
-        );
-    }
-
-    function LocationSearchBar() {
-        return (
-            <InputGroup w="30%">
-                <Input placeholder="City/Postal Code"/>
-                <InputRightElement>
-                    <IconButton icon={<FaLocationDot/>} onClick={onOpen} aria-label="Location"/>
-                </InputRightElement>
-            </InputGroup>
-        );
-    }
-
-    function CategoriesMenu() {
-        return (
-            <Select w="21%">
-                <option value='option1'>All Categories</option>
-                <option value='option2'>Books</option>
-                <option value='option3'>Fashion</option>
-            </Select>
-        );
-    }
 
     return (
         <Stack>
@@ -65,7 +74,7 @@ export default function FilterBar() {
                     <HStack>
                         <SearchBar/>
                         <CategoriesMenu/>
-                        <LocationSearchBar/>
+                        <LocationSearchBar onOpen={onOpen}/>
                         <Link href="/results">
                             <Button colorScheme="green">
                                 Search

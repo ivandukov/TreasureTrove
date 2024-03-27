@@ -21,7 +21,7 @@ export default function SaveButton() {
                 aria-label="Toggle favorite"
                 colorScheme={isFavorite ? 'red' : undefined}
                 onClick={handleFavoriteClick}
-                leftIcon={isFavorite ? <Icon as={BsBookmarkFill} /> : <Icon as={FiBookmark} />}
+                leftIcon={isFavorite ? <Icon as={BsBookmarkFill} /> : <Icon as={FiBookmark}/>}
             >
                 {isFavorite ? 'Saved' : 'Save'}
             </Button>

@@ -1,6 +1,5 @@
 import { FormControl, Input } from "@chakra-ui/react";
 
-
 /**
  * 
  * @returns 
@@ -13,7 +12,6 @@ export default function ChatPage() {
                 <Input>
                 </Input>
             </FormControl>
-
         </>
     );
 

@@ -1,8 +1,7 @@
 import {
-    Avatar, AvatarBadge, Box, Button, Card, CardBody, CardHeader, HStack, Heading, 
-    IconButton, Link, Modal, ModalHeader, ModalContent, ModalOverlay, Select, Spacer, 
-    Stack, StackDivider, Switch, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs, 
-    Text, useColorMode, useDisclosure, ModalBody, ModalFooter, ModalCloseButton
+    Avatar, AvatarBadge, Box, Button, Card, CardBody, CardHeader, HStack, Heading, IconButton, Link, Modal, 
+    ModalHeader, ModalContent, ModalOverlay, Select, Spacer, Stack, StackDivider, Switch, Tab, TabIndicator, 
+    TabList, TabPanel, TabPanels, Tabs, Text, useColorMode, useDisclosure, ModalBody, ModalFooter, ModalCloseButton
 } from "@chakra-ui/react";
 import { ExternalLinkIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import ChangePasswordButton from "../components/settings/ChangePasswordButton.tsx";

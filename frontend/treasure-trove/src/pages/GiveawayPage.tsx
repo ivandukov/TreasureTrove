@@ -1,6 +1,5 @@
 import { Box, Button, Divider, Flex, FormControl, HStack, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, Stack, Text, Textarea, useColorMode, useDisclosure } from "@chakra-ui/react";
 import Footer from "../components/Footer";
-import ImageGallery from "../components/ImageGallery.tsx";
 import ImageCarousel from "../components/ImageCarousel.tsx";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { BsThreeDotsVertical, BsShare, BsFillXCircleFill, BsFlag } from "react-icons/bs";

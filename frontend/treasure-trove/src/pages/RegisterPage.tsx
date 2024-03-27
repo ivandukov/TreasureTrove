@@ -1,4 +1,5 @@
-import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputRightElement, Link, Stack, Text, useColorMode, useColorModeValue, } from '@chakra-ui/react';
+import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputRightElement, Link, Stack, Text, 
+         useColorMode, useColorModeValue, } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { OAuthButtonGroup } from '../components/OAuthButtonGroup';
@@ -7,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 /**
- * renders a separate box, which contains a hyperlink to the
+ * displays a separate box, which contains a hyperlink to the
  * LoginPage
  * @returns a JSX element containing the Link to the LoginPage
  */
@@ -26,7 +27,7 @@ function LoginBox() {
 }
 
 /**
- *
+ * displays registration options such as Google, Twitter etc.
  * @returns JSX element with various Sign in Options
  */
 function OtherRegisterOptions() {

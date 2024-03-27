@@ -1,8 +1,11 @@
-import { Box, Button, ButtonGroup, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure, useToast } from "@chakra-ui/react";
+import { 
+    Box, Button, ButtonGroup, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, 
+    ModalFooter, ModalHeader, ModalOverlay, Stack, useDisclosure, useToast 
+} from "@chakra-ui/react";
 
 /**
  * 
- * @returns 
+ * @returns JSX element
  */
 export default function ChangePasswordButton() {
 

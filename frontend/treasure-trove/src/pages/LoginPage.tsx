@@ -1,4 +1,5 @@
-import { Box, Button, chakra, Checkbox, Container, Divider, FormControl, FormLabel, Heading, HStack, HTMLChakraProps, Input, Link, Stack, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, chakra, Checkbox, Divider, FormControl, FormLabel, Heading, HStack, HTMLChakraProps, Input, Link, Stack, Text, 
+         useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { OAuthButtonGroup } from "../components/OAuthButtonGroup";
 import SmallFooter from "../components/SmallFooter";
 import { useForm } from "react-hook-form";

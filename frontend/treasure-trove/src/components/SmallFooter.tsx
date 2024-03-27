@@ -4,6 +4,10 @@ import {
     Stack,
 } from '@chakra-ui/react';
 
+/**
+ * 
+ * @returns JSX element
+ */
 export default function SmallFooter() {
 
     return (
@@ -13,8 +17,8 @@ export default function SmallFooter() {
             py={4}
             spacing={4}
             justify={'center'}
-            align={'center'}>
-
+            align={'center'}
+        >
             <Stack direction={'row'} spacing={6}>
                 <Link href={'#'}>Terms</Link>
                 <Link href={'#'}>Privacy</Link>

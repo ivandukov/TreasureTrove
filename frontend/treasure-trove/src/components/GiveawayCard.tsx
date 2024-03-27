@@ -38,7 +38,7 @@ function DropDownButton() {
  */
 function GiveawayImage({ imgUrl }: { imgUrl: string }) {
     return (
-        <Link href="/product">
+        <Link href="/giveaway">
             <Image
                 src={imgUrl}
                 alt="Giveaway Image"
@@ -50,6 +50,13 @@ function GiveawayImage({ imgUrl }: { imgUrl: string }) {
     );
 }
 
+interface GiveawayInformationProps {
+    title: string;
+    description: string; 
+    postalCode: string; 
+    location: string;
+}
+
 /**
  * displays main information about Givaway
  * @param {string} title title of the Giveaway
@@ -58,7 +65,8 @@ function GiveawayImage({ imgUrl }: { imgUrl: string }) {
  * @param {string} location city of Giveaway
  * @returns JSX element
  */
-function GiveawayInformation({ title, description, postalCode, location }: { title: string, description: string, postalCode: string, location: string }) {
+function GiveawayInformation({ title, description, postalCode, location }: GiveawayInformationProps) {
+    
     return (
         <>
             <Stack>
@@ -84,6 +92,14 @@ function GiveawayInformation({ title, description, postalCode, location }: { tit
     );
 }
 
+interface GiveawayCardProps {
+    title: string;
+    description: string;
+    postalCode: string;
+    location: string;
+    imgUrl: string;
+}
+
 /**
  * renders a Card containing information about a Giveaway as well as
  * a Dropdown-Menu with additional actions such as sharing or reporting
@@ -93,7 +109,7 @@ function GiveawayInformation({ title, description, postalCode, location }: { tit
  * @param {string} imgUrl first image of the giveaway
  * @returns JSX element
  */
-export default function GiveawayCard({ title, description, postalCode, location, imgUrl } : { title: string, description: string, postalCode: string, location: string, imgUrl: string }) {
+export default function GiveawayCard({ title, description, postalCode, location, imgUrl } : GiveawayCardProps) {
 
     return (
         <Card direction={'row'}>

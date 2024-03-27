@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { Button, Menu, MenuButton, MenuList, MenuItem, Icon } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
+import React, { useState } from 'react';
 
 /**
  * renders a scrollable Dropdown-Button (MenuList) with    

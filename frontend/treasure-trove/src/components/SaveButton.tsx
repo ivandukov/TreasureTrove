@@ -1,13 +1,12 @@
 import { Button, Icon } from "@chakra-ui/react";
-import { useState } from "react";
-import { FiBookmark } from "react-icons/fi";
 import { BsBookmarkFill } from "react-icons/bs";
+import { FiBookmark } from "react-icons/fi";
+import { useState } from "react";
 
 /**
  * renders a "Save"-Button, which can be toggled.
  * @returns JSX-element
  */
-
 export default function SaveButton() {
     const [isFavorite, setIsFavorite] = useState(false);
 

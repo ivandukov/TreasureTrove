@@ -49,9 +49,9 @@ export default function MessagePage() {
                 p={8}
             >
                 <Stack>
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
+                    <MessageCard/>
+                    <MessageCard/>
+                    <MessageCard/>
                 </Stack>
             </Box>
         </>

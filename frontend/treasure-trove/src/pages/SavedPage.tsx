@@ -1,4 +1,6 @@
-import { Box, Flex, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
+import { 
+    Box, Flex, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode 
+} from "@chakra-ui/react";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 import SortMenu from "../components/SortMenu";
 

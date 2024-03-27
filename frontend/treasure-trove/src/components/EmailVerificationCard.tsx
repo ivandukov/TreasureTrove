@@ -1,8 +1,14 @@
-import {Button, Center, Flex, FormControl, HStack, Heading, PinInput, PinInputField, Stack, useColorModeValue} from '@chakra-ui/react';
+import { 
+    Button, Center, Flex, FormControl, HStack, Heading, PinInput, PinInputField, Stack, 
+    useColorModeValue
+} from '@chakra-ui/react';
 import React from 'react';
 
 /**
- * 
+ * displays a Card containing inputs for numbers, the
+ * user has received by mail in order to authenticate
+ * the login
+ * @returns JSX element
  */
 export default function EmailVerificationCard() {
 

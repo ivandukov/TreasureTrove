@@ -1,8 +1,4 @@
-import {
-    Container,
-    Link,
-    Stack,
-} from '@chakra-ui/react';
+import { Container, Link, Stack } from '@chakra-ui/react';
 
 /**
  * 

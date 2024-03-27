@@ -1,31 +1,20 @@
-import { Box, Button, Divider, Flex, FormControl, HStack, Heading, Icon, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, Stack, Text, Textarea, useColorMode, useDisclosure } from "@chakra-ui/react";
-import Footer from "../components/Footer";
-import ImageCarousel from "../components/ImageCarousel.tsx";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { BsThreeDotsVertical, BsShare, BsFillXCircleFill, BsFlag } from "react-icons/bs";
-import { EmailIcon } from "@chakra-ui/icons";
-import SaveButton from "../components/SaveButton.tsx";
-import FilterBar from "../components/filter/FilterBar.tsx";
-import { FaCalendar } from "react-icons/fa6";
-import { useForm } from "react-hook-form";
+import { 
+    Box, Button, Divider, Flex, FormControl, HStack, Heading, Icon, IconButton, Link, Menu, MenuButton, 
+    MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, 
+    ModalOverlay, Spacer, Stack, Text, Textarea, useColorMode, useDisclosure 
+} from "@chakra-ui/react";
 
-/**
- * Helper function to map the status to the color scheme
- * @param status string
- * @returns string containing the color for the badge
- */
-function getStatusColor(status: string) {
-    switch (status) {
-        case "Open":
-            return "green";
-        case "Reserved":
-            return "yellow";
-        case "Closed":
-            return "red";
-        default:
-            return "gray";
-    }
-}
+import { BsThreeDotsVertical, BsShare, BsFlag } from "react-icons/bs";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaCalendar } from "react-icons/fa6";
+import { EmailIcon } from "@chakra-ui/icons";
+
+import FilterBar from "../components/filter/FilterBar.tsx";
+import ImageCarousel from "../components/ImageCarousel.tsx";
+import SaveButton from "../components/SaveButton.tsx";
+import Footer from "../components/Footer";
+
+import { useForm } from "react-hook-form";
 
 /**
  * renders a small Dropdown-Button with three options:
@@ -40,28 +29,19 @@ function DropDownButton() {
         <Menu>
             <MenuButton
                 as={IconButton}
-                icon={<Icon as={BsThreeDotsVertical} />}
+                icon={<Icon as={BsThreeDotsVertical}/>}
                 variant="ghost"
                 colorScheme="gray"
             />
             <MenuList>
-                <MenuItem icon={<Icon as={BsShare} />}>Share</MenuItem>
-                <MenuItem icon={<Icon as={BsFlag} />}>Report</MenuItem>
+                <MenuItem icon={<Icon as={BsShare}/>}>Share</MenuItem>
+                <MenuItem icon={<Icon as={BsFlag}/>}>Report</MenuItem>
             </MenuList>
         </Menu>
     );
 }
 
-
-/**
- * 
- * @param param0 
- * @returns JSX element
- */
-function GiveawayInfoBox({ productData }: { productData: any }) {
-
-    const { colorMode } = useColorMode();
-    const { isOpen, onOpen, onClose } = useDisclosure();
+function MessageModal({onClose, isOpen} : {onClose: () => void, isOpen: boolean}) {
 
     const {
         handleSubmit,
@@ -78,53 +58,58 @@ function GiveawayInfoBox({ productData }: { productData: any }) {
             }, 3000)
         })
         // TODO: Close Modal
-     }
-
-    function MessageModal() {
-
-        return (
-            <>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Modal 
-                        isOpen={isOpen} 
-                        onClose={onClose}
-                    >
-                        <ModalOverlay/>
-                        <ModalContent>
-                            <ModalHeader>
-                                Contact John Doe
-                            </ModalHeader>
-                            <ModalCloseButton/>
-                            <ModalBody>
-                                <FormControl>
-                                    <Textarea
-                                        id='message'  
-                                        placeholder='Your message'
-                                        {...register("message")}
-                                    />
-                                </FormControl>
-                            </ModalBody>
-                            <ModalFooter>
-                                <HStack>           
-                                    <Button onClick={onClose}>
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                        type="submit" 
-                                        colorScheme="green" 
-                                        onClick={onSubmit} 
-                                        isLoading={isSubmitting}
-                                    >
-                                        Send
-                                    </Button>
-                                </HStack>
-                            </ModalFooter>
-                        </ModalContent>
-                    </Modal>
-                </form>
-            </>
-        );
     }
+
+    return (
+        <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay/>
+                    <ModalContent>
+                        <ModalHeader>
+                            Contact John Doe
+                        </ModalHeader>
+                        <ModalCloseButton/>
+                        <ModalBody>
+                            <FormControl>
+                                <Textarea
+                                    id='message'  
+                                    placeholder='Your message'
+                                    {...register("message")}
+                                />
+                            </FormControl>
+                        </ModalBody>
+                        <ModalFooter>
+                            <HStack>           
+                                <Button onClick={onClose}>
+                                    Cancel
+                                </Button>
+                                <Button
+                                    type="submit" 
+                                    colorScheme="green" 
+                                    onClick={onSubmit} 
+                                    isLoading={isSubmitting}
+                                >
+                                    Send
+                                </Button>
+                            </HStack>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </form>
+        </>
+    );
+}
+
+/**
+ * 
+ * @param param0 
+ * @returns JSX element
+ */
+function GiveawayInfoBox({ productData }: { productData: any }) {
+
+    const { colorMode } = useColorMode();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <>
@@ -148,7 +133,10 @@ function GiveawayInfoBox({ productData }: { productData: any }) {
                             <Button onClick={onOpen}>
                                 <Icon as={EmailIcon} mr={1}/>Contact
                             </Button>
-                            <MessageModal/>
+                            <MessageModal 
+                                onClose={onClose}
+                                isOpen={isOpen}
+                            />
                             <DropDownButton />
                         </HStack>
                     </Flex>
@@ -182,8 +170,6 @@ function GiveawayInfoBox({ productData }: { productData: any }) {
  * @returns JSX element
  */
 export default function GiveawayPage() {
-    const { colorMode } = useColorMode();
-    const isLoggedIn = false;
 
     // Sample data for the product giveaway
     const productData = {

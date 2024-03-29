@@ -2,18 +2,11 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"treasuretrove/api/routes"
 	"treasuretrove/api/services"
 )
 
 func main() {
-	envLoad := godotenv.Load()
-
-	if envLoad != nil {
-		panic("Error loading .env file")
-	}
-
 	services.ConnectToDatabase()
 	services.MigrateModels()
 

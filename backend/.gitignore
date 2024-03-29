@@ -1,1 +1,5 @@
 .env
+.idea
+*.iml
+*.ipr
+*.iws

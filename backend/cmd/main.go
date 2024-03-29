@@ -8,11 +8,7 @@ import (
 )
 
 func main() {
-	envLoad := godotenv.Load()
-
-	if envLoad != nil {
-		panic("Error loading .env file")
-	}
+	_ = godotenv.Load()
 
 	services.ConnectToDatabase()
 	services.MigrateModels()

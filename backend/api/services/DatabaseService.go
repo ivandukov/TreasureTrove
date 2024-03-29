@@ -13,13 +13,13 @@ var database *gorm.DB
 // ConnectToDatabase initializes the database connection
 // using the provided DSN (Data Source Name).
 func ConnectToDatabase() {
-	dsn := os.Getenv("DB_DSN")
+	connectionString := os.Getenv("DATABASE_URL")
 
-	if dsn == "" {
-		panic("Error getting DB_DSN from environment variables")
+	if connectionString == "" {
+		panic("Error getting DATABASE_URL from environment variables")
 	}
 
-	dbConnection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	dbConnection, err := gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 
 	if err != nil {
 		panic("Failed to connect database")

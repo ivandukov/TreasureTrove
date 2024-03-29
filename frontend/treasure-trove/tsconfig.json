@@ -20,6 +20,6 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/pages/", "src/App.tsx"],
+  "include": ["src/pages/", "src/App.tsx", "src/components/settingspage/AccountSettings.tsx", "src/components/settingspage/ProfileSettings.tsx", "src/components/settingspage/SafetyPrivacySettings.tsx", "src/components/settingspage/NotificationSettings.tsx", "src/components/settingspage/PreferencesSettings.tsx", "src/components/settingspage/ProfilePictureModal.tsx", "src/components/registerpage/LoginBox.tsx", "src/components/registerpage/OtherRegisterOptions.tsx", "src/components/registerpage/InputPassword.tsx", "src/components/giveawaypage/DropDownButton.tsx", "src/components/giveawaypage/MessageModal.tsx", "src/components/giveawaypage/GiveawayInfoBox.tsx", "src/components/creategiveawaypage/LocationSearchBar.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

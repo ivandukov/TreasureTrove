@@ -5,6 +5,7 @@ import SmallFooter from "../components/SmallFooter";
 import { useForm } from "react-hook-form";
 
 const Logo = (props: HTMLChakraProps<'svg'>) => (
+    
     <chakra.svg
         color="accent"
         height="12"
@@ -52,7 +53,8 @@ function CreateAccountField() {
             rounded={'lg'}
             bg={useColorModeValue('white', 'gray.700')}
             boxShadow={'lg'}
-            p={5}>
+            p={5}
+        >
             <Text align={'center'}>
                 New to TreasureTrove? <Link color={'blue.400'} href='/register'>Create an account</Link>
             </Text>

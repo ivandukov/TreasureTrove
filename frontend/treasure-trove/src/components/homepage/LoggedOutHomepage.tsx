@@ -1,5 +1,5 @@
 import { Box, Button, Card, HStack, Heading, Icon, Image, Link, SimpleGrid, Stack, Text, useColorMode } from "@chakra-ui/react";
-import FilterBar from "../filter/FilterBar.tsx";
+import FilterBar from "./filter/FilterBar.tsx";
 import Footer from "../Footer.tsx";
 import { FaMapMarkerAlt } from "react-icons/fa";
 

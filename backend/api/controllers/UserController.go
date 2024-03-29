@@ -6,6 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
+	"strconv"
 	"treasuretrove/api/models"
 	"treasuretrove/api/services"
 )
@@ -114,23 +115,42 @@ func (userController UserController) UpdateUserById(context *gin.Context) {
 		return
 	}
 
+	//userId as uint
+	userIdUint, errUint := strconv.ParseInt(userId, 10, 64)
+
+	if errUint != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": errUint.Error()})
+		return
+	}
+
 	database := services.GetDatabase()
 
-	var user models.User
-	err := database.First(&user, context.Param("id")).Error
+	var prevUser models.User
+	err := database.First(&prevUser, userIdUint).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 
+	var user models.User
+
 	bindJsonErr := context.BindJSON(&user)
+
 	if bindJsonErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": bindJsonErr.Error()})
 		return
 	}
 
-	err = database.Save(&user).Error
+	validation := validator.New()
+	validationErr := validation.Struct(user)
+
+	if validationErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
+		return
+	}
+
+	err = database.Model(&prevUser).Updates(user).Error
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

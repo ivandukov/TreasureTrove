@@ -1,8 +1,9 @@
-import { Box, Button, Flex, Text, Heading, Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode, HStack } from "@chakra-ui/react";
+import { 
+    Box, Flex, Heading, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode 
+} from "@chakra-ui/react";
 import FilterBar from "../components/filter/FilterBar";
-import { SetStateAction, useState } from "react";
-import { CheckIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
+import SortMenu from "../components/SortMenu";
 
 /**
  * renders a Search bar with a list of giveaways or
@@ -12,45 +13,6 @@ import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 export default function SearchResultPage() {
 
     const { colorMode } = useColorMode();
-    const [sortType, setSortType] = useState('newest');
-
-    const handleSortChange = (newSortType: SetStateAction<string>) => {
-        setSortType(newSortType);
-    };
-
-    /**
-     * displays a Menu with various sorting options
-     * @returns JSX element
-     */
-    function SortMenu() {
-        return (
-            <>
-                <Stack w="19%">
-                    <Menu>
-                        <MenuButton 
-                            as={Button} 
-                            rightIcon={<ChevronDownIcon/>}
-                        >
-                            Sort: {sortType}
-                        </MenuButton>
-                        <MenuList>
-                            {['Newest', 'Oldest', 'Popular'].map((option) => (
-                                <MenuItem
-                                    key={option}
-                                    onClick={() => handleSortChange(option)}
-                                >
-                                    <Box flex="1">{option}</Box>
-                                    {sortType === option && (
-                                        <CheckIcon ml="auto" />
-                                    )}
-                                </MenuItem>
-                            ))}
-                        </MenuList>
-                    </Menu>
-                </Stack>
-            </>
-        );
-    }
 
     return (
         <>

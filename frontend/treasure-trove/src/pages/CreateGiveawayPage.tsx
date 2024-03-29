@@ -1,7 +1,32 @@
-import { Box, Button, FormControl, FormErrorMessage, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Radio, RadioGroup, Select, Stack, Textarea, useColorMode, useDisclosure, useToast } from "@chakra-ui/react";
+import { 
+    Box, Button, FormControl, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Radio, 
+    RadioGroup, Select, Stack, Textarea, useColorMode, useDisclosure 
+} from "@chakra-ui/react";
 import { FaLocationDot } from "react-icons/fa6";
 import NewFilterModal from "../components/filter/NewFilterModal";
-import { useForm } from "react-hook-form";
+import { FieldValues, UseFormRegister, useForm } from "react-hook-form";
+
+interface LocationSearchBarProps {
+    onOpen: () => void;
+    onClose: () => void;
+    isOpen: boolean;
+    register: UseFormRegister<FieldValues>;
+}
+
+function LocationSearchBar({onOpen, isOpen, onClose, register} : LocationSearchBarProps) {
+    return (
+        <InputGroup>
+            <Input 
+                placeholder="City/Postal Code"
+                {...register("location")}
+            />
+            <InputRightElement>
+                <IconButton icon={<FaLocationDot />} onClick={onOpen} aria-label="Location"/>
+            </InputRightElement>
+            <NewFilterModal isOpen={isOpen} onClose={onClose}/>
+        </InputGroup>
+    );
+}
 
 /**
  * renders the Page for creating a new advertisement,
@@ -28,21 +53,6 @@ export default function CreateGiveawayPage() {
             }, 3000)
         })
         // TODO: Navigate to GiveawayPage
-     }
-
-    function LocationSearchBar() {
-        return (
-            <InputGroup>
-                <Input 
-                    placeholder="City/Postal Code"
-                    {...register("location")}
-                />
-                <InputRightElement>
-                    <IconButton icon={<FaLocationDot />} onClick={onOpen} aria-label="Location"/>
-                </InputRightElement>
-                <NewFilterModal isOpen={isOpen} onClose={onClose}/>
-            </InputGroup>
-        );
     }
 
     return (
@@ -77,7 +87,12 @@ export default function CreateGiveawayPage() {
                                     />
                                 </FormControl>
                                 <FormControl>
-                                    <LocationSearchBar/>
+                                    <LocationSearchBar 
+                                        onOpen={onOpen} 
+                                        onClose={onClose} 
+                                        isOpen={isOpen} 
+                                        register={register}
+                                    />
                                 </FormControl>    
                                 <FormControl>
                                     <Select 

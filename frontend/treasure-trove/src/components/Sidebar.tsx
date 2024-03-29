@@ -1,8 +1,11 @@
-import {Avatar, Box, BoxProps, Button, CloseButton, Drawer, DrawerContent, Flex, FlexProps, HStack, Icon, IconButton, Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, Text, useColorModeValue, useDisclosure,} from '@chakra-ui/react';
-import {FiBookmark, FiHelpCircle, FiHome, FiMail, FiMenu, FiPlusSquare, FiSettings, FiUser,} from 'react-icons/fi';
+import { 
+    Avatar, Box, BoxProps, CloseButton, Drawer, DrawerContent, Flex, FlexProps, HStack, Icon, IconButton, 
+    Link, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Stack, Text, useColorModeValue, useDisclosure
+} from '@chakra-ui/react';
+import {FiBookmark, FiHelpCircle, FiHome, FiMail, FiMenu, FiPlusSquare,} from 'react-icons/fi';
 import {IconType} from 'react-icons';
 import {ReactNode, ReactText} from 'react';
-import { BsThreeDotsVertical } from "react-icons/bs";
+
 interface LinkItemProps {
     name: string;
     icon: IconType;
@@ -10,7 +13,7 @@ interface LinkItemProps {
 }
 
 /**
- * 
+ *
  */
 const LinkItems: Array<LinkItemProps> = [
     {name: 'Home', icon: FiHome, path: '/'},
@@ -20,18 +23,18 @@ const LinkItems: Array<LinkItemProps> = [
     {name: 'Help Center', icon: FiHelpCircle, path: '/settings'},
 ];
 
-/** 
+/**
  * renders a sidebar, which provides navigation
  * for the user
- * @returns JSX element 
+ * @returns JSX element
  */
 export default function Sidebar({children}: { children: ReactNode }) {
-    
+
     const {isOpen, onOpen, onClose} = useDisclosure();
-    
+
     return (
         <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
-            <SidebarContent 
+            <SidebarContent
                 onClose={() => onClose}
                 display={{base: 'none', md: 'block'}}
             />
@@ -49,9 +52,9 @@ export default function Sidebar({children}: { children: ReactNode }) {
                     <SidebarContent onClose={onClose}/>
                 </DrawerContent>
             </Drawer>
-            
+
             <MobileNav display={{base: 'flex', md: 'none'}} onOpen={onOpen}/>
-            
+
             <Box ml={{base: 0, md: 60}} p="4">
                 {children}
             </Box>
@@ -60,16 +63,16 @@ export default function Sidebar({children}: { children: ReactNode }) {
 }
 
 /**
- * 
+ *
  */
 interface SidebarProps extends BoxProps {
     onClose: () => void;
 }
 
 /**
- * 
- * @param onClose lambda function 
- * @returns 
+ *
+ * @param {void} onClose lambda function
+ * @returns
  */
 const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
     return (
@@ -98,29 +101,41 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
                         <NavItem key={link.name} icon={link.icon} path={link.path}>
                             {link.name}
                         </NavItem>
-                    ))}        
+                    ))}
                 </Box>
-                
+
                 <Stack px="4" my="4">
                     <Menu>
-                        <MenuButton as={Button}>        
-                            <Text>John Doe</Text>      
+                        <MenuButton>
+                            <HStack>                           
+                                <Avatar size={'sm'}/>                                                       
+                                <Stack 
+                                    display={{ base: 'none', md: 'flex' }}
+                                    alignItems="flex-start"
+                                    spacing="1px"
+                                >
+                                    <Text fontSize="sx">John Doe</Text>
+                                    <Text fontSize="sm" color="gray.600">donjoe.99</Text>
+                                </Stack>
+                            </HStack>                                                 
                         </MenuButton>
                         <MenuList>
                             <Link href="/user" style={{textDecoration: 'none'}}>
-                                <MenuItem>
+                                <MenuItem >
                                     Profile
                                 </MenuItem>
                             </Link>
                             <Link href="/settings" style={{textDecoration: 'none'}}>
-                                <MenuItem>   
+                                <MenuItem>
                                     Settings
                                 </MenuItem>
                             </Link>
                             <MenuDivider/>
-                            <MenuItem>
-                                Logout
-                            </MenuItem>
+                            <Link href="/" style={{textDecoration: 'none'}}>
+                                <MenuItem>
+                                    Logout
+                                </MenuItem>
+                            </Link>
                         </MenuList>
                     </Menu>
                 </Stack>
@@ -130,7 +145,7 @@ const SidebarContent = ({onClose, ...rest}: SidebarProps) => {
 };
 
 /**
- * 
+ *
  */
 interface NavItemProps extends FlexProps {
     icon: IconType;
@@ -139,9 +154,10 @@ interface NavItemProps extends FlexProps {
 }
 
 /**
- * 
- * @param param0 
- * @returns 
+ *
+ * @param {ReactText} children name of the NavItem to be displayed
+ * @param {string} path contains Link to which the user will be navigated
+ * @returns JSX element
  */
 const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
 
@@ -181,18 +197,19 @@ const NavItem = ({icon, children, path, ...rest}: NavItemProps) => {
 };
 
 /**
- * 
+ *
  */
 interface MobileProps extends FlexProps {
     onOpen: () => void;
 }
 
 /**
- * 
- * @param param0 
- * @returns 
+ *
+ * @param {void} onOpen lambda function
+ * @returns JSX element
  */
 const MobileNav = ({onOpen, ...rest}: MobileProps) => {
+    
     return (
         <Flex
             ml={{base: 0, md: 60}}
@@ -203,7 +220,8 @@ const MobileNav = ({onOpen, ...rest}: MobileProps) => {
             borderBottomWidth="1px"
             borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
             justifyContent="flex-start"
-            {...rest}>
+            {...rest}
+        >
             <IconButton
                 variant="outline"
                 onClick={onOpen}

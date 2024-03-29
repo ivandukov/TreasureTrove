@@ -1,4 +1,4 @@
-import {Box, Heading, SimpleGrid, Stack, useColorMode} from "@chakra-ui/react";
+import {Box, SimpleGrid, Stack, useColorMode} from "@chakra-ui/react";
 import GiveawayCard from "../../GiveawayCard";
 
 /**

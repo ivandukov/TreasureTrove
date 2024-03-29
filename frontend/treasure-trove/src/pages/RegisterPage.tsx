@@ -1,13 +1,17 @@
-import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, InputGroup, InputRightElement, Link, Stack, Text, useColorMode, useColorModeValue, } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Button, Divider, FormControl, FormLabel, Heading, HStack, Input, InputGroup, 
+        InputRightElement, Link, Stack, Text, useColorMode, useColorModeValue, 
+} from '@chakra-ui/react';
+
+import { FieldValues, useForm, UseFormRegister } from 'react-hook-form';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+
 import { OAuthButtonGroup } from '../components/OAuthButtonGroup';
 import SmallFooter from '../components/SmallFooter';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 
 /**
- * renders a separate box, which contains a hyperlink to the
+ * displays a separate box, which contains a hyperlink to the
  * LoginPage
  * @returns a JSX element containing the Link to the LoginPage
  */
@@ -26,7 +30,7 @@ function LoginBox() {
 }
 
 /**
- *
+ * displays registration options such as Google, Twitter etc.
  * @returns JSX element with various Sign in Options
  */
 function OtherRegisterOptions() {
@@ -40,6 +44,40 @@ function OtherRegisterOptions() {
                 <Divider />
             </HStack>
             <OAuthButtonGroup />
+        </>
+    );
+}
+
+interface InputPasswordProps {
+    showPassword: boolean;
+    register: UseFormRegister<FieldValues>;
+    setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function InputPassword({showPassword, register, setShowPassword} : InputPasswordProps) {
+    return (
+        <>
+            <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                    <Input 
+                        type={showPassword ? 'text' : 'password'}
+                        id='password' 
+                        placeholder="At least 6 characters"
+                        {...register("password")}
+                    />
+                    <InputRightElement h={'full'}>
+                        <Button
+                            variant={'ghost'}
+                            onClick={() =>
+                                setShowPassword((showPassword) => !showPassword)
+                            }
+                        >
+                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
+            </FormControl>
         </>
     );
 }
@@ -72,34 +110,6 @@ export default function RegisterPage() {
         })
     }
 
-    function InputPassword() {
-        return (
-            <>
-                <FormControl id="password" isRequired>
-                    <FormLabel>Password</FormLabel>
-                    <InputGroup>
-                        <Input 
-                            type={showPassword ? 'text' : 'password'}
-                            id='password' 
-                            placeholder="At least 6 characters"
-                            {...register("password")}
-                        />
-                        <InputRightElement h={'full'}>
-                            <Button
-                                variant={'ghost'}
-                                onClick={() =>
-                                    setShowPassword((showPassword) => !showPassword)
-                                }
-                            >
-                                {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                            </Button>
-                        </InputRightElement>
-                    </InputGroup>
-                </FormControl>
-            </>
-        );
-    }
-
     return (
         <Box
             bg={colorMode === 'dark' ? 'gray.900' : 'gray.100'}
@@ -124,7 +134,11 @@ export default function RegisterPage() {
                                     {...register("email")}
                                 />
                             </FormControl>
-                            <InputPassword/>
+                            <InputPassword
+                                showPassword={showPassword}
+                                register={register}
+                                setShowPassword={setShowPassword}
+                            />
                             <Button 
                                 colorScheme='green' 
                                 type="submit" 

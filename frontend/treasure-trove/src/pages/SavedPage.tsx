@@ -1,63 +1,17 @@
-import { ChevronDownIcon, CheckIcon, SearchIcon } from "@chakra-ui/icons";
-import { Box, Button, Card, CardHeader, Flex, HStack, Heading, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode } from "@chakra-ui/react";
-import { SetStateAction, useState } from "react";
+import { 
+    Box, Flex, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, useColorMode 
+} from "@chakra-ui/react";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
+import SortMenu from "../components/SortMenu";
 
 /**
- * 
- * @returns 
+ * This Page contains a list giveaways/requests/drafts,
+ * the user has saved
+ * @returns JSX element
  */
 export default function SavedPage() {
 
     const { colorMode } = useColorMode();
-    const [sortType, setSortType] = useState('newest');
-
-    const handleSortChange = (newSortType: SetStateAction<string>) => {
-        setSortType(newSortType);
-    };
-
-    /**
-     * 
-     * @returns 
-     */
-    function SearchBar() {
-        return (
-            <InputGroup w="35%">
-                <InputLeftElement>
-                    <SearchIcon/>
-                </InputLeftElement>
-                <Input placeholder="Search"/>
-            </InputGroup>
-        );
-    }
-
-    /**
-     * 
-     * @returns 
-     */
-    function SortMenu() {
-
-        return (
-            <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon/>}>
-                    Sort: {sortType}
-                </MenuButton>
-                <MenuList>
-                    {['Newest', 'Oldest', 'Popular'].map((option) => (
-                        <MenuItem
-                            key={option}
-                            onClick={() => handleSortChange(option)}
-                        >
-                            <Box flex="1">{option}</Box>
-                            {sortType === option && (
-                                <CheckIcon ml="auto" />
-                            )}
-                        </MenuItem>
-                    ))}
-                </MenuList>
-            </Menu>
-        );
-    }
 
     return (
         <>

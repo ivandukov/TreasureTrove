@@ -12,6 +12,7 @@ import CreateGiveawayPage from "./pages/CreateGiveawayPage";
 import SavedPage from "./pages/SavedPage";
 import MessagePage from "./pages/MessagesPage";
 import ChatPage from "./pages/ChatPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 /**
  * 
@@ -32,6 +33,7 @@ export default function AppRouter() {
             <Route path="/saved" element={<SavedPage/>}/>
             <Route path="/messages" element={<MessagePage/>}/>
             <Route path="/chat" element={<ChatPage/>}/>
+            <Route path="/notfound" element={<NotFoundPage/>}/>
         </Routes>
     </Router>;
 }

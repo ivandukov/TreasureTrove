@@ -1,9 +1,10 @@
 import {
-    Avatar,
-    Box, Button, Divider, FormControl, FormLabel, HStack, Heading, Input, Link, Select, SimpleGrid, Stack, Switch, Tab, TabIndicator,
-    TabList, TabPanel, TabPanels, Tabs, useColorMode
+    Avatar, AvatarBadge, Box, Button, Card, CardBody, CardHeader, HStack, Heading, IconButton, Link, 
+    Modal, ModalHeader, ModalContent, ModalOverlay, Select, Spacer, Stack, StackDivider, Switch, Tab, 
+    TabIndicator, TabList, TabPanel, TabPanels, Tabs, Text, useColorMode, useDisclosure, ModalBody, 
+    ModalFooter, ModalCloseButton
 } from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import ChangePasswordButton from "../components/settings/ChangePasswordButton.tsx";
 import DeleteAccountButton from "../components/settings/DeleteAccountButton.tsx";
 import ThemeSwitcher from "../components/settings/ThemeSwitcher.tsx";
@@ -12,213 +13,380 @@ import Dropzone from "../components/Dropzone.tsx";
 const TAB_NAMES = ['Account', 'Profile', 'Safety & Privacy', 'Notifications', 'Preferences'];
 
 /**
+ * displays settings regarding the account:
+ * - username
+ * - email adress
+ * - password
+ * - account deletion
  * 
- * @returns 
+ * TODO: Extract each component into its own file
+ * 
+ * @returns JSX element
  */
 function AccountSettings() {
 
     const { colorMode } = useColorMode();
 
     return (
-        <Box
-            borderWidth="1px"
-            borderRadius="md"
-            p={5}
-            bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-            w="80%"
-        >
-            <Stack spacing={3}>
-                <Heading as='h3' size='lg'>
-                    Account
-                </Heading>
-
-                <Stack>
-                    <Heading as='h5' size='sm'>
-                        Username
-                    </Heading>
-                    <Input w="35%"/>
-                </Stack>
-
-                <Stack>
-                    <Heading as='h5' size='sm'>Email address</Heading>
-                    <Input w="35%"/>
-                </Stack>
-
-                <Stack spacing={3}>
-                    <Heading as='h5' size='sm'>Change Password</Heading>
-                    <ChangePasswordButton/>
-                </Stack>
-
-                <Stack spacing={3}>
-                    <Heading as='h5' size='sm'>Delete Account</Heading>
-                    <Box>
-                        <DeleteAccountButton/>
-                    </Box>
-                </Stack>
-            </Stack>
-        </Box>
-    );
-}
-
-/**
- * 
- * @returns 
- */
-function ProfileSettings() {
-    const { colorMode } = useColorMode();
-    return (
         <>
-            <Box
+            <Card
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-                borderWidth="1px"
-                borderRadius="md"
-                p={5}
-                w="80%"
+                w="75%"
+                p={2}
             >
-                <Stack spacing={3}>
-                    <Heading as='h3' size='lg'>Profile</Heading>
-                    <Stack>
-                        <Heading as='h5' size='sm'>Display Name</Heading>
-                        <Input w="35%"/>
+                <CardHeader>
+                    <Heading size='md'>Account</Heading>
+                </CardHeader>
+                <CardBody mt={-5}>
+                    <Stack divider={<StackDivider/>} spacing='4'>
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>Username</Heading>
+                                    <Text pt='2' fontSize='s'>JohnDoe</Text>
+                                </Box>
+                                <Spacer/>
+                                <Button w="95px">Edit</Button>
+                            </HStack>
+                        </Box>
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>Email address</Heading>
+                                    <Text pt='2' fontSize='s'>johndoe@mail.com</Text>
+                                </Box>
+                                <Spacer/>
+                                <Button w="95px">Edit</Button>
+                            </HStack>                                          
+                        </Box>
+                        <Box>
+                            <Stack>
+                                <Heading size='s'>Password & Authentication</Heading>
+                                <ChangePasswordButton/>
+                            </Stack>
+                        </Box>
+                        <Box>
+                            <Stack>
+                                <Box>
+                                    <Heading size='s'>Account Removal</Heading>
+                                    <Text pt='2' fontSize='s'>
+                                        Disabling your account means you can recover it at any time after taking this action.
+                                    </Text>
+                                </Box>
+                                <HStack spacing={4}>
+                                    <Button colorScheme="red">Disable Account</Button>
+                                    <DeleteAccountButton/>
+                                </HStack>
+                            </Stack>
+                        </Box>
                     </Stack>
-                    <Stack w="70%">
-                        <Heading as='h5' size='sm'>Profile Picture</Heading>
-                        <HStack>
-                            <Avatar size='2xl'/>
-                            <Dropzone/>
-                        </HStack>
-                        
-                    </Stack>
-                </Stack>
-            </Box>
+                </CardBody>
+            </Card>
         </>
     );
 }
 
 /**
+ * displays settings regarding the profile:
+ * - Display Name
+ * - Profile Picture
  * 
- * @returns 
+ * @returns JSX element
+ */
+function ProfileSettings() {
+
+    const { colorMode } = useColorMode();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    /**
+     * displays a Modal with a Box with which
+     * the user can upload a profile picture
+     * 
+     * @returns JSX element
+     */
+    function ProfilePictureModal() {
+
+        return (
+            <>
+                <Modal isOpen={isOpen} onClose={onClose}>
+                    <ModalOverlay/> 
+                    <ModalContent>
+                        <ModalHeader>Change Profile Picture</ModalHeader>
+                        <ModalCloseButton/>
+                        <ModalBody>
+                            <Dropzone/>
+                        </ModalBody>
+                        <ModalFooter>
+                            <HStack>
+                                <Button onClick={onClose}>Cancel</Button>
+                                <Button colorScheme="green">Save</Button>
+                            </HStack>                                                
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            </>
+        );
+    }
+
+    return (
+        <>
+            <Card
+                bg={colorMode === 'dark' ? 'gray.800' : 'white'}                               
+                w="75%"
+                p={2}                
+            >
+                <CardHeader>
+                    <Heading size='md'>Profile</Heading>
+                </CardHeader>
+                <CardBody mt={-5}>
+                    <Stack divider={<StackDivider/>} spacing='4'>
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>Display name</Heading>
+                                    <Text pt='2' fontSize='s'>DonJoe99</Text>
+                                </Box>
+                                <Spacer/>
+                                <Button w="95px">Edit</Button>
+                            </HStack>
+                        </Box>
+                        <Box>
+                            <Stack>
+                                <Heading size='s'>Profile Picture</Heading>
+                                <HStack>
+                                    <Avatar size='2xl'>
+                                        <AvatarBadge
+                                            as={IconButton}
+                                            size="sm"
+                                            rounded="full"
+                                            top="-3px"
+                                            colorScheme="red"
+                                            aria-label="remove Image"
+                                            icon={<SmallCloseIcon/>}
+                                        />
+                                    </Avatar>
+                                    <Spacer/>
+                                    <Button w="95px" onClick={onOpen}>Change</Button>
+                                    <ProfilePictureModal/>
+                                </HStack>                               
+                            </Stack>
+                        </Box>
+                    </Stack>
+                </CardBody>
+            </Card>
+        </>
+    );
+}
+
+/**
+ * displays settings regarding the Privacy and Safety
+ * of the user
+ * 
+ * @returns JSX element
  */
 function SafetyPrivacySettings() {
     const { colorMode } = useColorMode();
     return (
         <>
-            <Box
-                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-                borderWidth="1px"
-                borderRadius="md"
-                p={5}
-                w="80%"
+            <Card
+                bg={colorMode === 'dark' ? 'gray.800' : 'white'}                
+                w="75%"
+                p={2}
             >
-                <Stack spacing={4}>
-                    <Heading as='h3' size='lg'>
-                        Safety & Privacy
-                    </Heading>
-                    <FormControl as={SimpleGrid} columns={{ base: 2, lg: 2 }} spacing={3}>
-                        <FormLabel htmlFor='activity'>
-                            Personalize Feed based on your activity
-                        </FormLabel>
-                        <Switch id='activity' size='lg' />
-                        <FormLabel htmlFor='history'>
-                            Personalize Feed based on your search history
-                        </FormLabel>
-                        <Switch id='history' size='lg' />
-                    </FormControl>
-
-                    <Stack spacing={3}>
-                        <Heading as='h5' size='sm'>Request all my data</Heading>
+                <CardHeader>
+                    <Heading size='md'>Safety & Privacy</Heading>
+                    <Text pt='2' fontSize='s'>
+                        Personalize your TreasureTrove experience.
+                    </Text>
+                </CardHeader>
+                <CardBody mt={-5}>
+                    <Stack divider={<StackDivider/>} spacing='4'> 
                         <Box>
-                            <Button>Request Data</Button>
-                        </Box>
-                    </Stack>
-                    <Divider />
-                    <Stack spacing={4}>
-                        <Box>
-                            <Link href='https://chakra-ui.com' isExternal>
-                                Terms of Use <ExternalLinkIcon mx='4px' />
-                            </Link>
+                            <HStack>
+                                <Box>                                   
+                                    <Text pt='2' fontSize='s'>
+                                        Personalize Feed based on viewing activity.
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <Switch size='lg' colorScheme="green"/>
+                            </HStack>
                         </Box>
                         <Box>
-                            <Link href='https://chakra-ui.com' isExternal>
-                                Privacy Policy <ExternalLinkIcon mx='4px' />
-                            </Link>
+                            <HStack>
+                                <Box>  
+                                    <Text pt='2' fontSize='s'>
+                                        Personalize Feed based on your search history
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <Switch size='lg' colorScheme="green"/>
+                            </HStack>
                         </Box>
-                    </Stack>
-                </Stack>
-            </Box>
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Text pt='2' fontSize='s'>
+                                        Request all collected data
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <Button>Request Data</Button>
+                            </HStack>
+                        </Box>
+                        <Box>
+                            <Stack spacing={5}>
+                                <Box>
+                                    <Link href='https://chakra-ui.com' isExternal>
+                                        Terms of Use <ExternalLinkIcon mx='4px'/>
+                                    </Link>
+                                </Box>
+                                <Box>
+                                    <Link href='https://chakra-ui.com' isExternal>
+                                        Privacy Policy <ExternalLinkIcon mx='4px'/>
+                                    </Link>
+                                </Box>
+                            </Stack>
+                        </Box>
+                    </Stack>    
+                </CardBody>
+            </Card>
         </>
     );
 }
 
 /**
+ * displays settings regarding notifications
  * 
- * @returns 
+ * @returns JSX element
  */
 function NotificationSettings() {
     const { colorMode } = useColorMode();
     return (
         <>
-            <Box
-                borderWidth="1px"
-                borderRadius="md"
-                p={5}
+            <Card               
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-                w="80%"
+                w="75%"
+                p={2}
             >
-                <Stack>
-                    <Heading as='h3' size='lg'>Notifications</Heading>
-                    <Divider/>
-                    <FormControl as={SimpleGrid} columns={{ base: 2, lg: 2 }} spacing={3}>
-                        <FormLabel mb='0'>
-                            Push notifications
-                        </FormLabel>
-                        <Switch size='lg'/>
-                        <FormLabel mb='0'>
-                            Email alerts
-                        </FormLabel>
-                        <Switch size='lg'/>
-                        <FormLabel mb='0'>
-                            Recommendations
-                        </FormLabel>
-                        <Switch size='lg'/>
-                    </FormControl>
-                </Stack>
-            </Box>
+                <CardHeader>
+                    <Heading size='md'>Notifications</Heading>
+                    <Text pt='2' fontSize='s'>
+                        Receive notifications about TreasureTrove updates.
+                    </Text>
+                </CardHeader>
+                <CardBody mt={-5}>
+                    <Stack divider={<StackDivider/>} spacing='4'> 
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>
+                                        Email
+                                    </Heading>
+                                    <Text pt='2' fontSize='s'>
+                                        Receive email updates on giveaways you saved
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <Switch size='lg' colorScheme="green"/>
+                            </HStack>
+                        </Box>
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>
+                                        Browser
+                                    </Heading>
+                                    <Text pt='2' fontSize='s'>
+                                        Receive direct messages in your Browser 
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <Switch size='lg' colorScheme="green"/>
+                            </HStack>
+                        </Box>
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>
+                                        SMS
+                                    </Heading>
+                                    <Text pt='2' fontSize='s'>
+                                        Receive SMS updates on giveaways you saved
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <Switch size='lg' colorScheme="green"/>
+                            </HStack>
+                        </Box>
+                    </Stack>    
+                </CardBody>
+            </Card>
         </>
     );
 }
 
 /**
+ * displays settings regarding preferences:
+ * - language
+ * - theme (light, dark, system)
  * 
- * @returns 
+ * @returns JSX element
  */
 function PreferencesSettings() {
     const { colorMode } = useColorMode();
 
     return (
         <>
-            <Box
-                borderWidth="1px"
-                borderRadius="md"
-                p={5}
+            <Card
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-                w="80%"
+                w="75%"
+                p={2}
             >
-                <Stack>
-                    <Heading as='h3' size='lg'>Preferences</Heading>
-                    <Divider />
-                    <Heading as='h5' size='sm'>Language</Heading>
-                    <Select w="30%">
-                        <option>English (English)</option>
-                        <option>Français (French)</option>
-                        <option>Deutsch (German)</option>
-                        <option>Nederlands (Dutch)</option>
-                    </Select>
-                    <Heading as='h5' size='sm'>Theme</Heading>
-                    <Divider />
-                    <ThemeSwitcher />
-                </Stack>
-            </Box>
+                <CardHeader>
+                    <Heading size='md'>Preferences</Heading>
+                    <Text pt='2' fontSize='s'>
+                        Personalize your TreasureTrove experience.
+                    </Text>
+                </CardHeader>
+                <CardBody mt={-5}>
+                    <Stack divider={<StackDivider/>} spacing='4'> 
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>
+                                        Language
+                                    </Heading>
+                                    <Text pt='2' fontSize='s'>
+                                        Set the language
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <Select w="30%">
+                                    <option>English (English)</option>
+                                    <option>Français (French)</option>
+                                    <option>Deutsch (German)</option>
+                                    <option>Nederlands (Dutch)</option>
+                                </Select>
+                            </HStack>
+                        </Box>
+                        <Box>
+                            <HStack>
+                                <Box>
+                                    <Heading size='s'>
+                                        Theme
+                                    </Heading>
+                                    <Text pt='2' fontSize='s'>
+                                        Set theme
+                                    </Text>
+                                </Box>
+                                <Spacer/>
+                                <ThemeSwitcher/>
+                            </HStack>
+                        </Box>
+                    </Stack>
+                </CardBody>
+            </Card>
         </>
     );
 }
@@ -248,21 +416,20 @@ export default function UserSettingsPage() {
                         />
                         <TabPanels>
                             <TabPanel>
-                                <AccountSettings />
+                                <AccountSettings/>
                             </TabPanel>
                             <TabPanel>
-                                <ProfileSettings />
+                                <ProfileSettings/>
                             </TabPanel>
                             <TabPanel>
-                                <SafetyPrivacySettings />
+                                <SafetyPrivacySettings/>
                             </TabPanel>
                             <TabPanel>
-                                <NotificationSettings />
+                                <NotificationSettings/>
                             </TabPanel>
                             <TabPanel>
-                                <PreferencesSettings />
-                            </TabPanel>
-                            
+                                <PreferencesSettings/>
+                            </TabPanel>                            
                         </TabPanels>
                     </Tabs>
                 </Stack>

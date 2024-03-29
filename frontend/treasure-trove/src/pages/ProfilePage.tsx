@@ -1,11 +1,7 @@
-import { Avatar, Box, Button, Text, HStack, Heading, Icon, Stack, useColorMode, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { FiEdit } from "react-icons/fi";
+import { Avatar, Box, Button, Text, HStack, Heading, Stack, useColorMode } from "@chakra-ui/react";
 import FilterBar from "../components/filter/FilterBar";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
-import { ChevronDownIcon, CheckIcon } from "@chakra-ui/icons";
-import { SetStateAction, useState } from "react";
-
-
+import SortMenu from "../components/SortMenu";
 
 /**
  * renders the page of a profile with three components:
@@ -16,48 +12,8 @@ import { SetStateAction, useState } from "react";
  * @returns JSX element
  */
 export default function ProfilePage() {
-    const isLoggedIn = false;
+
     const { colorMode } = useColorMode();
-    
-    const [sortType, setSortType] = useState('newest');
-
-    const handleSortChange = (newSortType: SetStateAction<string>) => {
-        setSortType(newSortType);
-    };
-
-    /**
-     * displays a 
-     * @returns JSX element
-     */
-    function SortMenu() {
-        return (
-            <>
-                <Stack>
-                    <Menu>
-                        <MenuButton 
-                            as={Button} 
-                            rightIcon={<ChevronDownIcon/>}
-                        >
-                            {sortType}
-                        </MenuButton>
-                        <MenuList>
-                            {['Newest', 'Oldest', 'Popular'].map((option) => (
-                                <MenuItem
-                                    key={option}
-                                    onClick={() => handleSortChange(option)}
-                                >
-                                    <Box flex="1">{option}</Box>
-                                    {sortType === option && (
-                                        <CheckIcon ml="auto" />
-                                    )}
-                                </MenuItem>
-                            ))}
-                        </MenuList>
-                    </Menu>
-                </Stack>
-            </>
-        );
-    }
 
     return (
         <>

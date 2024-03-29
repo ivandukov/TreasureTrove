@@ -1,6 +1,6 @@
 import { CheckIcon, ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { Box, Button, Checkbox, Icon, Menu, MenuButton, MenuItem, MenuList, Stack, useColorMode } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Button, Icon, Menu, MenuButton, MenuItem, MenuList, Stack, useColorMode } from "@chakra-ui/react";
+import { useState } from "react";
 import { FiMonitor } from "react-icons/fi";
 
 /**
@@ -20,7 +20,7 @@ export default function ThemeSwitcher() {
 
     return (
 
-        <Stack w="19%">
+        <Stack w="30%">
             <Menu>
                 <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     {selectedTheme ? selectedTheme : 'Theme'}

@@ -57,7 +57,7 @@ func (categoryController CategoryController) GetCategoryById(context *gin.Contex
 //
 // Parameters:
 //   - context: The context of the request
-func (CategoryController CategoryController) GetCategoryByName(context *gin.Context) {
+func (categoryController CategoryController) GetCategoryByName(context *gin.Context) {
 
 	var category models.Category
 	database := services.GetDatabase()
@@ -83,7 +83,7 @@ func (CategoryController CategoryController) GetCategoryByName(context *gin.Cont
 //
 // Parameters:
 //   - context: The context of the request
-func (CategoryController CategoryController) CreateCategory(context *gin.Context) {
+func (categoryController CategoryController) CreateCategory(context *gin.Context) {
 
 	var newCategory models.Category
 	database := services.GetDatabase()
@@ -114,7 +114,7 @@ func (CategoryController CategoryController) CreateCategory(context *gin.Context
 //
 // Parameters:
 //   - context: The context of the request
-func (CategoryController CategoryController) UpdateCategoryById(context *gin.Context) {
+func (categoryController CategoryController) UpdateCategoryById(context *gin.Context) {
 
 	var category models.Category
 	database := services.GetDatabase()
@@ -144,13 +144,13 @@ func (CategoryController CategoryController) UpdateCategoryById(context *gin.Con
 	context.JSON(http.StatusOK, gin.H{"category": category})
 }
 
-// UpdateCategoryById updates an existing category by its name
+// UpdateCategoryByName updates an existing category by its name
 //
 // HTTP-Request: PUT category/name/:name
 //
 // Parameters:
 //   - context: The context of the request
-func (CategoryController CategoryController) UpdateCategoryByName(context *gin.Context) {
+func (categoryController CategoryController) UpdateCategoryByName(context *gin.Context) {
 
 	var category models.Category
 	database := services.GetDatabase()
@@ -186,7 +186,7 @@ func (CategoryController CategoryController) UpdateCategoryByName(context *gin.C
 //
 // Parameters:
 //   - context: The context of the request
-func (CategoryController CategoryController) DeleteCategoryById(context *gin.Context) {
+func (categoryController CategoryController) DeleteCategoryById(context *gin.Context) {
 	var category models.Category
 	database := services.GetDatabase()
 	categoryId := context.Param("id")
@@ -219,7 +219,7 @@ func (CategoryController CategoryController) DeleteCategoryById(context *gin.Con
 //
 // Parameters:
 //   - context: The context of the request
-func (CategoryController CategoryController) DeleteCategoryByUsername(context *gin.Context) {
+func (categoryController CategoryController) DeleteCategoryByUsername(context *gin.Context) {
 	var category models.Category
 	database := services.GetDatabase()
 	categoryName := context.Param("name")

@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 	"net/http"
 	"treasuretrove/api/models"
 	"treasuretrove/api/services"
@@ -62,11 +63,13 @@ func (userController UserController) CreateUser(context *gin.Context) {
 	dbErr := database.Create(&user).Error
 
 	if dbErr != nil {
+		//log error
+		log.Println(dbErr.Error())
 		context.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"user": user})
+	context.JSON(http.StatusCreated, gin.H{"user": user})
 }
 
 // GetUserById retrieves a specific user by ID

@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-
 	_ = godotenv.Load()
 
 	services.ConnectToDatabase()

@@ -13,7 +13,7 @@ var database *gorm.DB
 // ConnectToDatabase initializes the database connection
 // using the provided DSN (Data Source Name).
 func ConnectToDatabase() {
-	dsn := os.Getenv("DATABASE_URL")
+	dsn := os.Getenv("DB_DSN")
 
 	if dsn == "" {
 		panic("Error getting DB_DSN from environment variables")

@@ -1,6 +1,9 @@
 # Start from the latest golang base image
 FROM golang:latest
 
+#install psql
+RUN apt-get update && apt-get install -y postgresql-client
+
 # Set the Current Working Directory inside the container
 WORKDIR /app
 
@@ -23,7 +26,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o treasure-trove
 EXPOSE 8080
 
 # Copy the wait-for-postgres.sh script from your host to your docker image
-COPY app/deployment/wait-for-postgres.sh /wait-for-postgres.sh
+COPY deployment/wait-for-postgres.sh /wait-for-postgres.sh
 
 # Make the wait-for-postgres.sh script executable
 RUN chmod +x /wait-for-postgres.sh

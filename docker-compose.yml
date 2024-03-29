@@ -30,5 +30,5 @@ services:
       - DATABASE_URL=postgresql://sabo:example@db:5432/ttDB
       - POSTGRES_USER=sabo
       - POSTGRES_PASSWORD=example
-
+    restart: on-failure
 

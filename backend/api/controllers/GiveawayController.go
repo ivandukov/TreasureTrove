@@ -25,10 +25,6 @@ func (giveawayController GiveawayController) GetAllGiveaways(context *gin.Contex
 	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways}) // return all giveaways
 }
 
-func (giveawayController GiveawayController) GetAllGiveawaysByUsername(context *gin.Context) {
-
-}
-
 // CreateGiveaway Creates a new giveaway
 //
 // HTTP-Request: POST giveaway/
@@ -61,7 +57,7 @@ func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"user": giveaway})
+	context.JSON(http.StatusCreated, gin.H{"user": giveaway})
 }
 
 // GetGiveawayById searches the database for giveaway by its id

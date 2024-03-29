@@ -25,9 +25,9 @@ func (userController UserController) GetAllUsers(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"users": users})
 }
 
-// CreateUser retrieves all users and returns them as a JSON-Object
+// CreateUser creates a new User
 //
-// HTTP-Request: GET user/
+// HTTP-Request: POST user/
 //
 // Parameters:
 //   - context: The context of the request
@@ -51,7 +51,6 @@ func (userController UserController) CreateUser(context *gin.Context) {
 		return
 	}
 
-	// hash password
 	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 
 	if errHash != nil {

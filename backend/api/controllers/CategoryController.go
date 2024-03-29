@@ -43,6 +43,7 @@ func (categoryController CategoryController) GetCategoryById(context *gin.Contex
 	}
 
 	err := database.First(&category, categoryId).Error
+
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
 		return
@@ -87,11 +88,15 @@ func (categoryController CategoryController) CreateCategory(context *gin.Context
 
 	var newCategory models.Category
 	database := services.GetDatabase()
-	validator := validator.New()
+	validate := validator.New()
 
-	context.BindJSON(&newCategory)
+	bindErr := context.BindJSON(&newCategory)
+	if bindErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": bindErr.Error()})
+		return
+	}
 
-	validationErr := validator.Struct(newCategory)
+	validationErr := validate.Struct(newCategory)
 
 	if validationErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
@@ -105,7 +110,7 @@ func (categoryController CategoryController) CreateCategory(context *gin.Context
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"category": newCategory})
+	context.JSON(http.StatusCreated, gin.H{"category": newCategory})
 }
 
 // UpdateCategoryById updates an existing category by its id
@@ -132,7 +137,11 @@ func (categoryController CategoryController) UpdateCategoryById(context *gin.Con
 		return
 	}
 
-	context.BindJSON(&category)
+	bindErr := context.BindJSON(&category)
+	if bindErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": bindErr.Error()})
+		return
+	}
 
 	err = database.Save(&category).Error
 
@@ -168,7 +177,12 @@ func (categoryController CategoryController) UpdateCategoryByName(context *gin.C
 		return
 	}
 
-	context.BindJSON(&category)
+	bindErr := context.BindJSON(&category)
+
+	if bindErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	err = database.Save(&category).Error
 
@@ -213,7 +227,7 @@ func (categoryController CategoryController) DeleteCategoryById(context *gin.Con
 	context.JSON(http.StatusOK, gin.H{"message": "Category deleted"})
 }
 
-// DeleteCategoryById updates an existing category by its name
+// DeleteCategoryByUsername updates an existing category by its name
 //
 // HTTP-Request: PUT category/:name
 //

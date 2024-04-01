@@ -1,6 +1,6 @@
 package models
 
-// UserGiveaway pivot table
+// UserGiveaway model - represents the relationship between a user and a giveaway
 type UserGiveaway struct {
 	ID         uint   `gorm:"primary_key"`
 	UserID     uint   `gorm:"primary_key"`

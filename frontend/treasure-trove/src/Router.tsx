@@ -13,27 +13,45 @@ import SavedPage from "./pages/SavedPage";
 import MessagePage from "./pages/MessagesPage";
 import ChatPage from "./pages/ChatPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import {ReactElement} from "react";
 
 /**
- * 
- * @returns Router containing all urls of the web app
+ * An array of route objects for the application.
+ * Each object in the array represents a route in the application.
+ *
+ * @type {Array<{path: string, element: JSX.Element}>}
+ *
+ * @property {string} path - The path of the route.
+ * @property {ReactElement} element - The React component that should be rendered when the route is matched.
+ *
+ * @example
+ * // Define a route for the homepage
+ * {path: "/", element: <Homepage/>}
  */
+const routes: Array<{ path: string; element: ReactElement; }> = [
+    {path: "/", element: <LoggedOutHomepage/>},
+    {path: "/home", element: <LoggedInHomepage/>},
+    {path: "/login", element: <LoginPage/>},
+    {path: "/register", element: <RegisterPage/>},
+    {path: "/user", element: <ProfilePage/>},
+    {path: "/giveaway", element: <GiveawayPage/>},
+    {path: "/settings", element: <SettingsPage/>},
+    {path: "/results", element: <SearchResultPage/>},
+    {path: "/submit", element: <CreateGiveawayPage/>},
+    {path: "/saved", element: <SavedPage/>},
+    {path: "/messages", element: <MessagePage/>},
+    {path: "/chat", element: <ChatPage/>},
+    {path: "/notfound", element: <NotFoundPage/>},
+];
+
 export default function AppRouter() {
-    return <Router>
-        <Routes>
-            <Route path="/" element={<LoggedOutHomepage/>}/>
-            <Route path="/home" element={<LoggedInHomepage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="/register" element={<RegisterPage/>}/>
-            <Route path="/user" element={<ProfilePage/>}/>
-            <Route path="/giveaway" element={<GiveawayPage/>}/>
-            <Route path="/settings" element={<SettingsPage/>}/>
-            <Route path="/results" element={<SearchResultPage/>}/>
-            <Route path="/submit" element={<CreateGiveawayPage/>}/>
-            <Route path="/saved" element={<SavedPage/>}/>
-            <Route path="/messages" element={<MessagePage/>}/>
-            <Route path="/chat" element={<ChatPage/>}/>
-            <Route path="/notfound" element={<NotFoundPage/>}/>
-        </Routes>
-    </Router>;
+    return (
+        <Router>
+            <Routes>
+                {routes.map(({path, element}) => (
+                    <Route key={path} path={path} element={element}/>
+                ))}
+            </Routes>
+        </Router>
+    );
 }

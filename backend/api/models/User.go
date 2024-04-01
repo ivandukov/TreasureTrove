@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// User model - represents a user in the database
 type User struct {
 	ID        uint       `gorm:"primary_key"`
 	Username  string     `gorm:"size:255;not null;unique" validate:"required,min=3,max=255"`

@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	//ignore err because sometimes the env comes from docker compose
 	_ = godotenv.Load()
 
 	services.ConnectToDatabase()

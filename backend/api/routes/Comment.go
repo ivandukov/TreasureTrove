@@ -5,6 +5,13 @@ import (
 	"treasuretrove/api/controllers"
 )
 
+// InitializeCommentRoutes initializes the routes for comment-related operations.
+// Here, the paths get associated with functions for retrieving comments,
+// creating comments as well as getting, updating and deleting comments by ID
+// (see CommentController.go).
+//
+// Parameters:
+// - r: A pointer to a gin.Engine instance.
 func InitializeCommentRoutes(ginEngine *gin.Engine) {
 
 	commentGroup := ginEngine.Group("/comment")

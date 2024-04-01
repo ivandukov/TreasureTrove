@@ -108,11 +108,16 @@ func (commentController CommentController) GetCommentsByGiveawayId(context *gin.
 func (commentController CommentController) CreateComment(context *gin.Context) {
 	var newComment models.Comment
 	database := services.GetDatabase()
-	validator := validator.New()
+	validate := validator.New()
 
-	context.BindJSON(&newComment)
+	bindErr := context.BindJSON(&newComment)
 
-	validationErr := validator.Struct(newComment)
+	if bindErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": bindErr.Error()})
+		return
+	}
+
+	validationErr := validate.Struct(newComment)
 
 	if validationErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
@@ -154,7 +159,12 @@ func (commentController CommentController) UpdateCommentById(context *gin.Contex
 		return
 	}
 
-	context.BindJSON(&comment)
+	bindErr := context.BindJSON(&comment)
+
+	if bindErr != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	err = database.Save(&comment).Error
 

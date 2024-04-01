@@ -33,6 +33,7 @@ func GetDatabase() *gorm.DB {
 	return database
 }
 
+// SetDatabase sets the database connection to the provided value
 func SetDatabase(newDatabase *gorm.DB) {
 	database = newDatabase
 }

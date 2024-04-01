@@ -2,6 +2,7 @@ package models
 
 import "time"
 
+// Giveaway model - represents a giveaway in the database
 type Giveaway struct {
 	ID          uint       `gorm:"primary_key"`
 	Title       string     `gorm:"size:255;not null" validate:"required,min=3,max=255"`

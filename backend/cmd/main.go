@@ -5,6 +5,7 @@ import (
 	"github.com/joho/godotenv"
 	"treasuretrove/api/routes"
 	"treasuretrove/api/services"
+	"github.com/gin-contrib/cors"
 )
 
 func main() {
@@ -12,8 +13,12 @@ func main() {
 
 	services.ConnectToDatabase()
 	services.MigrateModels()
-
 	ginEngine := gin.Default()
+
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:5173"}
+	ginEngine.Use(cors.New(config))
+
 	routes.InitRoutes(ginEngine)
 	err := ginEngine.Run()
 	if err != nil {

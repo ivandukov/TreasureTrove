@@ -8,6 +8,7 @@ require github.com/kr/text v0.2.0 // indirect
 
 require (
 	github.com/chenzhuoyu/iasm v0.9.1 // indirect
+	github.com/gin-contrib/cors v1.7.1 // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/knz/go-libedit v1.10.1 // indirect
 	golang.org/x/sync v0.6.0 // indirect

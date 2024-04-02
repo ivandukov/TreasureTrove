@@ -2,7 +2,7 @@ import {
     Box, Flex, Heading, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, 
     useColorMode 
 } from "@chakra-ui/react";
-import FilterBar from "../components/homepage/filter/FilterBar";
+import SearchBar from "../components/homepage/filter/SearchBar";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 import SortMenu from "../components/SortMenu";
 
@@ -18,7 +18,7 @@ export default function SearchResultPage() {
     return (
         <>
             <Stack>
-                <FilterBar/>
+                <SearchBar/>
                 <Heading as='h5' size='sm'>
                     55.000+ results for: "Sofa"
                 </Heading>

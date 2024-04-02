@@ -1,5 +1,5 @@
 import { 
-    Box, Card, HStack, Heading, Icon, Link, Image, Stack, Text, Spinner 
+    Box, Card, Heading, Icon, Link, Image, Stack, Text, Spinner, SimpleGrid 
 } from "@chakra-ui/react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useQuery } from "react-query";
@@ -29,18 +29,20 @@ export function PopularBox({ colorMode }: any) {
         message: string;
     }
 
-    const { isLoading, isError, data, error } = useQuery<any, QueryError>({
+    const { status, data, error } = useQuery<any, QueryError>({
         queryKey: ['giveaways'], 
         queryFn: fetchGiveaways
     });
 
-    if(isLoading) {
+    if(status === 'loading') {
         return (
-            <Spinner/>
+            <>
+                <Spinner/>
+            </>
         );
     }
     
-    if(isError) {
+    if(status === 'error') {
         return (
             <>
                 <Text>Error: {error.message}</Text>
@@ -54,7 +56,7 @@ export function PopularBox({ colorMode }: any) {
         <>
             <Box
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-                p={3}
+                p={5}
                 borderWidth="1px"
                 borderRadius="md"
             >
@@ -62,7 +64,7 @@ export function PopularBox({ colorMode }: any) {
                     <Heading size="md">
                         Popular
                     </Heading>
-                    <HStack>
+                    <SimpleGrid minChildWidth='290px' spacing={3}>
                         {data.giveaways.map((giveaway: any, index: number) => (
                             <Card 
                                 key={index} 
@@ -95,7 +97,7 @@ export function PopularBox({ colorMode }: any) {
                                 </Stack>
                             </Card>
                         ))}
-                    </HStack>
+                    </SimpleGrid>
                 </Stack>
             </Box>
         </>

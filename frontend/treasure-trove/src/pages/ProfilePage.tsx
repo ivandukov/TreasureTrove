@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Text, HStack, Heading, Stack, useColorMode } from "@chakra-ui/react";
-import FilterBar from "../components/homepage/filter/FilterBar";
+import SearchBar from "../components/homepage/filter/SearchBar";
 import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 import SortMenu from "../components/SortMenu";
 
@@ -18,7 +18,7 @@ export default function ProfilePage() {
     return (
         <>
             <Stack>
-                <FilterBar/>      
+                <SearchBar/>      
                 <HStack align="start">
                     <Box 
                         bg={colorMode === 'dark' ? 'gray.900' : 'white'}

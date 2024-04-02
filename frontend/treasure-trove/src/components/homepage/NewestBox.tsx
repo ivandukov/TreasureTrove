@@ -1,5 +1,5 @@
 import { 
-    Box, Heading, Stack, Text, Spinner, Card, HStack, Icon, Image, Link 
+    Box, Heading, Stack, Text, Spinner, Card, Icon, Image, Link, SimpleGrid 
 } from "@chakra-ui/react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useQuery } from 'react-query';
@@ -24,23 +24,25 @@ const fetchGiveaways = async () => {
  * @returns JSX element
  */
 export function NewestBox({ colorMode }: any) {
-
+    
     interface QueryError {
         message: string;
     }
 
-    const { isLoading, isError, data, error } = useQuery<any, QueryError>({
+    const { status, data, error } = useQuery<any, QueryError>({
         queryKey: ['giveaways'], 
         queryFn: fetchGiveaways
     });
 
-    if(isLoading) {
+    if(status === 'loading') {
         return (
-            <Spinner/>
+            <>
+                <Spinner/>
+            </>
         );
     }
     
-    if(isError) {
+    if(status === 'error') {
         return (
             <>
                 <Text>Error: {error.message}</Text>
@@ -54,7 +56,7 @@ export function NewestBox({ colorMode }: any) {
         <>
             <Box
                 bg={colorMode === 'dark' ? 'gray.800' : 'white'}
-                p={3}
+                p={5}
                 borderWidth="1px"
                 borderRadius="md"
             >
@@ -63,7 +65,7 @@ export function NewestBox({ colorMode }: any) {
                         New
                     </Heading>
                     
-                    <HStack>
+                    <SimpleGrid minChildWidth='240px' spacing={3}>
                         {data.giveaways.map((giveaway: any, index: number) => (
                             <Card 
                                 key={index} 
@@ -96,7 +98,7 @@ export function NewestBox({ colorMode }: any) {
                                 </Stack>
                             </Card>
                         ))}
-                    </HStack>
+                    </SimpleGrid>
                 </Stack>
             </Box>
         </>

@@ -1,9 +1,10 @@
 import { 
     Box, Button, FormControl, HStack, Heading, Input, Radio, 
-    RadioGroup, Select, Stack, Textarea, useColorMode, useDisclosure 
+    RadioGroup, Stack, Textarea, useColorMode, useDisclosure 
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { LocationSearchBar } from "../components/creategiveawaypage/LocationSearchBar";
+import CategorySelect from "../components/homepage/filter/CategorySelect";
 
 /**
  * renders the Page for creating a new advertisement,
@@ -63,23 +64,15 @@ export default function CreateGiveawayPage() {
                                         })}
                                     />
                                 </FormControl>
-                                <FormControl>
+                                <FormControl w="50%">
                                     <LocationSearchBar 
                                         onOpen={onOpen} 
                                         onClose={onClose} 
                                         isOpen={isOpen} 
                                         register={register}
                                     />
-                                </FormControl>    
-                                <FormControl>
-                                    <Select 
-                                        {...register("category")}
-                                    >
-                                        <option value='books'>Books</option>
-                                        <option value='fashion'>Fashion</option>
-                                        <option value='furniture'>Furniture</option>
-                                    </Select>
-                                </FormControl>
+                                </FormControl>                                                                
+                                <CategorySelect/>                                                                   
                             </HStack>
                             <FormControl>
                                 <Textarea 

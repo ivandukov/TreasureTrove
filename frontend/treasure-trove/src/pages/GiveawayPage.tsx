@@ -1,5 +1,5 @@
 import { Box, Stack } from "@chakra-ui/react";
-import FilterBar from "../components/homepage/filter/FilterBar.tsx";
+import SearchBar from "../components/homepage/filter/SearchBar.tsx";
 import ImageCarousel from "../components/ImageCarousel.tsx";
 import Footer from "../components/Footer";
 
@@ -32,7 +32,7 @@ export default function GiveawayPage() {
 
     return (
         <Stack>
-            <FilterBar/>
+            <SearchBar/>
             <Box>
                 <ImageCarousel images={productData.images}/>
             </Box>  

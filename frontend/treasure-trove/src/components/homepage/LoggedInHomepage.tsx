@@ -1,5 +1,5 @@
 import { Stack, useColorMode} from "@chakra-ui/react";
-import FilterBar from "./filter/FilterBar";
+import SearchBar from "./filter/SearchBar";
 import Footer from "../Footer";
 import { NewestBox } from "./NewestBox";
 import { PopularBox } from "./PopularBox";
@@ -16,7 +16,7 @@ export default function LoggedInHomepage() {
     return (
         <>
             <Stack>
-                <FilterBar/>
+                <SearchBar/>
                 <NewestBox colorMode={colorMode}/>
                 <PopularBox colorMode={colorMode}/>
                 <TopCitiesBox colorMode={colorMode}/>

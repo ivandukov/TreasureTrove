@@ -1,13 +1,12 @@
 import { 
-    Box, Card, HStack, Heading, Icon, Link, Image, Stack, Text, Spinner 
+    Box, Heading, Stack, Text, Spinner, Card, HStack, Icon, Image, Link 
 } from "@chakra-ui/react";
-
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useQuery } from 'react-query';
 
 /**
- * 
- * @returns 
+ * retrieves giveaways from database
+ * @returns {Response} response - fetched data
  */
 const fetchGiveaways = async () => {
     const response = await fetch('http://localhost:8080/giveaway/');
@@ -19,7 +18,9 @@ const fetchGiveaways = async () => {
 }
 
 /**
- *
+ * renders Giveaways sorted by newest
+ * To print out raw JSON data, use: <Text>{JSON.stringify(data, null, 2)}</Text>
+ * @param {ColorMode} colorMode
  * @returns JSX element
  */
 export function NewestBox({ colorMode }: any) {
@@ -47,6 +48,8 @@ export function NewestBox({ colorMode }: any) {
         );
     }
 
+    console.log(data);
+
     return (
         <>
             <Box
@@ -60,41 +63,38 @@ export function NewestBox({ colorMode }: any) {
                         New
                     </Heading>
                     
-                    <HStack>                     
-                        {Array.from({ length: 3 }, (_, index) => (
-                            <Link href="/giveaway">
-                                <Card
-                                    p={3}
-                                    _hover={{
-                                        boxShadow: "xl",
-                                        transition: "box-shadow 0.1s",
-                                    }}
-                                >
+                    <HStack>
+                        {data.giveaways.map((giveaway: any, index: number) => (
+                            <Card 
+                                key={index} 
+                                p={3}
+                                _hover={{
+                                    boxShadow: "lg",
+                                    transition: "box-shadow 0.1s",
+                                }}
+                            >
+                                <Stack>                               
+                                    <Image
+                                        objectFit='cover'
+                                        src={giveaway.ImgUrl}
+                                    />
                                     <Stack>
-                                        <Image
-                                            objectFit='cover'
-                                            src='https://media.istockphoto.com/id/1342930425/de/foto/seitenansicht-eines-alten-retro-fernsehers.jpg?s=612x612&w=0&k=20&c=vtGb5DKmsADJKHJdPvS5IdoimHkry482DO-xkleIgw8='/>
-                                        <Stack>
-                                            <Heading
-                                                size="sm"
-                                                noOfLines={2}
-                                            >
-                                                Retro Tube TV Panasonic good condition
-                                            </Heading>
-                                            <Text color="gray.500">
-                                                <Link href="/results">
-                                                    <Icon
-                                                        as={FaMapMarkerAlt}
-                                                        boxSize="13px"
-                                                        marginRight="3px"
-                                                    />
-                                                    7564, Stuttgart
-                                                </Link>
-                                            </Text>
-                                        </Stack>
+                                        <Heading size="sm" noOfLines={2}>
+                                            {giveaway.Title}
+                                        </Heading>
+                                        <Text color="gray.500">
+                                            <Link href="/results">
+                                                <Icon
+                                                    as={FaMapMarkerAlt}
+                                                    boxSize="13px"
+                                                    marginRight="3px" 
+                                                />
+                                                7564, {giveaway.Location}
+                                            </Link>
+                                        </Text>
                                     </Stack>
-                                </Card>
-                            </Link>
+                                </Stack>
+                            </Card>
                         ))}
                     </HStack>
                 </Stack>

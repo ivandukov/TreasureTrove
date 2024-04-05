@@ -64,7 +64,7 @@ export function PopularBox({ colorMode }: any) {
                     <Heading size="md">
                         Popular
                     </Heading>
-                    <SimpleGrid minChildWidth='290px' spacing={3}>
+                    <SimpleGrid minChildWidth='240px' spacing={3}>
                         {data.giveaways.map((giveaway: any, index: number) => (
                             <Card 
                                 key={index} 

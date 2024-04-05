@@ -14,6 +14,7 @@ import MessagePage from "./pages/MessagesPage";
 import ChatPage from "./pages/ChatPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import {ReactElement} from "react";
+import UserPage from "./pages/UserPage";
 
 /**
  * An array of route objects for the application.
@@ -33,7 +34,8 @@ const routes: Array<{ path: string; element: ReactElement; }> = [
     {path: "/home", element: <LoggedInHomepage/>},
     {path: "/login", element: <LoginPage/>},
     {path: "/register", element: <RegisterPage/>},
-    {path: "/user", element: <ProfilePage/>},
+    {path: "/profile", element: <ProfilePage/>},
+    {path: "/user", element: <UserPage/>},
     {path: "/giveaway", element: <GiveawayPage/>},
     {path: "/settings", element: <SettingsPage/>},
     {path: "/results", element: <SearchResultPage/>},

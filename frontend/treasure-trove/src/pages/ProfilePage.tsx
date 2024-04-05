@@ -4,11 +4,25 @@ import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
 import SortMenu from "../components/SortMenu";
 
 /**
+ * retrieves profile data from database
+ * TODO: Retrieve data from the currently viewed profile
+ * @returns {Response} response - fetched data
+ */
+const fetchProfile = async () => {
+
+    const response = await fetch('http://localhost:8080/user/');
+
+    if(!response.ok) {
+        throw new Error('Fetch failed');
+    }
+    return response.json();
+}
+
+/**
  * renders the page of a profile with three components:
  * - Search-Bar
  * - Profile-Box
  * - Giveaway + Request list
- * TODO: Replace Stacks with Grid (?)
  * @returns JSX element
  */
 export default function ProfilePage() {
@@ -44,7 +58,7 @@ export default function ProfilePage() {
                         w="73%"
                     >
                         <Stack>
-                            <Stack w="20%">
+                            <Stack w="27%">
                                 <SortMenu/>
                             </Stack>
                             <FeaturedCardGrid/>

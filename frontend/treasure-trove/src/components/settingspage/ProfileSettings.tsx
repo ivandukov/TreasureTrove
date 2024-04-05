@@ -7,6 +7,21 @@ import { SmallCloseIcon } from "@chakra-ui/icons";
 import { ProfilePictureModal } from "./ProfilePictureModal.tsx";
 
 /**
+ * retrieves user data from database
+ * TODO: Retrieve data from the currently logged in user
+ * @returns {Response} response - fetched data
+ */
+const fetchUser = async () => {
+
+    const response = await fetch('http://localhost:8080/user/');
+
+    if(!response.ok) {
+        throw new Error('Fetch failed');
+    }
+    return response.json();
+}
+
+/**
  * displays settings regarding the profile:
  * - Display Name
  * - Profile Picture
@@ -29,7 +44,7 @@ export function ProfileSettings() {
                     <Heading size='md'>Profile</Heading>
                 </CardHeader>
                 <CardBody mt={-5}>
-                    <Stack divider={<StackDivider />} spacing='4'>
+                    <Stack divider={<StackDivider/>} spacing='4'>
                         <Box>
                             <HStack>
                                 <Box>
@@ -52,11 +67,12 @@ export function ProfileSettings() {
                                             top="-3px"
                                             colorScheme="red"
                                             aria-label="remove Image"
-                                            icon={<SmallCloseIcon />} />
+                                            icon={<SmallCloseIcon/>}
+                                        />
                                     </Avatar>
-                                    <Spacer />
+                                    <Spacer/>
                                     <Button w="95px" onClick={onOpen}>Change</Button>
-                                    <ProfilePictureModal isOpen={isOpen} onClose={onClose} />
+                                    <ProfilePictureModal isOpen={isOpen} onClose={onClose}/>
                                 </HStack>
                             </Stack>
                         </Box>

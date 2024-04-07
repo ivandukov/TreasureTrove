@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"treasuretrove/api/models"
+	"treasuretrove/api/requests"
 	"treasuretrove/api/services"
 )
 
@@ -37,28 +38,35 @@ func (userController UserController) CreateUser(context *gin.Context) {
 	validation := validator.New()
 	database := services.GetDatabase()
 
-	var user models.User
+	var request requests.UserCreateRequest
 
-	bindJsonErr := context.BindJSON(&user)
+	bindJsonErr := context.BindJSON(&request)
 	if bindJsonErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": bindJsonErr.Error()})
 		return
 	}
 
-	validationErr := validation.Struct(user)
+	validationErr := validation.Struct(request)
 
 	if validationErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 		return
 	}
 
-	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
 
 	if errHash != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": errHash.Error()})
 	}
 
-	user.Password = string(hashedPassword)
+	user := models.User{
+		Username:  request.Username,
+		Email:     request.Email,
+		Address:   request.Address,
+		FirstName: request.FirstName,
+		LastName:  request.LastName,
+		Password:  string(hashedPassword),
+	}
 
 	dbErr := database.Create(&user).Error
 

@@ -2,9 +2,9 @@ import {
     Box, Flex, Heading, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, 
     useColorMode 
 } from "@chakra-ui/react";
-import SearchBar from "../components/homepage/filter/SearchBar";
-import FeaturedCardGrid from "../components/homepage/featured/FeaturedCardGrid";
-import SortMenu from "../components/SortMenu";
+import SearchBar from "../homepage/filter/SearchBar";
+import FeaturedCardGrid from "../homepage/featured/FeaturedCardGrid";
+import SortMenu from "../SortMenu";
 
 /**
  * renders a Search bar with a list of giveaways or

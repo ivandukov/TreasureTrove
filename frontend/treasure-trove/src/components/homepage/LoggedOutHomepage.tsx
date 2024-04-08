@@ -1,6 +1,6 @@
 import { Button, HStack, Link, Stack, useColorMode } from "@chakra-ui/react";
 import SearchBar from "./filter/SearchBar.tsx";
-import Footer from "../Footer.tsx";
+import Footer from "./Footer.tsx";
 import { NewestBox } from "./NewestBox.tsx";
 import { PopularBox } from "./PopularBox.tsx";
 import TopCitiesBox from "./TopCitiesBox.tsx";

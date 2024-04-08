@@ -1,20 +1,20 @@
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ProfilePage from "./pages/ProfilePage";
-import GiveawayPage from "./pages/GiveawayPage";
-import SettingsPage from "./pages/SettingsPage";
-import SearchResultPage from "./pages/SearchResultPage";
+import LoginPage from "./components/loginpage/LoginPage";
+import RegisterPage from "./components/registerpage/RegisterPage";
+import ProfilePage from "./components/profilepage/ProfilePage";
+import GiveawayPage from "./components/giveawaypage/GiveawayPage";
+import SettingsPage from "./components/settingspage/SettingsPage";
+import SearchResultPage from "./components/searchresultpage/SearchResultPage";
 import LoggedOutHomepage from "./components/homepage/LoggedOutHomepage";
 import LoggedInHomepage from "./components/homepage/LoggedInHomepage";
-import CreateGiveawayPage from "./pages/CreateGiveawayPage";
-import SavedPage from "./pages/SavedPage";
-import MessagePage from "./pages/MessagesPage";
-import ChatPage from "./pages/ChatPage";
-import NotFoundPage from "./pages/NotFoundPage";
+import CreateGiveawayPage from "./components/creategiveawaypage/CreateGiveawayPage";
+import SavedPage from "./components/savedpage/SavedPage";
+import MessagePage from "./components/messagepage/MessagesPage";
+import ChatPage from "./components/chatpage/ChatPage";
+import NotFoundPage from "./components/notfoundpage/NotFoundPage";
 import {ReactElement} from "react";
-import UserPage from "./pages/UserPage";
+import UserPage from "./components/profilepage/UserPage";
 
 /**
  * An array of route objects for the application.

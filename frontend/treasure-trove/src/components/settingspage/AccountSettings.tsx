@@ -39,7 +39,7 @@ export default function AccountSettings() {
                                     <Text pt='2' fontSize='s'>JohnDoe</Text>
                                 </Box>
                                 <Spacer />
-                                <Button w="95px">Edit</Button>
+                                
                             </HStack>
                         </Box>
                         <Box>
@@ -49,7 +49,7 @@ export default function AccountSettings() {
                                     <Text pt='2' fontSize='s'>johndoe@mail.com</Text>
                                 </Box>
                                 <Spacer />
-                                <Button w="95px">Edit</Button>
+                                <Button w="95px">Change</Button>
                             </HStack>
                         </Box>
                         <Box>

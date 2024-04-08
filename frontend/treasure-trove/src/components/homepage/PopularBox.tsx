@@ -1,8 +1,7 @@
-import { 
-    Box, Card, Heading, Icon, Link, Image, Stack, Text, Spinner, SimpleGrid 
-} from "@chakra-ui/react";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import {
+    Box, Heading, Stack, Text, Spinner, SimpleGrid} from "@chakra-ui/react";
 import { useQuery } from "react-query";
+import { GiveawayFeedCard } from "./GiveawayFeedCard";
 
 /**
  * retrieves giveaways from database
@@ -11,7 +10,7 @@ import { useQuery } from "react-query";
 const fetchGiveaways = async () => {
     const response = await fetch('http://localhost:8080/giveaway/');
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error('Fetch failed');
     }
     return response.json();
@@ -30,27 +29,25 @@ export function PopularBox({ colorMode }: any) {
     }
 
     const { status, data, error } = useQuery<any, QueryError>({
-        queryKey: ['giveaways'], 
+        queryKey: ['giveaways'],
         queryFn: fetchGiveaways
     });
 
-    if(status === 'loading') {
+    if (status === 'loading') {
         return (
             <>
-                <Spinner/>
+                <Spinner />
             </>
         );
     }
-    
-    if(status === 'error') {
+
+    if (status === 'error') {
         return (
             <>
                 <Text>Error: {error.message}</Text>
             </>
         );
     }
-
-    console.log(data);
 
     return (
         <>
@@ -64,38 +61,9 @@ export function PopularBox({ colorMode }: any) {
                     <Heading size="md">
                         Popular
                     </Heading>
-                    <SimpleGrid minChildWidth='240px' spacing={3}>
+                    <SimpleGrid minChildWidth='110px' spacing={3}>
                         {data.giveaways.map((giveaway: any, index: number) => (
-                            <Card 
-                                key={index} 
-                                p={3}
-                                _hover={{
-                                    boxShadow: "lg",
-                                    transition: "box-shadow 0.1s",
-                                }}
-                            >
-                                <Stack>                               
-                                    <Image
-                                        objectFit='cover'
-                                        src={giveaway.ImgUrl}
-                                    />
-                                    <Stack>
-                                        <Heading size="sm" noOfLines={2}>
-                                            {giveaway.Title}
-                                        </Heading>
-                                        <Text color="gray.500">
-                                            <Link href="/results">
-                                                <Icon
-                                                    as={FaMapMarkerAlt}
-                                                    boxSize="13px"
-                                                    marginRight="3px"
-                                                />
-                                                7564, {giveaway.Location}
-                                            </Link>
-                                        </Text>
-                                    </Stack>
-                                </Stack>
-                            </Card>
+                            <GiveawayFeedCard index={index} giveaway={giveaway}/>
                         ))}
                     </SimpleGrid>
                 </Stack>

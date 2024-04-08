@@ -1,8 +1,8 @@
 import { 
-    Box, Heading, Stack, Text, Spinner, Card, Icon, Image, Link, SimpleGrid 
+    Box, Heading, Stack, Text, Spinner, SimpleGrid 
 } from "@chakra-ui/react";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import { useQuery } from 'react-query';
+import { GiveawayFeedCard } from "./GiveawayFeedCard";
 
 /**
  * retrieves giveaways from database
@@ -50,8 +50,6 @@ export function NewestBox({ colorMode }: any) {
         );
     }
 
-    console.log(data);
-
     return (
         <>
             <Box
@@ -65,38 +63,9 @@ export function NewestBox({ colorMode }: any) {
                         New
                     </Heading>
                     
-                    <SimpleGrid minChildWidth='240px' spacing={3}>
+                    <SimpleGrid minChildWidth='110px' spacing={3}>
                         {data.giveaways.map((giveaway: any, index: number) => (
-                            <Card 
-                                key={index} 
-                                p={3}
-                                _hover={{
-                                    boxShadow: "lg",
-                                    transition: "box-shadow 0.1s",
-                                }}
-                            >
-                                <Stack>                               
-                                    <Image
-                                        objectFit='cover'
-                                        src={giveaway.ImgUrl}
-                                    />
-                                    <Stack>
-                                        <Heading size="sm" noOfLines={2}>
-                                            {giveaway.Title}
-                                        </Heading>
-                                        <Text color="gray.500">
-                                            <Link href="/results">
-                                                <Icon
-                                                    as={FaMapMarkerAlt}
-                                                    boxSize="13px"
-                                                    marginRight="3px" 
-                                                />
-                                                7564, {giveaway.Location}
-                                            </Link>
-                                        </Text>
-                                    </Stack>
-                                </Stack>
-                            </Card>
+                            <GiveawayFeedCard index={index} giveaway={giveaway}/>
                         ))}
                     </SimpleGrid>
                 </Stack>

@@ -1,11 +1,11 @@
 import {
     Box, Heading, Stack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs
 } from "@chakra-ui/react";
-import AccountSettings from "../components/settingspage/AccountSettings.tsx";
-import { ProfileSettings } from "../components/settingspage/ProfileSettings.tsx";
-import { SafetyPrivacySettings } from "../components/settingspage/SafetyPrivacySettings.tsx";
-import { NotificationSettings } from "../components/settingspage/NotificationSettings.tsx";
-import { PreferencesSettings } from "../components/settingspage/PreferencesSettings.tsx";
+import AccountSettings from "./AccountSettings.tsx";
+import { ProfileSettings } from "./ProfileSettings.tsx";
+import { SafetyPrivacySettings } from "./SafetyPrivacySettings.tsx";
+import { NotificationSettings } from "./NotificationSettings.tsx";
+import { PreferencesSettings } from "./PreferencesSettings.tsx";
 
 const TAB_NAMES = ['Account', 'Profile', 'Safety & Privacy', 'Notifications', 'Preferences'];
 

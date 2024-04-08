@@ -2,7 +2,7 @@ import { Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, M
          Text } from "@chakra-ui/react";
 import { BsFillXCircleFill, BsFlag, BsShare, BsThreeDotsVertical } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import SaveButton from "../components/SaveButton.tsx";
+import SaveButton from "./SaveButton.tsx";
 
 /**
  * TODO: calculate and display days since uploaded

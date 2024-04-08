@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-import SmallFooter from '../components/SmallFooter';
-import { LoginBox } from '../components/registerpage/LoginBox';
-import { OtherRegisterOptions } from '../components/registerpage/OtherRegisterOptions';
-import { InputPassword } from '../components/registerpage/InputPassword';
+import SmallFooter from '../homepage/SmallFooter';
+import { LoginBox } from './LoginBox';
+import { OtherRegisterOptions } from './OtherRegisterOptions';
+import { InputPassword } from './InputPassword';
 
 /**
  * renders the page, where the user can create a new

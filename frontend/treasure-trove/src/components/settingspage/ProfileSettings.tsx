@@ -52,7 +52,7 @@ export function ProfileSettings() {
                                     <Text pt='2' fontSize='s'>DonJoe99</Text>
                                 </Box>
                                 <Spacer />
-                                <Button w="95px">Edit</Button>
+                                <Button w="95px">Change</Button>
                             </HStack>
                         </Box>
                         <Box>

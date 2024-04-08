@@ -1,7 +1,7 @@
 import { Box, Button, chakra, Checkbox, Divider, FormControl, FormLabel, Heading, HStack, HTMLChakraProps, Input, Link, Stack, Text, 
          useColorMode, useColorModeValue } from "@chakra-ui/react";
-import { OAuthButtonGroup } from "../components/OAuthButtonGroup";
-import SmallFooter from "../components/SmallFooter";
+import { OAuthButtonGroup } from "../OAuthButtonGroup";
+import SmallFooter from "../homepage/SmallFooter";
 import { useForm } from "react-hook-form";
 
 const Logo = (props: HTMLChakraProps<'svg'>) => (

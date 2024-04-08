@@ -3,8 +3,8 @@ import {
     RadioGroup, Stack, Textarea, useColorMode, useDisclosure 
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { LocationSearchBar } from "../components/creategiveawaypage/LocationSearchBar";
-import CategorySelect from "../components/homepage/filter/CategorySelect";
+import { LocationSearchBar } from "./LocationSearchBar";
+import CategorySelect from "../homepage/filter/CategorySelect";
 
 /**
  * renders the Page for creating a new advertisement,

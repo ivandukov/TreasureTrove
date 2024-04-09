@@ -4,7 +4,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { LocationSearchBar } from "./LocationSearchBar";
-import CategorySelect from "../homepage/filter/CategorySelect";
+import CategorySelect from "../homepage/search/CategorySelect";
 
 /**
  * renders the Page for creating a new advertisement,

@@ -29,8 +29,8 @@ export default function SearchBar() {
                         <SearchInput/>
                         <CategorySelect/>
                         <LocationSearchBar onOpen={onOpen}/>
-                        <Link href="/results">
-                            <Button colorScheme="green">
+                        <Link href="/results" style={{ textDecoration: 'none' }}>
+                            <Button colorScheme="green" >
                                 Search
                             </Button>
                         </Link>

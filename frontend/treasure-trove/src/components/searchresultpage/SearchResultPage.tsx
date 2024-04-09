@@ -2,7 +2,7 @@ import {
     Box, Flex, Heading, Spacer, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, 
     useColorMode 
 } from "@chakra-ui/react";
-import SearchBar from "../homepage/filter/SearchBar";
+import SearchBar from "../homepage/search/SearchBar";
 import FeaturedCardGrid from "../homepage/featured/FeaturedCardGrid";
 import SortMenu from "../SortMenu";
 

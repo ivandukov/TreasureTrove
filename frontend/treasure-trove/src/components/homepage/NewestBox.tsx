@@ -63,7 +63,7 @@ export function NewestBox({ colorMode }: any) {
                         New
                     </Heading>
                     
-                    <SimpleGrid minChildWidth='110px' spacing={3}>
+                    <SimpleGrid minChildWidth='190px' spacing={3}>
                         {data.giveaways.map((giveaway: any, index: number) => (
                             <GiveawayFeedCard index={index} giveaway={giveaway}/>
                         ))}

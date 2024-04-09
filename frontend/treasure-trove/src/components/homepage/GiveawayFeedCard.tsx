@@ -7,11 +7,6 @@ import { useState } from "react";
 export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway: any; }) {
 
     const [isHovered, setIsHovered] = useState(false);
-    const [isButtonClicked, setIsButtonClicked] = useState(false); 
-
-    const handleButtonClick = () => {
-        setIsButtonClicked(true); 
-    }
 
     return (
         <>
@@ -20,7 +15,7 @@ export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway:
                 onMouseLeave={() => setIsHovered(false)}
                 key={index}
                 p={3}
-                h="200px"
+                h="270px"
                 _hover={{
                     boxShadow: "lg",
                     transition: "box-shadow 0.1s",
@@ -30,7 +25,7 @@ export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway:
                     <Link href="/giveaway" style={{ textDecoration: 'none' }}>
                         <Image
                             objectFit='cover'
-                            src={giveaway.ImgUrl} />
+                            src={giveaway.ImgUrl}/>
                         <Heading size="sm" noOfLines={2}>
                             {giveaway.Title}
                         </Heading>
@@ -42,7 +37,7 @@ export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway:
                             </Link>
                         </Text>
                         <Spacer/>                      
-                            {(isHovered || isButtonClicked)  && <DropDownButton />} 
+                            {isHovered && <DropDownButton/>} 
                     </Flex>
                 </Stack>
             </Card>

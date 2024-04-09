@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Text, HStack, Heading, Stack, useColorMode } from "@chakra-ui/react";
-import SearchBar from "../homepage/filter/SearchBar";
+import SearchBar from "../homepage/search/SearchBar";
 import FeaturedCardGrid from "../homepage/featured/FeaturedCardGrid";
 import SortMenu from "../SortMenu";
 

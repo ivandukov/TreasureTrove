@@ -1,5 +1,5 @@
 import { Box, Stack } from "@chakra-ui/react";
-import SearchBar from "../homepage/filter/SearchBar.tsx";
+import SearchBar from "../homepage/search/SearchBar.tsx";
 import ImageCarousel from "./ImageCarousel.tsx";
 import Footer from "../homepage/Footer.tsx";
 

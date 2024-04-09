@@ -1,12 +1,13 @@
 import { Button, HStack, Link, Stack, useColorMode } from "@chakra-ui/react";
-import SearchBar from "./filter/SearchBar.tsx";
+import SearchBar from "./search/SearchBar.tsx";
 import Footer from "./Footer.tsx";
 import { NewestBox } from "./NewestBox.tsx";
 import { PopularBox } from "./PopularBox.tsx";
 import TopCitiesBox from "./TopCitiesBox.tsx";
 
 /**
- * 
+ * renders the page, the user sees when not
+ * logged in
  * @returns JSX element
  */
 export default function LoggedOutHomepage() {

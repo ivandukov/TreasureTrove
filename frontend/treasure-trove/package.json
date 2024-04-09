@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@tanstack/react-query-devtools": "4",
     "@types/react-query": "^1.2.9",
+    "emoji-picker-react": "^4.9.2",
     "esbuild": "^0.19.10",
     "framer-motion": "^10.12.16",
     "leaflet": "^1.9.4",

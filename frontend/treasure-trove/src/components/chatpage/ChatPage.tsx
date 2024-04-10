@@ -1,40 +1,11 @@
-import { 
-    Avatar, Button, Card, CardHeader, Divider, Flex, HStack, Heading, Icon, 
-    IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Menu, 
-    MenuButton, MenuItem, MenuList, Popover, PopoverContent, PopoverTrigger, Spacer, Stack, useColorMode
+import {
+    
+    
+    Stack, useColorMode, Box
 } from "@chakra-ui/react";
-import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
-import { useState } from "react";
-import { BiPlus, BiSmile } from "react-icons/bi";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { EmojiStyle } from 'emoji-picker-react';
-/**
- * 
- * @returns JSX element
- */
-function DropDownChatButton() {
-
-    return (
-        <>
-            <Menu>
-                <MenuButton 
-                    as={IconButton} 
-                    icon={<Icon as={BsThreeDotsVertical}/>}
-                    variant="ghost"
-                    colorScheme="white"
-                />
-                <MenuList>
-                    <MenuItem>View Profile</MenuItem>
-                    <MenuItem>Clear Chat</MenuItem>
-                    <MenuItem>Delete Chat</MenuItem>
-                    <Divider/>
-                    <MenuItem>Block</MenuItem>
-                    <MenuItem>Report</MenuItem>
-                </MenuList>
-            </Menu>
-        </>
-    );
-}
+import { MessageCard } from "./MessageCard";
+import { MessageCardContinuation } from "./MessageCardContinuation";
+import { MessageInput } from "./MessageInput";
 
 /**
  * 
@@ -44,56 +15,21 @@ export default function ChatPage() {
 
     const { colorMode } = useColorMode();
 
-    const [inputValue, setInputValue] = useState("");
-    const [showPicker, setShowPicker] = useState(false);
-
-    const handleEmojiClick = (emojiData: EmojiClickData, event: MouseEvent) => {  
-        setInputValue(prevInputValue => prevInputValue + emojiData.emoji);   
-    };
-
     return (
         <>
-            <Stack>                                                       
-                
-                <HStack>
-                    <InputGroup>
-                        <InputLeftElement>
-                            <IconButton
-                                aria-label="file"
-                                icon={<BiPlus/>}
-                                variant='ghost'
-                                colorScheme="white"
-                            />
-                        </InputLeftElement>
-                        <Input  
-                            bg={colorMode === 'dark' ? 'gray.700' : 'white'}                           
-                            onChange={(event) => setInputValue(event.target.value)}
-                            placeholder='Message Jennie Doe'
-                            value={inputValue}
-                        />
-                        <InputRightElement>
-                            <Popover>
-                                <PopoverTrigger>
-                                    <IconButton    
-                                        aria-label="emoji"                                                       
-                                        icon={<BiSmile/>}
-                                        variant='ghost'
-                                        colorScheme="white"
-                                        onClick={() => setShowPicker(!showPicker)}                               
-                                    />
-                                </PopoverTrigger>
-                                <PopoverContent>                               
-                                    <EmojiPicker
-                                        emojiStyle={EmojiStyle.NATIVE}
-                                        onEmojiClick={handleEmojiClick}
-                                        lazyLoadEmojis={true}                                         
-                                    />                                
-                                </PopoverContent>
-                            </Popover>
-                        </InputRightElement>    
-                    </InputGroup>
-                    <Button colorScheme="green">Send</Button>
-                </HStack>
+            <Stack>
+                <Box
+                    bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                    borderWidth="1px"
+                    borderRadius="md"
+                >
+                    <MessageCard />
+                    <MessageCardContinuation />
+                    <MessageCard />
+                    <MessageCardContinuation />
+                    <MessageCardContinuation />
+                </Box>
+                <MessageInput/>
             </Stack>
         </>
     );

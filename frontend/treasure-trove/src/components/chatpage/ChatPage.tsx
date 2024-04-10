@@ -1,15 +1,18 @@
 import { 
-    Avatar, Button, Card, CardHeader, Divider, Flex, HStack, Heading, Icon, IconButton, Input, 
-    InputGroup, 
-    InputRightElement, 
-    Menu, MenuButton, MenuItem, MenuList, Spacer, Stack, useColorMode
+    Avatar, Button, Card, CardHeader, Divider, Flex, HStack, Heading, Icon, 
+    IconButton, Input, InputGroup, InputLeftElement, InputRightElement, Menu, 
+    MenuButton, MenuItem, MenuList, Popover, PopoverContent, PopoverTrigger, Spacer, Stack, useColorMode
 } from "@chakra-ui/react";
-import EmojiPicker from "emoji-picker-react";
+import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import { useState } from "react";
-import { BiPlus } from "react-icons/bi";
+import { BiPlus, BiSmile } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
-
-function DropDownButton() {
+import { EmojiStyle } from 'emoji-picker-react';
+/**
+ * 
+ * @returns JSX element
+ */
+function DropDownChatButton() {
 
     return (
         <>
@@ -41,43 +44,55 @@ export default function ChatPage() {
 
     const { colorMode } = useColorMode();
 
-    const [value, setValue] = useState('');
+    const [inputValue, setInputValue] = useState("");
+    const [showPicker, setShowPicker] = useState(false);
 
-    const handleEmojiSelect = (emoji : any) => {
-        setValue(value + emoji.native);
+    const handleEmojiClick = (emojiData: EmojiClickData, event: MouseEvent) => {  
+        setInputValue(prevInputValue => prevInputValue + emojiData.emoji);   
     };
-    
+
     return (
         <>
-            <Stack>                                        
-                <Card>
-                    <CardHeader>
-                        <Flex>
-                            <HStack spacing={5}>
-                                <Avatar/>
-                                <Stack>
-                                    <Heading size='lg'>Green Sofa</Heading>
-                                    <Heading size='md'>Jennie Doe</Heading>
-                                </Stack>                             
-                            </HStack>
-                            <Spacer/>
-                            <DropDownButton/>
-                        </Flex>                       
-                    </CardHeader>          
-                </Card>
+            <Stack>                                                       
+                
                 <HStack>
-                    <IconButton colorScheme="green" icon={BiPlus} aria-label={""}/>
                     <InputGroup>
-                        <Input 
-                            bg={colorMode === 'dark' ? 'gray.700' : 'white'} 
+                        <InputLeftElement>
+                            <IconButton
+                                aria-label="file"
+                                icon={<BiPlus/>}
+                                variant='ghost'
+                                colorScheme="white"
+                            />
+                        </InputLeftElement>
+                        <Input  
+                            bg={colorMode === 'dark' ? 'gray.700' : 'white'}                           
+                            onChange={(event) => setInputValue(event.target.value)}
                             placeholder='Message Jennie Doe'
-                            value={value}
+                            value={inputValue}
                         />
                         <InputRightElement>
+                            <Popover>
+                                <PopoverTrigger>
+                                    <IconButton    
+                                        aria-label="emoji"                                                       
+                                        icon={<BiSmile/>}
+                                        variant='ghost'
+                                        colorScheme="white"
+                                        onClick={() => setShowPicker(!showPicker)}                               
+                                    />
+                                </PopoverTrigger>
+                                <PopoverContent>                               
+                                    <EmojiPicker
+                                        emojiStyle={EmojiStyle.NATIVE}
+                                        onEmojiClick={handleEmojiClick}
+                                        lazyLoadEmojis={true}                                         
+                                    />                                
+                                </PopoverContent>
+                            </Popover>
                         </InputRightElement>    
                     </InputGroup>
                     <Button colorScheme="green">Send</Button>
-                    <EmojiPicker/>
                 </HStack>
             </Stack>
         </>

@@ -23,9 +23,15 @@ export default function ChatPage() {
                     borderWidth="1px"
                     borderRadius="md"
                 >
-                    <MessageCard />
+                    <MessageCard 
+                        username="Jennie Doe" 
+                        messageText="Hi, can we pick this up, tomorrow?"
+                    />
                     <MessageCardContinuation />
-                    <MessageCard />
+                    <MessageCard 
+                        username="Jennie Doe" 
+                        messageText="Hi, can we pick this up, tomorrow?"
+                    />
                     <MessageCardContinuation />
                     <MessageCardContinuation />
                 </Box>

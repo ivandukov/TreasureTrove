@@ -2,20 +2,15 @@ import {
     Card, Heading, Link, Image, Stack, Text, Flex, Spacer
 } from "@chakra-ui/react";
 import { DropDownButton } from "../DropDownButton";
-import { useState } from "react";
 
 export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway: any; }) {
-
-    const [isHovered, setIsHovered] = useState(false);
 
     return (
         <>
             <Card
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
                 key={index}
                 p={3}
-                h="270px"
+                h="205px"
                 _hover={{
                     boxShadow: "lg",
                     transition: "box-shadow 0.1s",
@@ -25,7 +20,8 @@ export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway:
                     <Link href="/giveaway" style={{ textDecoration: 'none' }}>
                         <Image
                             objectFit='cover'
-                            src={giveaway.ImgUrl}/>
+                            src={giveaway.ImgUrl}
+                        />
                         <Heading size="sm" noOfLines={2}>
                             {giveaway.Title}
                         </Heading>
@@ -37,7 +33,7 @@ export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway:
                             </Link>
                         </Text>
                         <Spacer/>                      
-                            {isHovered && <DropDownButton/>} 
+                            <DropDownButton/>
                     </Flex>
                 </Stack>
             </Card>

@@ -1,6 +1,11 @@
-import { Avatar, Flex, HStack, Text, Stack, useColorModeValue, Link } from "@chakra-ui/react";
+import { Avatar, Flex, HStack, Text, Stack, useColorModeValue, Link, Menu, Icon, IconButton, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 
-export function MessageCard() {
+interface MessageCardProps {
+    username: string;
+    messageText: string;
+}
+
+export function MessageCard({username, messageText} : MessageCardProps) {
 
     return (
         <>
@@ -10,14 +15,16 @@ export function MessageCard() {
                     alignItems="center"
                     _hover={{ bg: useColorModeValue('gray.200', 'gray.700') }}
                 >
-                    <Avatar size="md" ml={4} />
+                    <Link href="/profile">
+                        <Avatar mt={1} mb={1} ml={4} />
+                    </Link>
                     <Flex direction="column" marginLeft="9px">
                         <HStack>
-                            <Link as='b'>Jennie Doe</Link>
+                            <Link as='b' href="/profile">{username}</Link>
                             <Text fontSize='xs' color="gray.500">Today at 14:30</Text>
                         </HStack>
-                        <Text>Hi, can we pick this up tomorrow?</Text>
-                    </Flex>
+                        <Text>{messageText}</Text>                     
+                    </Flex>                   
                 </Stack>
             </Stack>
         </>

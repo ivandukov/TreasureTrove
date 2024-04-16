@@ -7,6 +7,10 @@ import { useState } from "react";
 import { BiPlus, BiSmile } from "react-icons/bi";
 import { EmojiStyle } from 'emoji-picker-react';
 
+/**
+ * TODO: Make Input grow downwards with longer text
+ * @returns JSX element
+ */
 export function MessageInput() {
 
     const { colorMode } = useColorMode();
@@ -26,13 +30,15 @@ export function MessageInput() {
                             aria-label="file"
                             icon={<BiPlus />}
                             variant='ghost'
-                            colorScheme="white" />
+                            colorScheme="white" 
+                        />
                     </InputLeftElement>
                     <Input
                         bg={colorMode === 'dark' ? 'gray.700' : 'white'}
                         onChange={(event) => setInputValue(event.target.value)}
                         placeholder='Message Jennie Doe'
-                        value={inputValue} />
+                        value={inputValue}
+                    />
                     <InputRightElement>
                         <Popover>
                             <PopoverTrigger>
@@ -41,7 +47,8 @@ export function MessageInput() {
                                     icon={<BiSmile />}
                                     variant='ghost'
                                     colorScheme="white"
-                                    onClick={() => setShowPicker(!showPicker)} />
+                                    onClick={() => setShowPicker(!showPicker)} 
+                                />
                             </PopoverTrigger>
                             <PopoverContent>
                                 <EmojiPicker

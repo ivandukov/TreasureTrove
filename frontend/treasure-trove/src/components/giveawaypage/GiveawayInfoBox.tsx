@@ -48,7 +48,7 @@ export function GiveawayInfoBox({ productData }: { productData: any; }) {
                         </HStack>
                     </Flex>
                     <Text fontSize="md" mr={2}>
-                        by <Link fontWeight="bold" href="/user" mr={2}>{productData.user}</Link>
+                        by <Link fontWeight="bold" href="/profile" mr={2}>{productData.user}</Link>
                     </Text>
 
                     <Text>

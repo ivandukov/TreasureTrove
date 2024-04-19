@@ -5,7 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"net/http"
 	"treasuretrove/api/models"
-	"treasuretrove/api/services"
+	"treasuretrove/api/services/db"
 )
 
 type GiveawayController struct{}
@@ -19,7 +19,7 @@ type GiveawayController struct{}
 func (giveawayController GiveawayController) GetAllGiveaways(context *gin.Context) {
 
 	var giveaways []models.Giveaway
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 
 	database.Find(&giveaways)                                  // get all giveaways from database
 	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways}) // return all giveaways
@@ -34,7 +34,7 @@ func (giveawayController GiveawayController) GetAllGiveaways(context *gin.Contex
 func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	validation := validator.New()
 
 	jsonBindErr := context.BindJSON(&giveaway)
@@ -69,8 +69,8 @@ func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context
 func (giveawayController GiveawayController) GetGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase() // connect with database
-	giveawayId := context.Param("id")  // get giveaway-id from the request
+	database := db.GetDatabase()      // connect with database
+	giveawayId := context.Param("id") // get giveaway-id from the request
 
 	if giveawayId == "" {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
@@ -96,7 +96,7 @@ func (giveawayController GiveawayController) GetGiveawayById(context *gin.Contex
 func (giveawayController GiveawayController) UpdateGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	giveawayId := context.Param("id")
 
 	if giveawayId == "" {
@@ -135,7 +135,7 @@ func (giveawayController GiveawayController) UpdateGiveawayById(context *gin.Con
 func (giveawayController GiveawayController) DeleteGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	giveawayId := context.Param("id")
 
 	if giveawayId == "" {

@@ -5,7 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"net/http"
 	"treasuretrove/api/models"
-	"treasuretrove/api/services"
+	"treasuretrove/api/services/db"
 )
 
 type CategoryController struct{}
@@ -19,7 +19,7 @@ type CategoryController struct{}
 func (categoryController CategoryController) GetAllCategories(context *gin.Context) {
 
 	var categories []models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 
 	database.Find(&categories)
 	context.JSON(http.StatusOK, gin.H{"categories": categories}) // return all categories
@@ -34,7 +34,7 @@ func (categoryController CategoryController) GetAllCategories(context *gin.Conte
 func (categoryController CategoryController) GetCategoryById(context *gin.Context) {
 
 	var category models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	categoryId := context.Param("id") // get category-ID from request
 
 	if categoryId == "" {
@@ -61,7 +61,7 @@ func (categoryController CategoryController) GetCategoryById(context *gin.Contex
 func (categoryController CategoryController) GetCategoryByName(context *gin.Context) {
 
 	var category models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	categoryName := context.Param("name") // get category-Name from request
 
 	if categoryName == "" {
@@ -87,7 +87,7 @@ func (categoryController CategoryController) GetCategoryByName(context *gin.Cont
 func (categoryController CategoryController) CreateCategory(context *gin.Context) {
 
 	var newCategory models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	validate := validator.New()
 
 	bindErr := context.BindJSON(&newCategory)
@@ -122,7 +122,7 @@ func (categoryController CategoryController) CreateCategory(context *gin.Context
 func (categoryController CategoryController) UpdateCategoryById(context *gin.Context) {
 
 	var category models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	categoryId := context.Param("id")
 
 	if categoryId == "" {
@@ -162,7 +162,7 @@ func (categoryController CategoryController) UpdateCategoryById(context *gin.Con
 func (categoryController CategoryController) UpdateCategoryByName(context *gin.Context) {
 
 	var category models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	categoryName := context.Param("name")
 
 	if categoryName == "" {
@@ -202,7 +202,7 @@ func (categoryController CategoryController) UpdateCategoryByName(context *gin.C
 //   - context: The context of the request
 func (categoryController CategoryController) DeleteCategoryById(context *gin.Context) {
 	var category models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	categoryId := context.Param("id")
 
 	if categoryId == "" {
@@ -235,7 +235,7 @@ func (categoryController CategoryController) DeleteCategoryById(context *gin.Con
 //   - context: The context of the request
 func (categoryController CategoryController) DeleteCategoryByUsername(context *gin.Context) {
 	var category models.Category
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	categoryName := context.Param("name")
 
 	if categoryName == "" {

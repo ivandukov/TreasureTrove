@@ -10,9 +10,12 @@ import (
 	"treasuretrove/api/models"
 	"treasuretrove/api/requests"
 	"treasuretrove/api/services"
+	"treasuretrove/api/services/db"
 )
 
-type UserController struct{}
+type UserController struct {
+	IUserService services.UserService
+}
 
 // GetAllUsers retrieves all users and returns them as a JSON-Object
 //
@@ -21,9 +24,9 @@ type UserController struct{}
 // Parameters:
 //   - context: The context of the request
 func (userController UserController) GetAllUsers(context *gin.Context) {
-	database := services.GetDatabase()
-	var users []models.User
-	database.Find(&users)
+
+	users := userController.IUserService.GetAllUsers()
+
 	context.JSON(http.StatusOK, gin.H{"users": users})
 }
 
@@ -36,7 +39,7 @@ func (userController UserController) GetAllUsers(context *gin.Context) {
 func (userController UserController) CreateUser(context *gin.Context) {
 
 	validation := validator.New()
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 
 	var request requests.UserCreateRequest
 
@@ -95,7 +98,7 @@ func (userController UserController) GetUserById(context *gin.Context) {
 		return
 	}
 
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 
 	var user models.User
 	err := database.First(&user, context.Param("id")).Error
@@ -131,7 +134,7 @@ func (userController UserController) UpdateUserById(context *gin.Context) {
 		return
 	}
 
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 
 	var prevUser models.User
 	err := database.First(&prevUser, userIdUint).Error
@@ -183,7 +186,7 @@ func (userController UserController) DeleteUserById(context *gin.Context) {
 		return
 	}
 
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 
 	var user models.User
 	err := database.First(&user, context.Param("id")).Error

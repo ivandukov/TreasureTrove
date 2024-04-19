@@ -5,7 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"net/http"
 	"treasuretrove/api/models"
-	"treasuretrove/api/services"
+	"treasuretrove/api/services/db"
 )
 
 type CommentController struct{}
@@ -18,7 +18,7 @@ type CommentController struct{}
 //   - context: The context of the request
 func (commentController CommentController) GetAllComments(context *gin.Context) {
 	var comments []models.Comment
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 
 	database.Find(&comments)
 	context.JSON(http.StatusOK, gin.H{"comments": comments}) // return all categories
@@ -32,7 +32,7 @@ func (commentController CommentController) GetAllComments(context *gin.Context) 
 //   - context: The context of the request
 func (commentController CommentController) GetCommentById(context *gin.Context) {
 	var comment models.Comment
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	commentId := context.Param("id") // get Comment-ID from request
 
 	if commentId == "" {
@@ -58,7 +58,7 @@ func (commentController CommentController) GetCommentById(context *gin.Context) 
 func (commentController CommentController) GetCommentsByUsername(context *gin.Context) {
 
 	var comments []models.Comment
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	username := context.Param("username") // get Username from request
 	if username == "" {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "No username provided"})
@@ -82,7 +82,7 @@ func (commentController CommentController) GetCommentsByUsername(context *gin.Co
 //   - context: The context of the request
 func (commentController CommentController) GetCommentsByGiveawayId(context *gin.Context) {
 	var comments []models.Comment
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	giveawayId := context.Param("giveawayId")
 
 	if giveawayId == "" {
@@ -107,7 +107,7 @@ func (commentController CommentController) GetCommentsByGiveawayId(context *gin.
 //   - context: The context of the request
 func (commentController CommentController) CreateComment(context *gin.Context) {
 	var newComment models.Comment
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	validate := validator.New()
 
 	bindErr := context.BindJSON(&newComment)
@@ -144,7 +144,7 @@ func (commentController CommentController) CreateComment(context *gin.Context) {
 func (commentController CommentController) UpdateCommentById(context *gin.Context) {
 
 	var comment models.Comment
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	categoryId := context.Param("id")
 
 	if categoryId == "" {
@@ -184,7 +184,7 @@ func (commentController CommentController) UpdateCommentById(context *gin.Contex
 //   - context: The context of the request
 func (commentController CommentController) DeleteCommentById(context *gin.Context) {
 	var comment models.Comment
-	database := services.GetDatabase()
+	database := db.GetDatabase()
 	commentId := context.Param("id")
 
 	if commentId == "" {

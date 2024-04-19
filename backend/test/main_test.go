@@ -7,7 +7,6 @@ import (
 	"gorm.io/gorm"
 	"os"
 	"testing"
-	"treasuretrove/api/services"
 )
 
 func TestMain(main *testing.M) {
@@ -30,7 +29,7 @@ func ChangeToMockDb() sqlmock.Sqlmock {
 		DriverName: "postgres",
 	})
 	mockDb, _ := gorm.Open(dialector, &gorm.Config{})
-	services.SetDatabase(mockDb)
+	db.SetDatabase(mockDb)
 
 	return sqlMock
 }

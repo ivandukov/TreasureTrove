@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"treasuretrove/api/controllers"
+	"treasuretrove/api/services"
 )
 
 // InitializeUserRoutes initializes the routes for user-related operations.
@@ -13,11 +14,14 @@ import (
 //   - ginEngine: A pointer to a gin.Engine instance.
 func InitializeUserRoutes(ginEngine *gin.Engine) {
 
+	userService := services.UserService{}
+	userController := controllers.UserController{IUserService: userService}
+
 	userGroup := ginEngine.Group("/user")
 
-	userGroup.GET("/", controllers.UserController{}.GetAllUsers)
-	userGroup.POST("/", controllers.UserController{}.CreateUser)
-	userGroup.GET("/:id", controllers.UserController{}.GetUserById)
-	userGroup.PUT("/:id", controllers.UserController{}.UpdateUserById)
-	userGroup.DELETE("/:id", controllers.UserController{}.DeleteUserById)
+	userGroup.GET("/", userController.GetAllUsers)
+	userGroup.POST("/", userController.CreateUser)
+	userGroup.GET("/:id", userController.GetUserById)
+	userGroup.PUT("/:id", userController.UpdateUserById)
+	userGroup.DELETE("/:id", userController.DeleteUserById)
 }

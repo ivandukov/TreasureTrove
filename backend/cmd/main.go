@@ -4,15 +4,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"treasuretrove/api/routes"
-	"treasuretrove/api/services"
+	"treasuretrove/api/services/db"
 )
 
 func main() {
 	//ignore err because sometimes the env comes from docker compose
 	_ = godotenv.Load()
 
-	services.ConnectToDatabase()
-	services.MigrateModels()
+	db.ConnectToDatabase()
+	db.MigrateModels()
 
 	ginEngine := gin.Default()
 	routes.InitRoutes(ginEngine)

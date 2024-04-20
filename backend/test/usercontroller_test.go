@@ -113,7 +113,7 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	//add the id to the context
 	context.Params = append(context.Params, gin.Param{Key: "id", Value: "1"})
 
-	userController.UpdateUserById(context)
+	userController.UpdateUser(context)
 
 	assert.Equal(test, 200, context.Writer.Status())
 

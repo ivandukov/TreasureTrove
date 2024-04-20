@@ -3,14 +3,11 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"golang.org/x/crypto/bcrypt"
-	"log"
 	"net/http"
 	"strconv"
-	"treasuretrove/api/models"
+	"treasuretrove/api/helper"
 	"treasuretrove/api/requests"
 	"treasuretrove/api/services"
-	"treasuretrove/api/services/database"
 )
 
 type UserController struct {
@@ -24,7 +21,6 @@ type UserController struct {
 // Parameters:
 //   - context: The context of the request
 func (userController UserController) GetAllUsers(context *gin.Context) {
-
 	users := userController.IUserService.GetAllUsers()
 
 	context.JSON(http.StatusOK, gin.H{"users": users})
@@ -38,45 +34,18 @@ func (userController UserController) GetAllUsers(context *gin.Context) {
 //   - context: The context of the request
 func (userController UserController) CreateUser(context *gin.Context) {
 
-	validation := validator.New()
-	db := database.GetDatabase()
-
 	var request requests.UserCreateRequest
 
-	bindJsonErr := context.BindJSON(&request)
-	if bindJsonErr != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": bindJsonErr.Error()})
+	err := helper.BindAndValidateRequestBody(context, &request)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	validationErr := validation.Struct(request)
+	user, err := userController.IUserService.CreateUser(request)
 
-	if validationErr != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
-		return
-	}
-
-	hashedPassword, errHash := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
-
-	if errHash != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{"error": errHash.Error()})
-	}
-
-	user := models.User{
-		Username:  request.Username,
-		Email:     request.Email,
-		Address:   request.Address,
-		FirstName: request.FirstName,
-		LastName:  request.LastName,
-		Password:  string(hashedPassword),
-	}
-
-	dbErr := db.Create(&user).Error
-
-	if dbErr != nil {
-		//log error
-		log.Println(dbErr.Error())
-		context.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -91,38 +60,38 @@ func (userController UserController) CreateUser(context *gin.Context) {
 //   - context: The context of the request
 func (userController UserController) GetUserById(context *gin.Context) {
 
-	userId := context.Param("id")
+	var request requests.UserGetOrDeleteRequest
 
-	if userId == "" {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+	// binds request to query
+	err := helper.BindAndValidateRequestQuery(context, &request)
+
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	db := database.GetDatabase()
-
-	var user models.User
-	err := db.First(&user, context.Param("id")).Error
+	user, err := userController.IUserService.GetUserById(request)
 
 	if err != nil {
-		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 
 	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
-// UpdateUserById updates an existing User by ID
+// UpdateUser updates an existing User by ID
 //
 // HTTP-Request: PUT user/:id
 //
 // Parameters:
 //   - context: The context of the request
-func (userController UserController) UpdateUserById(context *gin.Context) {
+func (userController UserController) UpdateUser(context *gin.Context) {
 
 	userId := context.Param("id")
 
 	if userId == "" {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
+		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided."})
 		return
 	}
 
@@ -134,19 +103,9 @@ func (userController UserController) UpdateUserById(context *gin.Context) {
 		return
 	}
 
-	db := database.GetDatabase()
+	var request requests.UserUpdateRequest
 
-	var prevUser models.User
-	err := db.First(&prevUser, userIdUint).Error
-
-	if err != nil {
-		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-		return
-	}
-
-	var user models.User
-
-	bindJsonErr := context.BindJSON(&user)
+	bindJsonErr := context.BindJSON(&request)
 
 	if bindJsonErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": bindJsonErr.Error()})
@@ -154,14 +113,14 @@ func (userController UserController) UpdateUserById(context *gin.Context) {
 	}
 
 	validation := validator.New()
-	validationErr := validation.Struct(user)
+	validationErr := validation.Struct(request)
 
 	if validationErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 		return
 	}
 
-	err = db.Model(&prevUser).Updates(user).Error
+	user, err := userController.IUserService.UpdateUser(uint(userIdUint), request)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -179,24 +138,17 @@ func (userController UserController) UpdateUserById(context *gin.Context) {
 //   - context: The context of the request
 func (userController UserController) DeleteUserById(context *gin.Context) {
 
-	userId := context.Param("id")
+	var request requests.UserGetOrDeleteRequest
 
-	if userId == "" {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
-		return
-	}
-
-	db := database.GetDatabase()
-
-	var user models.User
-	err := db.First(&user, context.Param("id")).Error
+	err := helper.BindAndValidateRequestQuery(context, &request)
 
 	if err != nil {
-		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+
 	}
 
-	err = db.Delete(&user).Error
+	err = userController.IUserService.RemoveUser(request)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

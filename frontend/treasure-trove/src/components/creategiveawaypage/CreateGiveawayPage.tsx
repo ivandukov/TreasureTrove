@@ -3,12 +3,12 @@ import {
     RadioGroup, Stack, Textarea, useColorMode, useDisclosure 
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { LocationSearchBar } from "./LocationSearchBar";
-import CategorySelect from "../homepage/search/CategorySelect";
+import { LocationInput } from "./LocationInput";
+import CategorySelect from "../CategorySelect";
 
 /**
  * renders the Page for creating a new advertisement,
- * For using forms with ChakraUI, see https://chakra-ui.com/getting-started/with-hook-form
+ * @see https://chakra-ui.com/getting-started/with-hook-form
  * @returns JSX element
  */
 export default function CreateGiveawayPage() {
@@ -54,7 +54,7 @@ export default function CreateGiveawayPage() {
                                 </HStack>
                             </RadioGroup>
                             <HStack>
-                                <FormControl isRequired>                         
+                                <FormControl isRequired={true}>                         
                                     <Input 
                                         id='title' 
                                         placeholder='Title'
@@ -65,10 +65,10 @@ export default function CreateGiveawayPage() {
                                     />
                                 </FormControl>
                                 <FormControl w="50%">
-                                    <LocationSearchBar 
+                                    <LocationInput 
+                                        isOpen={isOpen}
                                         onOpen={onOpen} 
                                         onClose={onClose} 
-                                        isOpen={isOpen} 
                                         register={register}
                                     />
                                 </FormControl>                                                                

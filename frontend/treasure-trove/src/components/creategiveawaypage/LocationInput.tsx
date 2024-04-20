@@ -9,16 +9,26 @@ interface LocationSearchBarProps {
     isOpen: boolean;
     register: UseFormRegister<FieldValues>;
 }
-export function LocationSearchBar({ onOpen, isOpen, onClose, register }: LocationSearchBarProps) {
+
+export function LocationInput({ onOpen, isOpen, onClose, register }: LocationSearchBarProps) {
+
     return (
         <InputGroup>
             <Input
                 placeholder="City/Postal Code"
-                {...register("location")} />
+                {...register("location")} 
+            />
             <InputRightElement>
-                <IconButton icon={<FaLocationDot />} onClick={onOpen} aria-label="Location" />
+                <IconButton 
+                    icon={<FaLocationDot/>} 
+                    onClick={onOpen} 
+                    aria-label="Location" 
+                />
             </InputRightElement>
-            <NewFilterModal isOpen={isOpen} onClose={onClose} />
+            <NewFilterModal 
+                isOpen={isOpen} 
+                onClose={onClose}
+            />
         </InputGroup>
     );
 }

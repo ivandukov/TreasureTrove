@@ -1,5 +1,5 @@
 import { Button, HStack, Modal, ModalHeader, ModalContent, ModalOverlay, ModalBody, ModalFooter, ModalCloseButton } from "@chakra-ui/react";
-import Dropzone from "./Dropzone.tsx";
+import ProfilePictureDropZone from "./ProfilePictureDropZone.tsx";
 
 /**
  * displays a Modal with a Box with which
@@ -17,7 +17,7 @@ export function ProfilePictureModal({ isOpen, onClose }: { isOpen: boolean; onCl
                     <ModalHeader>Change Profile Picture</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Dropzone />
+                        <ProfilePictureDropZone />
                     </ModalBody>
                     <ModalFooter>
                         <HStack>

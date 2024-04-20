@@ -1,7 +1,7 @@
 import { Box, Button, HStack, Link, Stack, useColorMode, useDisclosure } from "@chakra-ui/react";
 import NewFilterModal from "./NewFilterModal.tsx";
 import SearchInput from "./SearchInput.tsx";
-import CategorySelect from "./CategorySelect.tsx";
+import CategorySelect from "../../CategorySelect.tsx";
 import LocationSearchBar from "./LocationSearchBar.tsx";
 
 /**

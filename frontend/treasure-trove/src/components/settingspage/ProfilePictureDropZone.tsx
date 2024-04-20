@@ -8,7 +8,7 @@ import { GoUpload } from "react-icons/go";
  * @see https://tolgee.io/blog/manage-user-avatar
  * @returns {JSX.Element} JSX element
  */
-export default function Dropzone() {
+export default function ProfilePictureDropZone() {
 
     /**
      * @type {React.RefObject<HTMLInputElement>}

@@ -10,7 +10,7 @@ import (
 	"treasuretrove/api/models"
 	"treasuretrove/api/requests"
 	"treasuretrove/api/services"
-	"treasuretrove/api/services/db"
+	"treasuretrove/api/services/database"
 )
 
 type UserController struct {
@@ -39,7 +39,7 @@ func (userController UserController) GetAllUsers(context *gin.Context) {
 func (userController UserController) CreateUser(context *gin.Context) {
 
 	validation := validator.New()
-	database := db.GetDatabase()
+	db := database.GetDatabase()
 
 	var request requests.UserCreateRequest
 
@@ -71,7 +71,7 @@ func (userController UserController) CreateUser(context *gin.Context) {
 		Password:  string(hashedPassword),
 	}
 
-	dbErr := database.Create(&user).Error
+	dbErr := db.Create(&user).Error
 
 	if dbErr != nil {
 		//log error
@@ -98,10 +98,10 @@ func (userController UserController) GetUserById(context *gin.Context) {
 		return
 	}
 
-	database := db.GetDatabase()
+	db := database.GetDatabase()
 
 	var user models.User
-	err := database.First(&user, context.Param("id")).Error
+	err := db.First(&user, context.Param("id")).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
@@ -134,10 +134,10 @@ func (userController UserController) UpdateUserById(context *gin.Context) {
 		return
 	}
 
-	database := db.GetDatabase()
+	db := database.GetDatabase()
 
 	var prevUser models.User
-	err := database.First(&prevUser, userIdUint).Error
+	err := db.First(&prevUser, userIdUint).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
@@ -161,7 +161,7 @@ func (userController UserController) UpdateUserById(context *gin.Context) {
 		return
 	}
 
-	err = database.Model(&prevUser).Updates(user).Error
+	err = db.Model(&prevUser).Updates(user).Error
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -186,17 +186,17 @@ func (userController UserController) DeleteUserById(context *gin.Context) {
 		return
 	}
 
-	database := db.GetDatabase()
+	db := database.GetDatabase()
 
 	var user models.User
-	err := database.First(&user, context.Param("id")).Error
+	err := db.First(&user, context.Param("id")).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 
-	err = database.Delete(&user).Error
+	err = db.Delete(&user).Error
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

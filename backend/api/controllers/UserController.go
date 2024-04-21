@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"net/http"
-	"strconv"
 	"treasuretrove/api/helper"
 	"treasuretrove/api/requests"
 	"treasuretrove/api/services"
@@ -60,17 +59,16 @@ func (userController UserController) CreateUser(context *gin.Context) {
 //   - context: The context of the request
 func (userController UserController) GetUserById(context *gin.Context) {
 
-	var request requests.UserGetOrDeleteRequest
+	id := context.Param("id")
 
-	// binds request to query
-	err := helper.BindAndValidateRequestQuery(context, &request)
+	uIntId, err := helper.GetIdFromParam(id)
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	user, err := userController.IUserService.GetUserById(request)
+	user, err := userController.IUserService.GetUserById(uIntId)
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -90,16 +88,10 @@ func (userController UserController) UpdateUser(context *gin.Context) {
 
 	userId := context.Param("id")
 
-	if userId == "" {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided."})
-		return
-	}
+	userIdUint, err := helper.GetIdFromParam(userId)
 
-	//userId as uint
-	userIdUint, errUint := strconv.ParseInt(userId, 10, 64)
-
-	if errUint != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": errUint.Error()})
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -120,7 +112,7 @@ func (userController UserController) UpdateUser(context *gin.Context) {
 		return
 	}
 
-	user, err := userController.IUserService.UpdateUser(uint(userIdUint), request)
+	user, err := userController.IUserService.UpdateUser(userIdUint, request)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -138,9 +130,9 @@ func (userController UserController) UpdateUser(context *gin.Context) {
 //   - context: The context of the request
 func (userController UserController) DeleteUserById(context *gin.Context) {
 
-	var request requests.UserGetOrDeleteRequest
+	id := context.Param("id")
 
-	err := helper.BindAndValidateRequestQuery(context, &request)
+	uIntId, err := helper.GetIdFromParam(id)
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -148,7 +140,7 @@ func (userController UserController) DeleteUserById(context *gin.Context) {
 
 	}
 
-	err = userController.IUserService.RemoveUser(request)
+	err = userController.IUserService.RemoveUser(uIntId)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

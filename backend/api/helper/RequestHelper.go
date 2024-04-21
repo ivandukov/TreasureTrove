@@ -1,22 +1,30 @@
 package helper
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"strconv"
 )
 
-// BindAndValidateRequestQuery binds the request to the query and validates the request struct
-func BindAndValidateRequestQuery(context *gin.Context, request interface{}) error {
-	if err := context.BindQuery(request); err != nil {
-		return err
+type ParamSetter interface {
+	SetParam(value uint)
+}
+
+func GetIdFromParam(idAsString string) (uint64, error) {
+
+	if idAsString == "" {
+		return 0, errors.New("no id provided")
 	}
 
-	validation := validator.New()
-	if err := validation.Struct(request); err != nil {
-		return err
+	//id as uint
+	idUint, errUint := strconv.ParseUint(idAsString, 10, 64)
+
+	if errUint != nil {
+		return 0, errUint
 	}
 
-	return nil
+	return idUint, nil
 }
 
 // BindAndValidateRequestBody binds the request to the body and validates the request struct

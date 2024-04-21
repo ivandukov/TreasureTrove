@@ -18,7 +18,7 @@ func (userService UserService) GetAllUsers() (users []models.User) {
 	var allUsers []models.User
 	db.Find(&allUsers)
 
-	return users
+	return allUsers
 }
 
 // CreateUser creates a new User entity in the database
@@ -51,11 +51,11 @@ func (userService UserService) CreateUser(request requests.UserCreateRequest) (m
 }
 
 // GetUserById retrieves a specific user by ID
-func (userService UserService) GetUserById(request requests.UserGetOrDeleteRequest) (models.User, error) {
+func (userService UserService) GetUserById(id uint64) (models.User, error) {
 	db := database.GetDatabase()
 
 	var user models.User
-	err := db.First(&user, request.Id).Error
+	err := db.First(&user, id).Error
 
 	if err != nil {
 		return models.User{}, err
@@ -65,7 +65,7 @@ func (userService UserService) GetUserById(request requests.UserGetOrDeleteReque
 }
 
 // UpdateUser updates a specific user
-func (userService UserService) UpdateUser(id uint, request requests.UserUpdateRequest) (models.User, error) {
+func (userService UserService) UpdateUser(id uint64, request requests.UserUpdateRequest) (models.User, error) {
 	db := database.GetDatabase()
 
 	var prevUser models.User
@@ -87,9 +87,8 @@ func (userService UserService) UpdateUser(id uint, request requests.UserUpdateRe
 }
 
 // RemoveUser removes a specific user from the database
-func (userService UserService) RemoveUser(request requests.UserGetOrDeleteRequest) error {
+func (userService UserService) RemoveUser(id uint64) error {
 	db := database.GetDatabase()
-	id := request.Id
 	var user models.User
 	err := db.First(&user, id).Error
 

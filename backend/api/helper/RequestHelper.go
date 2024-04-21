@@ -7,10 +7,7 @@ import (
 	"strconv"
 )
 
-type ParamSetter interface {
-	SetParam(value uint)
-}
-
+// GetIdFromParam gets the id from the request parameters and casts it to uint
 func GetIdFromParam(idAsString string) (uint64, error) {
 
 	if idAsString == "" {

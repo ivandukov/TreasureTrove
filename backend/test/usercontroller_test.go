@@ -91,8 +91,14 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	// Define the expected query for fetching the user
 	sqlMock.ExpectQuery("SELECT \\* FROM \"users\" WHERE \"users\".\"id\" = \\$1 ORDER BY \"users\".\"id\" LIMIT \\$2").WithArgs(1, 1).WillReturnRows(expectedRows)
 
-	// Define the expected query for updating the user
-	sqlMock.ExpectExec("UPDATE \"users\" SET \"email\" = \\$1 WHERE \"users\".\"id\" = \\$2").WithArgs("updatedUser@gmail.com", 1).WillReturnResult(sqlmock.NewResult(1, 1))
+	//begin transaction
+	sqlMock.ExpectBegin()
+	// boah this is not as easy as I thought
+	sqlMock.ExpectExec("UPDATE \"users\" SET \"username\"=\\$1,\"email\"=\\$2,\"address\"=\\$3,\"first_name\"=\\$4,\"last_name\"=\\$5,\"password\"=\\$6,\"created_at\"=\\$7 WHERE \"id\" = \\$8").
+		WithArgs("TestUser1", "updatedUser@gmail.com", "", "", "", "testPassword1", AnyTime{}, 1).
+		WillReturnResult(sqlmock.NewResult(1, 1))
+	//commit transaction
+	sqlMock.ExpectCommit()
 
 	//new instance of the controller
 	userController := controllers.UserController{}
@@ -118,6 +124,71 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	assert.Equal(test, 200, context.Writer.Status())
 
 	// Check the results
+	if expectationErr := sqlMock.ExpectationsWereMet(); expectationErr != nil {
+		test.Fatalf("mock expectations were not met: %v", expectationErr)
+	}
+}
+
+// Test_GetUserById_ShouldBeFound tests the GetUserById function
+func Test_GetUserById_ShouldBeFound(test *testing.T) {
+	sqlMock := ChangeToMockDb()
+
+	// Define the expected rows
+	expectedRows := sqlmock.NewRows([]string{"ID", "Username", "Email", "Password"})
+	expectedRows.AddRow(1, "TestUser1", "test@mail.com", "testPassword1")
+
+	// Define the expected query
+	sqlMock.ExpectQuery("SELECT \\* FROM \"users\" WHERE \"users\".\"id\" = \\$1 ORDER BY \"users\".\"id\" LIMIT \\$2").WithArgs(1, 1).WillReturnRows(expectedRows)
+
+	//new instance of the controller
+	userController := controllers.UserController{}
+
+	//and a new test complex
+	context, _ := gin.CreateTestContext(httptest.NewRecorder())
+
+	//add the id to the context
+	context.Params = append(context.Params, gin.Param{Key: "id", Value: "1"})
+
+	userController.GetUserById(context)
+
+	assert.Equal(test, 200, context.Writer.Status())
+
+	// Check the results
+	if expectationErr := sqlMock.ExpectationsWereMet(); expectationErr != nil {
+		test.Fatalf("mock expectations were not met: %v", expectationErr)
+	}
+}
+
+// Test_DeleteUserById_ShouldBeDeleted tests the DeleteUserById function
+func Test_DeleteUserById_ShouldBeDeleted(test *testing.T) {
+	sqlMock := ChangeToMockDb()
+
+	// Define the expected rows
+	expectedRows := sqlmock.NewRows([]string{"ID", "Username", "Email", "Password"})
+	expectedRows.AddRow(1, "TestUser1", "test@test.com,", "testPassword1")
+
+	// Define the expected query
+	sqlMock.ExpectQuery("SELECT \\* FROM \"users\" WHERE \"users\".\"id\" = \\$1 ORDER BY \"users\".\"id\" LIMIT \\$2").WithArgs(1, 1).WillReturnRows(expectedRows)
+
+	//begin transaction
+	sqlMock.ExpectBegin()
+
+	//delete query mock
+	sqlMock.ExpectExec("DELETE FROM \"users\" WHERE \"users\".\"id\" = \\$1").WithArgs(1).WillReturnResult(sqlmock.NewResult(1, 1))
+
+	//commit transaction
+	sqlMock.ExpectCommit()
+
+	userController := controllers.UserController{}
+
+	context, _ := gin.CreateTestContext(httptest.NewRecorder())
+
+	context.Params = append(context.Params, gin.Param{Key: "id", Value: "1"})
+
+	userController.DeleteUserById(context)
+
+	assert.Equal(test, 200, context.Writer.Status())
+
 	if expectationErr := sqlMock.ExpectationsWereMet(); expectationErr != nil {
 		test.Fatalf("mock expectations were not met: %v", expectationErr)
 	}

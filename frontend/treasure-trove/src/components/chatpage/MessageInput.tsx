@@ -1,24 +1,32 @@
 import {
-    Button, HStack, IconButton, Input, InputGroup,
-    InputLeftElement, InputRightElement, Popover, PopoverContent, PopoverTrigger, useColorMode
+    Button,
+    HStack,
+    IconButton,
+    Input,
+    InputGroup,
+    InputLeftElement,
+    InputRightElement,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+    useColorMode,
 } from "@chakra-ui/react";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import { useState } from "react";
 import { BiPlus, BiSmile } from "react-icons/bi";
-import { EmojiStyle } from 'emoji-picker-react';
+import { EmojiStyle } from "emoji-picker-react";
 
 /**
  * TODO: Make Input grow downwards with longer text
  * @returns JSX element
  */
 export function MessageInput() {
-
     const { colorMode } = useColorMode();
     const [inputValue, setInputValue] = useState("");
     const [showPicker, setShowPicker] = useState(false);
 
     const handleEmojiClick = (emojiData: EmojiClickData, event: MouseEvent) => {
-        setInputValue(prevInputValue => prevInputValue + emojiData.emoji);
+        setInputValue((prevInputValue) => prevInputValue + emojiData.emoji);
     };
 
     return (
@@ -29,14 +37,14 @@ export function MessageInput() {
                         <IconButton
                             aria-label="file"
                             icon={<BiPlus />}
-                            variant='ghost'
-                            colorScheme="white" 
+                            variant="ghost"
+                            colorScheme="white"
                         />
                     </InputLeftElement>
                     <Input
-                        bg={colorMode === 'dark' ? 'gray.700' : 'white'}
+                        bg={colorMode === "dark" ? "gray.700" : "white"}
                         onChange={(event) => setInputValue(event.target.value)}
-                        placeholder='Message Jennie Doe'
+                        placeholder="Message Jennie Doe"
                         value={inputValue}
                     />
                     <InputRightElement>
@@ -45,16 +53,17 @@ export function MessageInput() {
                                 <IconButton
                                     aria-label="emoji"
                                     icon={<BiSmile />}
-                                    variant='ghost'
+                                    variant="ghost"
                                     colorScheme="white"
-                                    onClick={() => setShowPicker(!showPicker)} 
+                                    onClick={() => setShowPicker(!showPicker)}
                                 />
                             </PopoverTrigger>
                             <PopoverContent>
                                 <EmojiPicker
                                     emojiStyle={EmojiStyle.NATIVE}
                                     onEmojiClick={handleEmojiClick}
-                                    lazyLoadEmojis={true} />
+                                    lazyLoadEmojis={true}
+                                />
                             </PopoverContent>
                         </Popover>
                     </InputRightElement>

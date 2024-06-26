@@ -1,5 +1,5 @@
-import { Divider, HStack, Text } from '@chakra-ui/react';
-import { OAuthButtonGroup } from '../OAuthButtonGroup';
+import { Divider, HStack, Text } from "@chakra-ui/react";
+import { OAuthButtonGroup } from "../OAuthButtonGroup";
 
 /**
  * displays registration options such as Google, Twitter etc.

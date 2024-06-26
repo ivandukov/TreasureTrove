@@ -1,7 +1,20 @@
 import {
-    Avatar, AvatarBadge, Box, Button, Card, CardBody, CardHeader, HStack, Heading,
-    IconButton, Spacer,
-    Stack, StackDivider, Text, useColorMode, useDisclosure
+    Avatar,
+    AvatarBadge,
+    Box,
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    HStack,
+    Heading,
+    IconButton,
+    Spacer,
+    Stack,
+    StackDivider,
+    Text,
+    useColorMode,
+    useDisclosure,
 } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { ProfilePictureModal } from "./ProfilePictureModal.tsx";
@@ -12,14 +25,13 @@ import { ProfilePictureModal } from "./ProfilePictureModal.tsx";
  * @returns {Response} response - fetched data
  */
 const fetchUser = async () => {
+    const response = await fetch("http://localhost:8080/user/");
 
-    const response = await fetch('http://localhost:8080/user/');
-
-    if(!response.ok) {
-        throw new Error('Fetch failed');
+    if (!response.ok) {
+        throw new Error("Fetch failed");
     }
     return response.json();
-}
+};
 
 /**
  * displays settings regarding the profile:
@@ -29,27 +41,28 @@ const fetchUser = async () => {
  * @returns JSX element
  */
 export function ProfileSettings() {
-
     const { colorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <>
             <Card
-                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                bg={colorMode === "dark" ? "gray.800" : "white"}
                 w="75%"
                 p={2}
             >
                 <CardHeader>
-                    <Heading size='md'>Profile</Heading>
+                    <Heading size="md">Profile</Heading>
                 </CardHeader>
                 <CardBody mt={-5}>
-                    <Stack divider={<StackDivider/>} spacing='4'>
+                    <Stack divider={<StackDivider />} spacing="4">
                         <Box>
                             <HStack>
                                 <Box>
-                                    <Heading size='s'>Display name</Heading>
-                                    <Text pt='2' fontSize='s'>DonJoe99</Text>
+                                    <Heading size="s">Display name</Heading>
+                                    <Text pt="2" fontSize="s">
+                                        DonJoe99
+                                    </Text>
                                 </Box>
                                 <Spacer />
                                 <Button w="95px">Change</Button>
@@ -57,9 +70,9 @@ export function ProfileSettings() {
                         </Box>
                         <Box>
                             <Stack>
-                                <Heading size='s'>Profile Picture</Heading>
+                                <Heading size="s">Profile Picture</Heading>
                                 <HStack>
-                                    <Avatar size='2xl'>
+                                    <Avatar size="2xl">
                                         <AvatarBadge
                                             as={IconButton}
                                             size="sm"
@@ -67,12 +80,17 @@ export function ProfileSettings() {
                                             top="-3px"
                                             colorScheme="red"
                                             aria-label="remove Image"
-                                            icon={<SmallCloseIcon/>}
+                                            icon={<SmallCloseIcon />}
                                         />
                                     </Avatar>
-                                    <Spacer/>
-                                    <Button w="95px" onClick={onOpen}>Change</Button>
-                                    <ProfilePictureModal isOpen={isOpen} onClose={onClose}/>
+                                    <Spacer />
+                                    <Button w="95px" onClick={onOpen}>
+                                        Change
+                                    </Button>
+                                    <ProfilePictureModal
+                                        isOpen={isOpen}
+                                        onClose={onClose}
+                                    />
                                 </HStack>
                             </Stack>
                         </Box>

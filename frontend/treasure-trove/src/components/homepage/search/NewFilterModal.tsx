@@ -1,11 +1,23 @@
-import { 
-    Button, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, 
-    ModalOverlay 
+import {
+    Button,
+    HStack,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
 } from "@chakra-ui/react";
 import { NewFilterForm } from "./form/NewFilterForm.tsx";
 
-export default function NewFilterModal({ isOpen, onClose }: {isOpen: boolean, onClose: () => void}) {
-
+export default function NewFilterModal({
+    isOpen,
+    onClose,
+}: {
+    isOpen: boolean;
+    onClose: () => void;
+}) {
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
@@ -15,15 +27,13 @@ export default function NewFilterModal({ isOpen, onClose }: {isOpen: boolean, on
                     maxW={{ base: "100%", md: "70%", xl: "70%" }}
                 >
                     <ModalHeader>Location</ModalHeader>
-                    <ModalCloseButton/>
+                    <ModalCloseButton />
                     <ModalBody>
-                        <NewFilterForm/>
+                        <NewFilterForm />
                     </ModalBody>
                     <ModalFooter>
                         <HStack>
-                            <Button onClick={onClose}>
-                                Cancel
-                            </Button>
+                            <Button onClick={onClose}>Cancel</Button>
                             <Button colorScheme="green" onClick={onClose}>
                                 Save
                             </Button>

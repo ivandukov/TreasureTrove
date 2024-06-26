@@ -10,12 +10,13 @@ import { GiveawayInfoBox } from "./GiveawayInfoBox.tsx";
  * @returns JSX element
  */
 export default function GiveawayPage() {
-
     // Sample data for the product giveaway
     const productData = {
         title: "Living Room Sofa",
-        imageurl: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
-        description: "This is a high-quality sofa perfect for your living room. Its classic design complements both modern and traditional settings, making it an excellent addition to any home. Rest assured that this sofa has been well taken care of. It comes from a pet-free and smoke-free home, so you can bring it into your living space worry-free. The sturdy frame also ensures long-lasting durability.",
+        imageurl:
+            "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+        description:
+            "This is a high-quality sofa perfect for your living room. Its classic design complements both modern and traditional settings, making it an excellent addition to any home. Rest assured that this sofa has been well taken care of. It comes from a pet-free and smoke-free home, so you can bring it into your living space worry-free. The sturdy frame also ensures long-lasting durability.",
         user: "John Doe",
         date: "14.03.2024",
         giveawaystatus: "Reserved",
@@ -32,12 +33,12 @@ export default function GiveawayPage() {
 
     return (
         <Stack>
-            <SearchBar/>
+            <SearchBar />
             <Box>
-                <ImageCarousel images={productData.images}/>
-            </Box>  
-            <GiveawayInfoBox productData={productData}/>
-            <Footer/>
+                <ImageCarousel images={productData.images} />
+            </Box>
+            <GiveawayInfoBox productData={productData} />
+            <Footer />
         </Stack>
     );
 }

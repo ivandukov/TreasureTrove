@@ -1,4 +1,13 @@
-import { Avatar, Box, Button, Text, HStack, Heading, Stack, useColorMode } from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Button,
+    Text,
+    HStack,
+    Heading,
+    Stack,
+    useColorMode,
+} from "@chakra-ui/react";
 import SearchBar from "../homepage/search/SearchBar";
 import FeaturedCardGrid from "../homepage/featured/FeaturedCardGrid";
 import SortMenu from "../SortMenu";
@@ -9,14 +18,13 @@ import SortMenu from "../SortMenu";
  * @returns {Response} response - fetched data
  */
 const fetchProfile = async () => {
+    const response = await fetch("http://localhost:8080/user/");
 
-    const response = await fetch('http://localhost:8080/user/');
-
-    if(!response.ok) {
-        throw new Error('Fetch failed');
+    if (!response.ok) {
+        throw new Error("Fetch failed");
     }
     return response.json();
-}
+};
 
 /**
  * renders the page of a profile with three components:
@@ -26,32 +34,31 @@ const fetchProfile = async () => {
  * @returns JSX element
  */
 export default function ProfilePage() {
-
     const { colorMode } = useColorMode();
 
     return (
         <>
             <Stack>
-                <SearchBar/>      
+                <SearchBar />
                 <HStack align="start">
-                    <Box 
-                        bg={colorMode === 'dark' ? 'gray.900' : 'white'}
+                    <Box
+                        bg={colorMode === "dark" ? "gray.900" : "white"}
                         borderWidth="1px"
                         borderRadius="md"
                         p={5}
                     >
                         <Stack>
-                            <Avatar/>
+                            <Avatar />
                             <Heading size="md">John Doe</Heading>
                             <Text>Active since: 01.02.2023</Text>
                             <Text>Answering Rate: 85%</Text>
                             <Text>Giveaways: 3</Text>
                             <Text>Requests: 0</Text>
                             <Button>Follow</Button>
-                        </Stack>    
+                        </Stack>
                     </Box>
-                    <Box 
-                        bg={colorMode === 'dark' ? 'gray.900' : 'white'}
+                    <Box
+                        bg={colorMode === "dark" ? "gray.900" : "white"}
                         borderWidth="1px"
                         borderRadius="md"
                         p={3}
@@ -59,10 +66,10 @@ export default function ProfilePage() {
                     >
                         <Stack>
                             <Stack w="27%">
-                                <SortMenu/>
+                                <SortMenu />
                             </Stack>
-                            <FeaturedCardGrid/>
-                        </Stack>    
+                            <FeaturedCardGrid />
+                        </Stack>
                     </Box>
                 </HStack>
             </Stack>

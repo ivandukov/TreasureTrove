@@ -1,10 +1,22 @@
 import {
-    Card, Heading, Link, Image, Stack, Text, Flex, Spacer
+    Card,
+    Heading,
+    Link,
+    Image,
+    Stack,
+    Text,
+    Flex,
+    Spacer,
 } from "@chakra-ui/react";
 import { DropDownButton } from "../DropDownButton";
 
-export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway: any; }) {
-
+export function GiveawayFeedCard({
+    index,
+    giveaway,
+}: {
+    index: number;
+    giveaway: any;
+}) {
     return (
         <>
             <Card
@@ -17,23 +29,18 @@ export function GiveawayFeedCard({ index, giveaway }: { index: number; giveaway:
                 }}
             >
                 <Stack>
-                    <Link href="/giveaway" style={{ textDecoration: 'none' }}>
-                        <Image
-                            objectFit='cover'
-                            src={giveaway.ImgUrl}
-                        />
+                    <Link href="/giveaway" style={{ textDecoration: "none" }}>
+                        <Image objectFit="cover" src={giveaway.ImgUrl} />
                         <Heading size="sm" noOfLines={2}>
                             {giveaway.Title}
                         </Heading>
                     </Link>
                     <Flex>
                         <Text color="gray.500">
-                            <Link href="/results">
-                                {giveaway.Location}
-                            </Link>
+                            <Link href="/results">{giveaway.Location}</Link>
                         </Text>
-                        <Spacer/>                      
-                            <DropDownButton/>
+                        <Spacer />
+                        <DropDownButton />
                     </Flex>
                 </Stack>
             </Card>

@@ -1,7 +1,12 @@
-import { 
-    Box, Heading, Stack, Text, Spinner, SimpleGrid 
+import {
+    Box,
+    Heading,
+    Stack,
+    Text,
+    Spinner,
+    SimpleGrid,
 } from "@chakra-ui/react";
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 import { GiveawayFeedCard } from "./GiveawayFeedCard";
 
 /**
@@ -9,13 +14,13 @@ import { GiveawayFeedCard } from "./GiveawayFeedCard";
  * @returns {Response} response - fetched data
  */
 const fetchGiveaways = async () => {
-    const response = await fetch('http://localhost:8080/giveaway/');
+    const response = await fetch("http://localhost:8080/giveaway/");
 
-    if(!response.ok) {
-        throw new Error('Fetch failed');
+    if (!response.ok) {
+        throw new Error("Fetch failed");
     }
     return response.json();
-}
+};
 
 /**
  * renders Giveaways sorted by newest
@@ -24,25 +29,24 @@ const fetchGiveaways = async () => {
  * @returns JSX element
  */
 export function NewestBox({ colorMode }: any) {
-    
     interface QueryError {
         message: string;
     }
 
     const { status, data, error } = useQuery<any, QueryError>({
-        queryKey: ['giveaways'], 
-        queryFn: fetchGiveaways
+        queryKey: ["giveaways"],
+        queryFn: fetchGiveaways,
     });
 
-    if(status === 'loading') {
+    if (status === "loading") {
         return (
             <>
-                <Spinner/>
+                <Spinner />
             </>
         );
     }
-    
-    if(status === 'error') {
+
+    if (status === "error") {
         return (
             <>
                 <Text>Error: {error.message}</Text>
@@ -53,19 +57,20 @@ export function NewestBox({ colorMode }: any) {
     return (
         <>
             <Box
-                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                bg={colorMode === "dark" ? "gray.800" : "white"}
                 p={5}
                 borderWidth="1px"
                 borderRadius="md"
             >
                 <Stack>
-                    <Heading size="md">
-                        New
-                    </Heading>
-                    
-                    <SimpleGrid minChildWidth='190px' spacing={3}>
+                    <Heading size="md">New</Heading>
+
+                    <SimpleGrid minChildWidth="190px" spacing={3}>
                         {data.giveaways.map((giveaway: any, index: number) => (
-                            <GiveawayFeedCard index={index} giveaway={giveaway}/>
+                            <GiveawayFeedCard
+                                index={index}
+                                giveaway={giveaway}
+                            />
                         ))}
                     </SimpleGrid>
                 </Stack>

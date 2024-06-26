@@ -1,9 +1,20 @@
 import {
-    Divider, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList, 
-    useDisclosure
-    } from "@chakra-ui/react";
+    Divider,
+    Icon,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    useDisclosure,
+} from "@chakra-ui/react";
 import { useState } from "react";
-import { BsThreeDotsVertical, BsShare, BsFlag, BsFillBookmarkFill } from "react-icons/bs";
+import {
+    BsThreeDotsVertical,
+    BsShare,
+    BsFlag,
+    BsFillBookmarkFill,
+} from "react-icons/bs";
 import { FiBookmark } from "react-icons/fi";
 import { ShareModal } from "./ShareModal";
 
@@ -16,7 +27,6 @@ import { ShareModal } from "./ShareModal";
  * @returns JSX element
  */
 export function DropDownButton() {
-
     /**
      * TODO: Replace with proper Authentication State Management (Context or Redux?)
      * @see https://legacy.reactjs.org/docs/context.html#when-to-use-context
@@ -27,11 +37,9 @@ export function DropDownButton() {
     const [isSaved, setIsSaved] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-
     const handleSaveClick = () => {
         setIsSaved(!isSaved);
     };
-
 
     return (
         <Menu>
@@ -45,12 +53,20 @@ export function DropDownButton() {
                 {isLoggedIn ? (
                     <>
                         <MenuItem
-                            icon={isSaved ? <Icon as={BsFillBookmarkFill} /> : <Icon as={FiBookmark} />}
+                            icon={
+                                isSaved ? (
+                                    <Icon as={BsFillBookmarkFill} />
+                                ) : (
+                                    <Icon as={FiBookmark} />
+                                )
+                            }
                             onClick={handleSaveClick}
                         >
-                            {isSaved ? 'Saved' : 'Save'}
+                            {isSaved ? "Saved" : "Save"}
                         </MenuItem>
-                        <MenuItem icon={<Icon as={BsShare} />} onClick={onOpen}>Share</MenuItem>
+                        <MenuItem icon={<Icon as={BsShare} />} onClick={onOpen}>
+                            Share
+                        </MenuItem>
                         <Divider />
                         <MenuItem icon={<Icon as={BsFlag} />}>Report</MenuItem>
                         <ShareModal isOpen={isOpen} onClose={onClose} />

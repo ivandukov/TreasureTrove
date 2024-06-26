@@ -1,6 +1,16 @@
-import { 
-    Box, Button, Card, CardBody, CardHeader, HStack, Heading, Spacer, Stack, StackDivider, 
-    Text, useColorMode 
+import {
+    Box,
+    Button,
+    Card,
+    CardBody,
+    CardHeader,
+    HStack,
+    Heading,
+    Spacer,
+    Stack,
+    StackDivider,
+    Text,
+    useColorMode,
 } from "@chakra-ui/react";
 import ChangePasswordButton from "./ChangePasswordButton.tsx";
 import DeleteAccountButton from "./DeleteAccountButton.tsx";
@@ -17,36 +27,38 @@ import DeleteAccountButton from "./DeleteAccountButton.tsx";
  * @returns JSX element
  */
 export default function AccountSettings() {
-
     const { colorMode } = useColorMode();
 
     return (
         <>
             <Card
-                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                bg={colorMode === "dark" ? "gray.800" : "white"}
                 w="75%"
                 p={2}
             >
                 <CardHeader>
-                    <Heading size='md'>Account</Heading>
+                    <Heading size="md">Account</Heading>
                 </CardHeader>
                 <CardBody mt={-5}>
-                    <Stack divider={<StackDivider />} spacing='4'>
+                    <Stack divider={<StackDivider />} spacing="4">
                         <Box>
                             <HStack>
                                 <Box>
-                                    <Heading size='s'>Username</Heading>
-                                    <Text pt='2' fontSize='s'>JohnDoe</Text>
+                                    <Heading size="s">Username</Heading>
+                                    <Text pt="2" fontSize="s">
+                                        JohnDoe
+                                    </Text>
                                 </Box>
                                 <Spacer />
-                                
                             </HStack>
                         </Box>
                         <Box>
                             <HStack>
                                 <Box>
-                                    <Heading size='s'>Email address</Heading>
-                                    <Text pt='2' fontSize='s'>johndoe@mail.com</Text>
+                                    <Heading size="s">Email address</Heading>
+                                    <Text pt="2" fontSize="s">
+                                        johndoe@mail.com
+                                    </Text>
                                 </Box>
                                 <Spacer />
                                 <Button w="95px">Change</Button>
@@ -54,20 +66,26 @@ export default function AccountSettings() {
                         </Box>
                         <Box>
                             <Stack>
-                                <Heading size='s'>Password & Authentication</Heading>
+                                <Heading size="s">
+                                    Password & Authentication
+                                </Heading>
                                 <ChangePasswordButton />
                             </Stack>
                         </Box>
                         <Box>
                             <Stack>
                                 <Box>
-                                    <Heading size='s'>Account Removal</Heading>
-                                    <Text pt='2' fontSize='s'>
-                                        Disabling your account means you can recover it at any time after taking this action.
+                                    <Heading size="s">Account Removal</Heading>
+                                    <Text pt="2" fontSize="s">
+                                        Disabling your account means you can
+                                        recover it at any time after taking this
+                                        action.
                                     </Text>
                                 </Box>
                                 <HStack spacing={4}>
-                                    <Button colorScheme="red">Disable Account</Button>
+                                    <Button colorScheme="red">
+                                        Disable Account
+                                    </Button>
                                     <DeleteAccountButton />
                                 </HStack>
                             </Stack>

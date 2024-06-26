@@ -11,7 +11,6 @@ import TopCitiesBox from "./TopCitiesBox.tsx";
  * @returns JSX element
  */
 export default function LoggedOutHomepage() {
-
     const { colorMode } = useColorMode();
 
     return (
@@ -21,17 +20,17 @@ export default function LoggedOutHomepage() {
                     <Link href="/register">Register</Link>
                     <Link
                         href="/login"
-                        style={{ textDecoration: 'none' }}
-                        _focus={{ boxShadow: 'none' }}
+                        style={{ textDecoration: "none" }}
+                        _focus={{ boxShadow: "none" }}
                     >
                         <Button colorScheme="green">Login</Button>
                     </Link>
                 </HStack>
-                <SearchBar/>
-                <NewestBox colorMode={colorMode}/>
-                <PopularBox colorMode={colorMode}/>
-                <TopCitiesBox colorMode={colorMode}/>
-                <Footer/>
+                <SearchBar />
+                <NewestBox colorMode={colorMode} />
+                <PopularBox colorMode={colorMode} />
+                <TopCitiesBox colorMode={colorMode} />
+                <Footer />
             </Stack>
         </>
     );

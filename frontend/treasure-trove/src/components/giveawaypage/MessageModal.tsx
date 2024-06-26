@@ -1,17 +1,32 @@
 import {
-    Button, FormControl, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader,
-    ModalOverlay, Textarea
+    Button,
+    FormControl,
+    HStack,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Textarea,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
-export function MessageModal({ onClose, isOpen }: { onClose: () => void; isOpen: boolean; }) {
-
+export function MessageModal({
+    onClose,
+    isOpen,
+}: {
+    onClose: () => void;
+    isOpen: boolean;
+}) {
     const {
-        handleSubmit, register, formState: { errors, isSubmitting },
+        handleSubmit,
+        register,
+        formState: { errors, isSubmitting },
     } = useForm();
 
     function onSubmit(values: any): Promise<void> {
-
         return new Promise((resolve) => {
             setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
@@ -27,23 +42,20 @@ export function MessageModal({ onClose, isOpen }: { onClose: () => void; isOpen:
                 <Modal isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />
                     <ModalContent>
-                        <ModalHeader>
-                            Contact John Doe
-                        </ModalHeader>
+                        <ModalHeader>Contact John Doe</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
                             <FormControl>
                                 <Textarea
-                                    id='message'
-                                    placeholder='Your message'
-                                    {...register("message")} />
+                                    id="message"
+                                    placeholder="Your message"
+                                    {...register("message")}
+                                />
                             </FormControl>
                         </ModalBody>
                         <ModalFooter>
                             <HStack>
-                                <Button onClick={onClose}>
-                                    Cancel
-                                </Button>
+                                <Button onClick={onClose}>Cancel</Button>
                                 <Button
                                     type="submit"
                                     colorScheme="green"

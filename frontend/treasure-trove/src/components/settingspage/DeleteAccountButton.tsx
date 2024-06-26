@@ -1,6 +1,12 @@
-import { 
-    useDisclosure, Button, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, 
-    AlertDialogBody, AlertDialogFooter
+import {
+    useDisclosure,
+    Button,
+    AlertDialog,
+    AlertDialogOverlay,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogBody,
+    AlertDialogFooter,
 } from "@chakra-ui/react";
 
 import React from "react";
@@ -11,7 +17,7 @@ export default function DeleteAccountButton() {
 
     return (
         <>
-            <Button colorScheme='red' onClick={onOpen} variant='outline'>
+            <Button colorScheme="red" onClick={onOpen} variant="outline">
                 Delete Account
             </Button>
 
@@ -22,7 +28,7 @@ export default function DeleteAccountButton() {
             >
                 <AlertDialogOverlay>
                     <AlertDialogContent>
-                        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                        <AlertDialogHeader fontSize="lg" fontWeight="bold">
                             Delete Account
                         </AlertDialogHeader>
 
@@ -34,11 +40,10 @@ export default function DeleteAccountButton() {
                             <Button ref={cancelRef} onClick={onClose}>
                                 Cancel
                             </Button>
-                            <Button colorScheme='red' onClick={onClose} ml={3}>
+                            <Button colorScheme="red" onClick={onClose} ml={3}>
                                 Delete
                             </Button>
                         </AlertDialogFooter>
-
                     </AlertDialogContent>
                 </AlertDialogOverlay>
             </AlertDialog>

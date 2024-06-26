@@ -1,4 +1,14 @@
-import { Button, HStack, Modal, ModalHeader, ModalContent, ModalOverlay, ModalBody, ModalFooter, ModalCloseButton } from "@chakra-ui/react";
+import {
+    Button,
+    HStack,
+    Modal,
+    ModalHeader,
+    ModalContent,
+    ModalOverlay,
+    ModalBody,
+    ModalFooter,
+    ModalCloseButton,
+} from "@chakra-ui/react";
 import ProfilePictureDropZone from "./ProfilePictureDropZone.tsx";
 
 /**
@@ -8,7 +18,13 @@ import ProfilePictureDropZone from "./ProfilePictureDropZone.tsx";
  * @returns JSX element
  */
 
-export function ProfilePictureModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void; }) {
+export function ProfilePictureModal({
+    isOpen,
+    onClose,
+}: {
+    isOpen: boolean;
+    onClose: () => void;
+}) {
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose}>

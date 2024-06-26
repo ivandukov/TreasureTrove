@@ -6,13 +6,13 @@ import { useQuery } from "react-query";
  * @returns {Response} response - fetched data
  */
 const fetchCategories = async () => {
-    const response = await fetch('http://localhost:8080/category/');
+    const response = await fetch("http://localhost:8080/category/");
 
-    if(!response.ok) {
-        throw new Error('Fetch failed');
+    if (!response.ok) {
+        throw new Error("Fetch failed");
     }
     return response.json();
-}
+};
 
 interface Category {
     Name: string;
@@ -23,24 +23,20 @@ interface Category {
  * @returns JSX element
  */
 export default function CategorySelect() {
-
     interface QueryError {
         message: string;
     }
 
     const { status, data, error } = useQuery<any, QueryError>({
-        queryKey: ['categories'], 
-        queryFn: fetchCategories
+        queryKey: ["categories"],
+        queryFn: fetchCategories,
     });
 
-    if(status === 'loading') {
-        return (
-            <>
-            </>
-        );
+    if (status === "loading") {
+        return <></>;
     }
-    
-    if(status === 'error') {
+
+    if (status === "error") {
         return (
             <>
                 <Text>Error: {error.message}</Text>

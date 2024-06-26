@@ -1,6 +1,16 @@
 import {
-    Box, Card, CardBody, CardHeader, HStack, Heading, Select, Spacer,
-    Stack, StackDivider, Text, useColorMode
+    Box,
+    Card,
+    CardBody,
+    CardHeader,
+    HStack,
+    Heading,
+    Select,
+    Spacer,
+    Stack,
+    StackDivider,
+    Text,
+    useColorMode,
 } from "@chakra-ui/react";
 import ThemeSwitcher from "./ThemeSwitcher.tsx";
 
@@ -17,25 +27,23 @@ export function PreferencesSettings() {
     return (
         <>
             <Card
-                bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+                bg={colorMode === "dark" ? "gray.800" : "white"}
                 w="75%"
                 p={2}
             >
                 <CardHeader>
-                    <Heading size='md'>Preferences</Heading>
-                    <Text pt='2' fontSize='s'>
+                    <Heading size="md">Preferences</Heading>
+                    <Text pt="2" fontSize="s">
                         Personalize your TreasureTrove experience.
                     </Text>
                 </CardHeader>
                 <CardBody mt={-5}>
-                    <Stack divider={<StackDivider />} spacing='4'>
+                    <Stack divider={<StackDivider />} spacing="4">
                         <Box>
                             <HStack>
                                 <Box>
-                                    <Heading size='s'>
-                                        Language
-                                    </Heading>
-                                    <Text pt='2' fontSize='s'>
+                                    <Heading size="s">Language</Heading>
+                                    <Text pt="2" fontSize="s">
                                         Set the language
                                     </Text>
                                 </Box>
@@ -51,10 +59,8 @@ export function PreferencesSettings() {
                         <Box>
                             <HStack>
                                 <Box>
-                                    <Heading size='s'>
-                                        Theme
-                                    </Heading>
-                                    <Text pt='2' fontSize='s'>
+                                    <Heading size="s">Theme</Heading>
+                                    <Text pt="2" fontSize="s">
                                         Set theme
                                     </Text>
                                 </Box>

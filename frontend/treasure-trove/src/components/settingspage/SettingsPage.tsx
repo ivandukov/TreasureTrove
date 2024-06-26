@@ -1,5 +1,13 @@
 import {
-    Box, Heading, Stack, Tab, TabIndicator, TabList, TabPanel, TabPanels, Tabs
+    Box,
+    Heading,
+    Stack,
+    Tab,
+    TabIndicator,
+    TabList,
+    TabPanel,
+    TabPanels,
+    Tabs,
 } from "@chakra-ui/react";
 import AccountSettings from "./AccountSettings.tsx";
 import { ProfileSettings } from "./ProfileSettings.tsx";
@@ -7,16 +15,21 @@ import { SafetyPrivacySettings } from "./SafetyPrivacySettings.tsx";
 import { NotificationSettings } from "./NotificationSettings.tsx";
 import { PreferencesSettings } from "./PreferencesSettings.tsx";
 
-const TAB_NAMES = ['Account', 'Profile', 'Safety & Privacy', 'Notifications', 'Preferences'];
+const TAB_NAMES = [
+    "Account",
+    "Profile",
+    "Safety & Privacy",
+    "Notifications",
+    "Preferences",
+];
 
 /**
- * renders the user settings page. Each tab panel contains a 
- * specific settings component that is rendered when its 
+ * renders the user settings page. Each tab panel contains a
+ * specific settings component that is rendered when its
  * corresponding tab is active.
  * @returns JSX element
  */
 export default function UserSettingsPage() {
-
     return (
         <>
             <Box>
@@ -36,20 +49,20 @@ export default function UserSettingsPage() {
                         />
                         <TabPanels>
                             <TabPanel>
-                                <AccountSettings/>
+                                <AccountSettings />
                             </TabPanel>
                             <TabPanel>
-                                <ProfileSettings/>
+                                <ProfileSettings />
                             </TabPanel>
                             <TabPanel>
-                                <SafetyPrivacySettings/>
+                                <SafetyPrivacySettings />
                             </TabPanel>
                             <TabPanel>
-                                <NotificationSettings/>
+                                <NotificationSettings />
                             </TabPanel>
                             <TabPanel>
-                                <PreferencesSettings/>
-                            </TabPanel>                            
+                                <PreferencesSettings />
+                            </TabPanel>
                         </TabPanels>
                     </Tabs>
                 </Stack>

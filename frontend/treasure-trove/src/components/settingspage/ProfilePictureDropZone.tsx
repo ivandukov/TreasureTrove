@@ -9,52 +9,51 @@ import { GoUpload } from "react-icons/go";
  * @returns {JSX.Element} JSX element
  */
 export default function ProfilePictureDropZone() {
-
     /**
      * @type {React.RefObject<HTMLInputElement>}
      */
     const fileRef = createRef<HTMLInputElement>();
 
-    const [uploadedImage, setUploadedImage] = useState<string | undefined>(undefined);
+    const [uploadedImage, setUploadedImage] = useState<string | undefined>(
+        undefined,
+    );
 
-    const handleFileUpload = (event : React.ChangeEvent<HTMLInputElement>) => {
-        
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
-        
-        if(file) {
+
+        if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                if(typeof reader.result === 'string') {
+                if (typeof reader.result === "string") {
                     setUploadedImage(reader.result);
                 }
-            }
+            };
             reader.readAsDataURL(file);
         }
-    }
+    };
 
     return (
         <>
-            <Stack align="center"> 
-                <Avatar size='2xl' src={uploadedImage}/>
-                <Box
-                    border="2px dashed"
-                    w="390px"
-                    borderRadius="md"
-                    p={4}
-                >
+            <Stack align="center">
+                <Avatar size="2xl" src={uploadedImage} />
+                <Box border="2px dashed" w="390px" borderRadius="md" p={4}>
                     <Stack align="center">
-                        <GoUpload/>
+                        <GoUpload />
                         <input
                             type="file"
-                            style={{ display: 'none' }}
+                            style={{ display: "none" }}
                             accept="image/png,image/jpeg,image"
                             ref={fileRef}
                             onChange={handleFileUpload}
                         />
                         <Text>
-                            <Link fontWeight="bold" onClick={() => fileRef.current?.click()}>                            
-                                Click to upload 
-                            </Link> or drag and drop                       
+                            <Link
+                                fontWeight="bold"
+                                onClick={() => fileRef.current?.click()}
+                            >
+                                Click to upload
+                            </Link>{" "}
+                            or drag and drop
                         </Text>
                         <Text>PNG or JPG up to 2MB</Text>
                     </Stack>

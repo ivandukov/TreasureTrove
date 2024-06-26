@@ -12,3 +12,6 @@ Beyond the thrill of acquiring unique treasures, TreasureTrove promotes a sense 
 Join the growing community of treasure hunters and contributors who are reshaping the way we perceive our belongings. Together, let's embark on a journey where the discarded becomes cherished and the act of sharing creates ripples of positive change.
 
 TreasureTrove: Discover, Share, and Unleash the Hidden Treasures Within.
+
+
+[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/sabo2k/treasuretrove)

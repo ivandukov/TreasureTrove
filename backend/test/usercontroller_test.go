@@ -63,7 +63,6 @@ func Test_CreateUser_ShouldBeCreated(test *testing.T) {
 		Password: "testPassword1",
 	}
 
-	// Convert the user to JSON
 	userJson, _ := json.Marshal(user)
 
 	// Create a new HTTP request with the user JSON
@@ -100,10 +99,8 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	//commit transaction
 	sqlMock.ExpectCommit()
 
-	//new instance of the controller
 	userController := controllers.UserController{}
 
-	//and a new test complex
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 
 	user := &models.User{
@@ -116,11 +113,10 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	// Create a new HTTP request with the user JSON
 	context.Request = httptest.NewRequest("PUT", "/user/1", bytes.NewBuffer(userJson))
 	context.Request.Header.Set("Content-Type", "application/json")
-	//add the id to the context
+
 	context.Params = append(context.Params, gin.Param{Key: "id", Value: "1"})
 
 	userController.UpdateUser(context)
-
 	assert.Equal(test, 200, context.Writer.Status())
 
 	// Check the results
@@ -167,16 +163,10 @@ func Test_DeleteUserById_ShouldBeDeleted(test *testing.T) {
 	expectedRows := sqlmock.NewRows([]string{"ID", "Username", "Email", "Password"})
 	expectedRows.AddRow(1, "TestUser1", "test@test.com,", "testPassword1")
 
-	// Define the expected query
 	sqlMock.ExpectQuery("SELECT \\* FROM \"users\" WHERE \"users\".\"id\" = \\$1 ORDER BY \"users\".\"id\" LIMIT \\$2").WithArgs(1, 1).WillReturnRows(expectedRows)
 
-	//begin transaction
 	sqlMock.ExpectBegin()
-
-	//delete query mock
 	sqlMock.ExpectExec("DELETE FROM \"users\" WHERE \"users\".\"id\" = \\$1").WithArgs(1).WillReturnResult(sqlmock.NewResult(1, 1))
-
-	//commit transaction
 	sqlMock.ExpectCommit()
 
 	userController := controllers.UserController{}

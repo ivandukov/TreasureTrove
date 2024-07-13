@@ -3,11 +3,23 @@ package services
 import (
 	"golang.org/x/crypto/bcrypt"
 	"log"
+	"time"
 	"treasuretrove/api/helper"
 	"treasuretrove/api/models"
 	"treasuretrove/api/requests"
 	"treasuretrove/api/services/database"
 )
+
+type GiveawayWithoutUser struct {
+	ID          uint      `gorm:"primary_key" json:"id"`
+	Title       string    `gorm:"size:255;not null" validate:"required,min=3,max=255" json:"title"`
+	Description string    `gorm:"size:255" validate:"required,min=3,max=9000" json:"description"`
+	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"createdAt"`
+	Status      string    `gorm:"size:255" json:"status"`
+	Location    string    `gorm:"size:255" json:"location"`
+	ImgUrl      string    `gorm:"size:255" json:"imgUrl"`
+	UserId      uint      `json:"userId" validate:"required"`
+}
 
 type UserService struct{}
 
@@ -56,6 +68,8 @@ func (userService UserService) GetUserById(id uint64) (models.User, error) {
 
 	var user models.User
 	err := db.First(&user, id).Error
+
+	db.Preload("Giveaways.Categories").First(&user, id)
 
 	if err != nil {
 		return models.User{}, err

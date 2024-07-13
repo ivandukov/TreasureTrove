@@ -50,14 +50,35 @@ func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context
 		return
 	}
 
+	var user models.User
+	if err := db.First(&user, giveaway.UserId).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
+		return
+	}
+
+	// Fetch the existing categories from the database
+	var categories []models.Category
+	for _, category := range giveaway.Categories {
+		var existingCategory models.Category
+		//search by id
+		if err := db.First(&existingCategory, category.ID).Error; err != nil {
+			context.JSON(http.StatusBadRequest, gin.H{"error": "Category not found"})
+			return
+		}
+		categories = append(categories, existingCategory)
+	}
+
 	dbErr := db.Create(&giveaway).Error
+
+	//preload the user
+	db.Preload("User").First(&giveaway, giveaway.ID)
 
 	if dbErr != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
 		return
 	}
 
-	context.JSON(http.StatusCreated, gin.H{"user": giveaway})
+	context.JSON(http.StatusCreated, giveaway)
 }
 
 // GetGiveawayById searches the database for giveaway by its id

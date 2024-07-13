@@ -11,6 +11,7 @@ type Giveaway struct {
 	Status      string     `gorm:"size:255" json:"status"`
 	Location    string     `gorm:"size:255" json:"location"`
 	ImgUrl      string     `gorm:"size:255" json:"imgUrl"`
-	User        []User     `gorm:"many2many:user_giveaways;" validate:"required" json:"user"`
+	UserId      uint       `json:"userId" validate:"required"`
+	User        *User      `gorm:"foreignKey:UserId" json:"user,omitempty"`
 	Categories  []Category `gorm:"many2many:giveaway_categories;" validate:"required" json:"categories"`
 }

@@ -32,7 +32,7 @@ export function DropDownButton() {
      * @see https://legacy.reactjs.org/docs/context.html#when-to-use-context
      * @see https://redux.js.org/
      */
-    let isLoggedIn = true;
+    const isLoggedIn = true;
 
     const [isSaved, setIsSaved] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();

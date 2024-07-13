@@ -5,7 +5,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"net/http"
 	"treasuretrove/api/models"
-	"treasuretrove/api/services"
+	"treasuretrove/api/services/database"
 )
 
 type GiveawayController struct{}
@@ -19,9 +19,9 @@ type GiveawayController struct{}
 func (giveawayController GiveawayController) GetAllGiveaways(context *gin.Context) {
 
 	var giveaways []models.Giveaway
-	database := services.GetDatabase()
+	db := database.GetDatabase()
 
-	database.Find(&giveaways)                                  // get all giveaways from database
+	db.Find(&giveaways)                                        // get all giveaways from db
 	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways}) // return all giveaways
 }
 
@@ -34,7 +34,7 @@ func (giveawayController GiveawayController) GetAllGiveaways(context *gin.Contex
 func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase()
+	db := database.GetDatabase()
 	validation := validator.New()
 
 	jsonBindErr := context.BindJSON(&giveaway)
@@ -50,7 +50,7 @@ func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context
 		return
 	}
 
-	dbErr := database.Create(&giveaway).Error
+	dbErr := db.Create(&giveaway).Error
 
 	if dbErr != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": dbErr.Error()})
@@ -69,15 +69,15 @@ func (giveawayController GiveawayController) CreateGiveaway(context *gin.Context
 func (giveawayController GiveawayController) GetGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase() // connect with database
-	giveawayId := context.Param("id")  // get giveaway-id from the request
+	db := database.GetDatabase()      // connect with db
+	giveawayId := context.Param("id") // get giveaway-id from the request
 
 	if giveawayId == "" {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "No id provided"})
 		return
 	}
 
-	err := database.First(&giveaway, context.Param("id")).Error
+	err := db.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
@@ -96,7 +96,7 @@ func (giveawayController GiveawayController) GetGiveawayById(context *gin.Contex
 func (giveawayController GiveawayController) UpdateGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase()
+	db := database.GetDatabase()
 	giveawayId := context.Param("id")
 
 	if giveawayId == "" {
@@ -104,7 +104,7 @@ func (giveawayController GiveawayController) UpdateGiveawayById(context *gin.Con
 		return
 	}
 
-	err := database.First(&giveaway, context.Param("id")).Error
+	err := db.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
@@ -116,7 +116,7 @@ func (giveawayController GiveawayController) UpdateGiveawayById(context *gin.Con
 		return
 	}
 
-	err = database.Save(&giveaway).Error
+	err = db.Save(&giveaway).Error
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -135,7 +135,7 @@ func (giveawayController GiveawayController) UpdateGiveawayById(context *gin.Con
 func (giveawayController GiveawayController) DeleteGiveawayById(context *gin.Context) {
 
 	var giveaway models.Giveaway
-	database := services.GetDatabase()
+	db := database.GetDatabase()
 	giveawayId := context.Param("id")
 
 	if giveawayId == "" {
@@ -143,14 +143,14 @@ func (giveawayController GiveawayController) DeleteGiveawayById(context *gin.Con
 		return
 	}
 
-	err := database.First(&giveaway, context.Param("id")).Error
+	err := db.First(&giveaway, context.Param("id")).Error
 
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Giveaway not found"})
 		return
 	}
 
-	err = database.Delete(&giveaway).Error
+	err = db.Delete(&giveaway).Error
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

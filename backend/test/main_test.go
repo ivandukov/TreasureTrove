@@ -1,13 +1,15 @@
 package test
 
 import (
+	"database/sql/driver"
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
 	"testing"
-	"treasuretrove/api/services"
+	"time"
+	"treasuretrove/api/services/database"
 )
 
 func TestMain(main *testing.M) {
@@ -30,7 +32,15 @@ func ChangeToMockDb() sqlmock.Sqlmock {
 		DriverName: "postgres",
 	})
 	mockDb, _ := gorm.Open(dialector, &gorm.Config{})
-	services.SetDatabase(mockDb)
+	database.SetDatabase(mockDb)
 
 	return sqlMock
+}
+
+type AnyTime struct{}
+
+// Match satisfies sqlmock.Argument interface -> used in the db mocks
+func (a AnyTime) Match(v driver.Value) bool {
+	_, ok := v.(time.Time)
+	return ok
 }

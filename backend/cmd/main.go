@@ -1,23 +1,31 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"treasuretrove/api/helper"
 	"treasuretrove/api/routes"
-	"treasuretrove/api/services"
-	"github.com/gin-contrib/cors"
+	"treasuretrove/api/services/database"
 )
 
 func main() {
 	//ignore err because sometimes the env comes from docker compose
 	_ = godotenv.Load()
 
-	services.ConnectToDatabase()
-	services.MigrateModels()
+	database.ConnectToDatabase()
+	database.MigrateModels()
 	ginEngine := gin.Default()
 
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:5173"}
+	allowedOrigins, configNotFound := helper.GetArrayConfigItem("ALLOWED_ORIGINS")
+
+	if configNotFound != nil {
+		config.AllowOrigins = []string{"http://localhost:5173"}
+	} else {
+		config.AllowOrigins = *allowedOrigins
+	}
+
 	ginEngine.Use(cors.New(config))
 
 	routes.InitRoutes(ginEngine)

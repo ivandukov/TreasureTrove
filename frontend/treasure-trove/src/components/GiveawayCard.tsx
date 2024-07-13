@@ -1,8 +1,27 @@
-import { Card, CardBody, Heading, HStack, Icon, IconButton, Image, Link, Menu, MenuButton, MenuItem, MenuList, Stack, 
-         Text } from "@chakra-ui/react";
-import { BsFillXCircleFill, BsFlag, BsShare, BsThreeDotsVertical } from "react-icons/bs";
+import {
+    Card,
+    CardBody,
+    Heading,
+    HStack,
+    Icon,
+    IconButton,
+    Image,
+    Link,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Stack,
+    Text,
+} from "@chakra-ui/react";
+import {
+    BsFillXCircleFill,
+    BsFlag,
+    BsShare,
+    BsThreeDotsVertical,
+} from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import SaveButton from "../components/SaveButton.tsx";
+import SaveButton from "./SaveButton.tsx";
 
 /**
  * TODO: calculate and display days since uploaded
@@ -23,7 +42,9 @@ function DropDownButton() {
             />
             <MenuList>
                 <MenuItem icon={<Icon as={BsShare} />}>Share</MenuItem>
-                <MenuItem icon={<Icon as={BsFillXCircleFill} />}>Not Interested</MenuItem>
+                <MenuItem icon={<Icon as={BsFillXCircleFill} />}>
+                    Not Interested
+                </MenuItem>
                 <MenuItem icon={<Icon as={BsFlag} />}>Report</MenuItem>
             </MenuList>
         </Menu>
@@ -31,7 +52,7 @@ function DropDownButton() {
 }
 
 /**
- * dispalys a clickable thumbnail of the giveaway, 
+ * dispalys a clickable thumbnail of the giveaway,
  * which navigates the user to the product page
  * @param {string} imgUrl first image of the giveaway
  * @returns JSX element
@@ -42,9 +63,9 @@ function GiveawayImage({ imgUrl }: { imgUrl: string }) {
             <Image
                 src={imgUrl}
                 alt="Giveaway Image"
-                boxSize='260px'
-                objectFit='cover'
-                borderRadius='md'
+                boxSize="260px"
+                objectFit="cover"
+                borderRadius="md"
             />
         </Link>
     );
@@ -52,8 +73,8 @@ function GiveawayImage({ imgUrl }: { imgUrl: string }) {
 
 interface GiveawayInformationProps {
     title: string;
-    description: string; 
-    postalCode: string; 
+    description: string;
+    postalCode: string;
     location: string;
 }
 
@@ -61,21 +82,23 @@ interface GiveawayInformationProps {
  * displays main information about Givaway
  * @param {string} title title of the Giveaway
  * @param {string} description description of the Giveaway
- * @param {string} postalCode postalCode of Giveaway 
+ * @param {string} postalCode postalCode of Giveaway
  * @param {string} location city of Giveaway
  * @returns JSX element
  */
-function GiveawayInformation({ title, description, postalCode, location }: GiveawayInformationProps) {
-    
+function GiveawayInformation({
+    title,
+    description,
+    postalCode,
+    location,
+}: GiveawayInformationProps) {
     return (
         <>
             <Stack>
                 <Heading size="md" noOfLines={2}>
                     <Link href="/giveaway">{title}</Link>
                 </Heading>
-                <Text noOfLines={2}>
-                    {description}
-                </Text>
+                <Text noOfLines={2}>{description}</Text>
                 <Text color="gray.500">
                     <Link href="/results">
                         <Icon
@@ -104,16 +127,21 @@ interface GiveawayCardProps {
  * renders a Card containing information about a Giveaway as well as
  * a Dropdown-Menu with additional actions such as sharing or reporting
  * @param {string} title title of the Giveaway
- * @param {string} postalCode postalCode of Giveaway 
+ * @param {string} postalCode postalCode of Giveaway
  * @param {string} location city of Giveaway
  * @param {string} imgUrl first image of the giveaway
  * @returns JSX element
  */
-export default function GiveawayCard({ title, description, postalCode, location, imgUrl } : GiveawayCardProps) {
-
+export default function GiveawayCard({
+    title,
+    description,
+    postalCode,
+    location,
+    imgUrl,
+}: GiveawayCardProps) {
     return (
-        <Card direction={'row'}>
-            <GiveawayImage imgUrl={imgUrl}/>
+        <Card direction={"row"}>
+            <GiveawayImage imgUrl={imgUrl} />
             <CardBody>
                 <HStack>
                     <Stack>
@@ -124,10 +152,10 @@ export default function GiveawayCard({ title, description, postalCode, location,
                             location={location}
                         />
                         <Stack w="50%">
-                            <SaveButton/>
+                            <SaveButton />
                         </Stack>
                     </Stack>
-                    <DropDownButton/>
+                    <DropDownButton />
                 </HStack>
             </CardBody>
         </Card>

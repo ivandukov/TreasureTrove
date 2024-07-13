@@ -1,38 +1,80 @@
-import { Button, Menu, MenuButton, MenuList, MenuItem, Icon } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import React, { useState } from 'react';
+import {
+    Divider,
+    Icon,
+    IconButton,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    useDisclosure,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import {
+    BsThreeDotsVertical,
+    BsShare,
+    BsFlag,
+    BsFillBookmarkFill,
+} from "react-icons/bs";
+import { FiBookmark } from "react-icons/fi";
+import { ShareModal } from "./ShareModal";
 
 /**
- * renders a scrollable Dropdown-Button (MenuList) with    
- * multiple options to choose from.
- * @param defaultValue default Text displayed on the button
+ * renders a small Dropdown button based on the condition
+ * if the user is logged in or not
+ * - Share
+ * - Not Interested
+ * - Report
  * @returns JSX element
  */
-const DropdownButton = ( {defaultValue } : { defaultValue:string}) => {
-   const [selectedCategory, setSelectedCategory] = useState(defaultValue);
+export function DropDownButton() {
+    /**
+     * TODO: Replace with proper Authentication State Management (Context or Redux?)
+     * @see https://legacy.reactjs.org/docs/context.html#when-to-use-context
+     * @see https://redux.js.org/
+     */
+    let isLoggedIn = true;
 
-   const handleCategorySelect = (category: React.SetStateAction<string>) => {
-      setSelectedCategory(category);
-   };
+    const [isSaved, setIsSaved] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
-   return (
-      <Menu>
-         <MenuButton as={Button} colorScheme="blue" minWidth="220px" rightIcon={<Icon as={ChevronDownIcon}/>} paddingRight={2}>
-            {selectedCategory}
-         </MenuButton>
+    const handleSaveClick = () => {
+        setIsSaved(!isSaved);
+    };
 
-         <MenuList minWidth="200px" maxHeight="200px" overflowY="scroll">
-            <MenuItem onClick={() => handleCategorySelect(defaultValue)}>{defaultValue}</MenuItem>
-            <MenuItem onClick={() => handleCategorySelect('Car & Motorcycle')}>Car & Motorcycle</MenuItem>
-            <MenuItem onClick={() => handleCategorySelect('Books')}>Books</MenuItem>
-            <MenuItem onClick={() => handleCategorySelect('Coins')}>Coins</MenuItem>
-            <MenuItem onClick={() => handleCategorySelect('Clothes & Accessoires')}>Clothes & Accessoires</MenuItem>
-            <MenuItem onClick={() => handleCategorySelect('Groceries')}>Groceries</MenuItem>
-            <MenuItem onClick={() => handleCategorySelect('Furniture')}>Furniture</MenuItem>
-            <MenuItem onClick={() => handleCategorySelect('Video Games')}>Video Games</MenuItem>
-         </MenuList>
-      </Menu>
-   );
-};
-
-export default DropdownButton;
+    return (
+        <Menu>
+            <MenuButton
+                as={IconButton}
+                icon={<Icon as={BsThreeDotsVertical} />}
+                variant="ghost"
+                colorScheme="gray"
+            />
+            <MenuList>
+                {isLoggedIn ? (
+                    <>
+                        <MenuItem
+                            icon={
+                                isSaved ? (
+                                    <Icon as={BsFillBookmarkFill} />
+                                ) : (
+                                    <Icon as={FiBookmark} />
+                                )
+                            }
+                            onClick={handleSaveClick}
+                        >
+                            {isSaved ? "Saved" : "Save"}
+                        </MenuItem>
+                        <MenuItem icon={<Icon as={BsShare} />} onClick={onOpen}>
+                            Share
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem icon={<Icon as={BsFlag} />}>Report</MenuItem>
+                        <ShareModal isOpen={isOpen} onClose={onClose} />
+                    </>
+                ) : (
+                    <MenuItem icon={<Icon as={BsShare} />}>Share</MenuItem>
+                )}
+            </MenuList>
+        </Menu>
+    );
+}

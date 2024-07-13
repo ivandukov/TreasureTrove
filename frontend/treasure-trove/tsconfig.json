@@ -1,25 +1,55 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
-    "skipLibCheck": true,
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "module": "ESNext",
+        "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
 
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["src/pages/", "src/App.tsx"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "src/pages/",
+        "src/App.tsx",
+        "src/components/settingspage/AccountSettings.tsx",
+        "src/components/settingspage/ProfileSettings.tsx",
+        "src/components/settingspage/SafetyPrivacySettings.tsx",
+        "src/components/settingspage/NotificationSettings.tsx",
+        "src/components/settingspage/PreferencesSettings.tsx",
+        "src/components/settingspage/ProfilePictureModal.tsx",
+        "src/components/registerpage/LoginBox.tsx",
+        "src/components/registerpage/OtherRegisterOptions.tsx",
+        "src/components/registerpage/InputPassword.tsx",
+        "src/components/DropDownButton.tsx",
+        "src/components/giveawaypage/MessageModal.tsx",
+        "src/components/giveawaypage/GiveawayInfoBox.tsx",
+        "src/components/creategiveawaypage/LocationSearchBar.tsx",
+        "src/components/homepage/LoggedInHomepage.tsx",
+        "src/components/homepage/LoggedOutHomepage.tsx",
+        "src/components/giveawaypage/GiveawayPage.tsx",
+        "src/components/chatpage/ChatPage.tsx",
+        "src/components/creategiveawaypage/CreateGiveawayPage.tsx",
+        "src/components/registerpage/RegisterPage.tsx",
+        "src/components/savedpage/SavedPage.tsx",
+        "src/components/loginpage/LoginPage.tsx",
+        "src/components/messagepage/MessagesPage.tsx",
+        "src/components/notfoundpage/NotFoundPage.tsx",
+        "src/components/profilepage/ProfilePage.tsx",
+        "src/components/searchresultpage/SearchResultPage.tsx",
+        "src/components/settingspage/SettingsPage.tsx",
+        "src/components/profilepage/UserPage.tsx"
+    ],
+    "references": [{ "path": "./tsconfig.node.json" }]
 }

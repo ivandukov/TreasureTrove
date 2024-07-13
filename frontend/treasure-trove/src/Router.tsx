@@ -1,19 +1,20 @@
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ProfilePage from "./pages/ProfilePage";
-import GiveawayPage from "./pages/GiveawayPage";
-import SettingsPage from "./pages/SettingsPage";
-import SearchResultPage from "./pages/SearchResultPage";
+import LoginPage from "./components/loginpage/LoginPage";
+import RegisterPage from "./components/registerpage/RegisterPage";
+import ProfilePage from "./components/profilepage/ProfilePage";
+import GiveawayPage from "./components/giveawaypage/GiveawayPage";
+import SettingsPage from "./components/settingspage/SettingsPage";
+import SearchResultPage from "./components/searchresultpage/SearchResultPage";
 import LoggedOutHomepage from "./components/homepage/LoggedOutHomepage";
 import LoggedInHomepage from "./components/homepage/LoggedInHomepage";
-import CreateGiveawayPage from "./pages/CreateGiveawayPage";
-import SavedPage from "./pages/SavedPage";
-import MessagePage from "./pages/MessagesPage";
-import ChatPage from "./pages/ChatPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import {ReactElement} from "react";
+import CreateGiveawayPage from "./components/creategiveawaypage/CreateGiveawayPage";
+import SavedPage from "./components/savedpage/SavedPage";
+import MessagePage from "./components/messagepage/MessagesPage";
+import ChatPage from "./components/chatpage/ChatPage";
+import NotFoundPage from "./components/notfoundpage/NotFoundPage";
+import { ReactElement } from "react";
+import UserPage from "./components/profilepage/UserPage";
 
 /**
  * An array of route objects for the application.
@@ -28,28 +29,29 @@ import {ReactElement} from "react";
  * // Define a route for the homepage
  * {path: "/", element: <Homepage/>}
  */
-const routes: Array<{ path: string; element: ReactElement; }> = [
-    {path: "/", element: <LoggedOutHomepage/>},
-    {path: "/home", element: <LoggedInHomepage/>},
-    {path: "/login", element: <LoginPage/>},
-    {path: "/register", element: <RegisterPage/>},
-    {path: "/user", element: <ProfilePage/>},
-    {path: "/giveaway", element: <GiveawayPage/>},
-    {path: "/settings", element: <SettingsPage/>},
-    {path: "/results", element: <SearchResultPage/>},
-    {path: "/submit", element: <CreateGiveawayPage/>},
-    {path: "/saved", element: <SavedPage/>},
-    {path: "/messages", element: <MessagePage/>},
-    {path: "/chat", element: <ChatPage/>},
-    {path: "/notfound", element: <NotFoundPage/>},
+const routes: Array<{ path: string; element: ReactElement }> = [
+    { path: "/", element: <LoggedOutHomepage /> },
+    { path: "/home", element: <LoggedInHomepage /> },
+    { path: "/login", element: <LoginPage /> },
+    { path: "/register", element: <RegisterPage /> },
+    { path: "/profile", element: <ProfilePage /> },
+    { path: "/user", element: <UserPage /> },
+    { path: "/giveaway", element: <GiveawayPage /> },
+    { path: "/settings", element: <SettingsPage /> },
+    { path: "/results", element: <SearchResultPage /> },
+    { path: "/submit", element: <CreateGiveawayPage /> },
+    { path: "/saved", element: <SavedPage /> },
+    { path: "/messages", element: <MessagePage /> },
+    { path: "/chat", element: <ChatPage /> },
+    { path: "/notfound", element: <NotFoundPage /> },
 ];
 
 export default function AppRouter() {
     return (
         <Router>
             <Routes>
-                {routes.map(({path, element}) => (
-                    <Route key={path} path={path} element={element}/>
+                {routes.map(({ path, element }) => (
+                    <Route key={path} path={path} element={element} />
                 ))}
             </Routes>
         </Router>

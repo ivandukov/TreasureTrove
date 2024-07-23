@@ -1,34 +1,32 @@
-version: '3.1'
+version: "3.8"
 
 services:
+    postgres:
+        image: postgres:alpine
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: ttDB
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+        ports:
+            - 5432:5432
 
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_DB: ttDB
-      POSTGRES_USER: sabo
-      POSTGRES_PASSWORD: example
-    ports:
-      - 5432:5432
+    adminer:
+        image: adminer
+        restart: unless-stopped
+        ports:
+            - 8081:8081
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8081:8081
-
-  #backend:
-  #  build:
-  #    context: ./backend
-  #    dockerfile: Dockerfile
-  #  ports:
-  #    - 8080:8080
-  #  depends_on:
-  #    - db
-  #  environment:
-  #    - DATABASE_URL=postgresql://sabo:example@db:5432/ttDB
-  #    - POSTGRES_USER=sabo
-  #    - POSTGRES_PASSWORD=example
-  #  restart: on-failure
-
+    #backend:
+    #  build:
+    #    context: ./backend
+    #    dockerfile: Dockerfile
+    #  ports:
+    #    - 8080:8080
+    #  depends_on:
+    #    - db
+    #  environment:
+    #    - DATABASE_URL=postgresql://sabo:example@db:5432/ttDB
+    #    - POSTGRES_USER=sabo
+    #    - POSTGRES_PASSWORD=example
+    #  restart: on-failure

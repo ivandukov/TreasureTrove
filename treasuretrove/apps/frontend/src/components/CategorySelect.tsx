@@ -1,5 +1,6 @@
 import { Select, Text } from "@chakra-ui/react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
+
 
 /**
  * retrieves categories from database

@@ -1,13 +1,24 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
-
-import NxWelcome from './nx-welcome';
+import Sidebar from '@components/Sidebar';
+import { Stack } from '@chakra-ui/react';
+import AppRouter from 'src/Router';
 
 export function App() {
     return (
-        <div>
-            <NxWelcome title="treasuretrove" />
-        </div>
+        <>
+            <Sidebar>
+                <Stack 
+                    spacing={6}
+                    mx={"auto"}
+                    mt={4}
+                    mb={4}
+                    p={6}
+                    w={{ base: "100%", md: "80%", xl: "80%" }}
+                >
+                    <AppRouter/>
+                </Stack>
+            </Sidebar>
+        </>
     );
 }
 

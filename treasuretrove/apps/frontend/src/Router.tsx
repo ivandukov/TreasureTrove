@@ -1,20 +1,19 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
-import LoginPage from "./components/loginpage/LoginPage";
-import RegisterPage from "./components/registerpage/RegisterPage";
-import ProfilePage from "./components/profilepage/ProfilePage";
-import GiveawayPage from "./components/giveawaypage/GiveawayPage";
-import SettingsPage from "./components/settingspage/SettingsPage";
-import SearchResultPage from "./components/searchresultpage/SearchResultPage";
-import LoggedOutHomepage from "./components/homepage/LoggedOutHomepage";
-import LoggedInHomepage from "./components/homepage/LoggedInHomepage";
-import CreateGiveawayPage from "./components/creategiveawaypage/CreateGiveawayPage";
-import SavedPage from "./components/savedpage/SavedPage";
-import MessagePage from "./components/messagepage/MessagesPage";
-import ChatPage from "./components/chatpage/ChatPage";
-import NotFoundPage from "./components/notfoundpage/NotFoundPage";
+import ChatPage from "@components/chatpage/ChatPage";
+import CreateGiveawayPage from "@components/creategiveawaypage/CreateGiveawayPage";
+import GiveawayPage from "@components/giveawaypage/GiveawayPage";
+import LoggedInHomepage from "@components/homepage/LoggedInHomepage";
+import LoggedOutHomepage from "@components/homepage/LoggedOutHomepage";
+import LoginPage from "@components/loginpage/LoginPage";
+import MessagePage from "@components/messagepage/MessagesPage";
+import NotFoundPage from "@components/notfoundpage/NotFoundPage";
+import ProfilePage from "@components/profilepage/ProfilePage";
+import UserPage from "@components/profilepage/UserPage";
+import RegisterPage from "@components/registerpage/RegisterPage";
+import SavedPage from "@components/savedpage/SavedPage";
+import SearchResultPage from "@components/searchresultpage/SearchResultPage";
+import SettingsPage from "@components/settingspage/SettingsPage";
 import { ReactElement } from "react";
-import UserPage from "./components/profilepage/UserPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 /**
  * An array of route objects for the application.
@@ -51,7 +50,11 @@ export default function AppRouter() {
         <Router>
             <Routes>
                 {routes.map(({ path, element }) => (
-                    <Route key={path} path={path} element={element} />
+                    <Route 
+                        key={path} 
+                        path={path} 
+                        element={element}
+                    />
                 ))}
             </Routes>
         </Router>

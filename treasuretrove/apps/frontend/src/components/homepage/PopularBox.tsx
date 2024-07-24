@@ -6,8 +6,8 @@ import {
     Spinner,
     SimpleGrid,
 } from "@chakra-ui/react";
-import { useQuery } from "react-query";
 import { GiveawayFeedCard } from "./GiveawayFeedCard";
+import { useQuery } from "@tanstack/react-query";
 
 /**
  * retrieves giveaways from database
@@ -38,6 +38,7 @@ export function PopularBox({ colorMode }: any) {
         queryFn: fetchGiveaways,
     });
 
+    /*
     if (status === "loading") {
         return (
             <>
@@ -45,7 +46,8 @@ export function PopularBox({ colorMode }: any) {
             </>
         );
     }
-
+    */
+   
     if (status === "error") {
         return (
             <>

@@ -17,7 +17,8 @@ import {
     useDisclosure,
 } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
-import { ProfilePictureModal } from "./ProfilePictureModal.tsx";
+import { ProfilePictureModal } from "./ProfilePictureModal";
+
 
 /**
  * retrieves user data from database

@@ -1,5 +1,4 @@
 import { Box, Link, Text, useColorModeValue } from "@chakra-ui/react";
-import React from "react";
 
 /**
  * displays a separate box, which contains a hyperlink to the

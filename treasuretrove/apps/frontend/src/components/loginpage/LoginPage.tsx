@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react";
 import { OAuthButtonGroup } from "../OAuthButtonGroup";
 import SmallFooter from "../homepage/SmallFooter";
-import { useForm } from "react-hook-form";
 
 const Logo = (props: HTMLChakraProps<"svg">) => (
     <chakra.svg

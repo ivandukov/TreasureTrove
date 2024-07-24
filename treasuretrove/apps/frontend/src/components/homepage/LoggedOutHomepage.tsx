@@ -1,9 +1,9 @@
 import { Button, HStack, Link, Stack, useColorMode } from "@chakra-ui/react";
-import SearchBar from "./search/SearchBar.tsx";
-import Footer from "./Footer.tsx";
-import { NewestBox } from "./NewestBox.tsx";
-import { PopularBox } from "./PopularBox.tsx";
-import TopCitiesBox from "./TopCitiesBox.tsx";
+import Footer from "./Footer";
+import { NewestBox } from "./NewestBox";
+import { PopularBox } from "./PopularBox";
+import SearchBar from "./search/SearchBar";
+import TopCitiesBox from "./TopCitiesBox";
 
 /**
  * renders the page, the user sees when not

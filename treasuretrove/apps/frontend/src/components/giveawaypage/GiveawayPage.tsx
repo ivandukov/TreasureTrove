@@ -1,9 +1,9 @@
 import { Box, Stack } from "@chakra-ui/react";
-import SearchBar from "../homepage/search/SearchBar.tsx";
-import ImageCarousel from "./ImageCarousel.tsx";
-import Footer from "../homepage/Footer.tsx";
+import Footer from "@components/homepage/Footer";
+import SearchBar from "@components/homepage/search/SearchBar";
+import { GiveawayInfoBox } from "./GiveawayInfoBox";
+import ImageCarousel from "./ImageCarousel";
 
-import { GiveawayInfoBox } from "./GiveawayInfoBox.tsx";
 
 /**
  * renders the page of a Giveaway Post

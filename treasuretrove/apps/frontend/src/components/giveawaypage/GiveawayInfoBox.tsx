@@ -16,9 +16,9 @@ import {
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaCalendar } from "react-icons/fa6";
 import { EmailIcon } from "@chakra-ui/icons";
-import SaveButton from "../SaveButton.tsx";
-import { DropDownButton } from "../DropDownButton.tsx";
-import { MessageModal } from "./MessageModal.tsx";
+import { DropDownButton } from "@components/DropDownButton";
+import SaveButton from "@components/SaveButton";
+import { MessageModal } from "./MessageModal";
 
 /**
  *

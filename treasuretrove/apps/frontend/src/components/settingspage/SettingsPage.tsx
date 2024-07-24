@@ -9,11 +9,12 @@ import {
     TabPanels,
     Tabs,
 } from "@chakra-ui/react";
-import AccountSettings from "./AccountSettings.tsx";
-import { ProfileSettings } from "./ProfileSettings.tsx";
-import { SafetyPrivacySettings } from "./SafetyPrivacySettings.tsx";
-import { NotificationSettings } from "./NotificationSettings.tsx";
-import { PreferencesSettings } from "./PreferencesSettings.tsx";
+import AccountSettings from "./AccountSettings";
+import { NotificationSettings } from "./NotificationSettings";
+import { PreferencesSettings } from "./PreferencesSettings";
+import { ProfileSettings } from "./ProfileSettings";
+import { SafetyPrivacySettings } from "./SafetyPrivacySettings";
+
 
 const TAB_NAMES = [
     "Account",

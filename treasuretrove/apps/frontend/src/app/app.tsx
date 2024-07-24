@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import Sidebar from '@components/Sidebar';
-import { Stack } from '@chakra-ui/react';
-import AppRouter from 'src/Router';
+
+import { Stack } from "@chakra-ui/react";
+import Sidebar from "@components/Sidebar";
+import AppRouter from "../Router";
 
 export function App() {
     return (

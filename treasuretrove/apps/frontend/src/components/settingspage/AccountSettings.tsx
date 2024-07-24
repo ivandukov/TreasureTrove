@@ -12,8 +12,9 @@ import {
     Text,
     useColorMode,
 } from "@chakra-ui/react";
-import ChangePasswordButton from "./ChangePasswordButton.tsx";
-import DeleteAccountButton from "./DeleteAccountButton.tsx";
+import ChangePasswordButton from "./ChangePasswordButton";
+import DeleteAccountButton from "./DeleteAccountButton";
+
 
 /**
  * displays settings regarding the account:

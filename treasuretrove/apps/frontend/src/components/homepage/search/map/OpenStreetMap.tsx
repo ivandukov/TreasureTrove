@@ -1,21 +1,14 @@
-import {
-    MapContainer,
-    Marker,
-    Popup,
-    TileLayer,
-    useMapEvents,
-} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
-import { LatLng } from "leaflet";
-
+import { SetStateAction, useState } from "react";
+import { LatLng, Marker, Popup, TileLayer } from "leaflet";
+/*
 function LocationMarker() {
     const [position, setPosition] = useState<LatLng | null>(null);
     const map = useMapEvents({
         click() {
             map.locate();
         },
-        locationfound(e) {
+        locationfound(e: { latlng: SetStateAction<LatLng | null>; }) {
             setPosition(e.latlng);
             map.flyTo(e.latlng, map.getZoom());
         },
@@ -27,9 +20,12 @@ function LocationMarker() {
         </Marker>
     );
 }
+*/
 
 export default function OpenStreetMap() {
     return (
+        <></>
+        /*
         <MapContainer
             center={{ lat: 51.505, lng: -0.09 }}
             zoom={13}
@@ -44,5 +40,6 @@ export default function OpenStreetMap() {
             />
             <LocationMarker />
         </MapContainer>
+        */
     );
 }

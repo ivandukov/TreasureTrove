@@ -33,10 +33,6 @@ export default function CategorySelect() {
         queryFn: fetchCategories,
     });
 
-    if (status === "loading") {
-        return <></>;
-    }
-
     if (status === "error") {
         return (
             <>

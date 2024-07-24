@@ -12,7 +12,8 @@ import {
     Text,
     useColorMode,
 } from "@chakra-ui/react";
-import ThemeSwitcher from "./ThemeSwitcher.tsx";
+import ThemeSwitcher from "./ThemeSwitcher";
+
 
 /**
  * displays settings regarding preferences:

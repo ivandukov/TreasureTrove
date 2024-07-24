@@ -21,7 +21,7 @@ import {
     BsThreeDotsVertical,
 } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import SaveButton from "./SaveButton.tsx";
+import SaveButton from "./SaveButton";
 
 /**
  * TODO: calculate and display days since uploaded

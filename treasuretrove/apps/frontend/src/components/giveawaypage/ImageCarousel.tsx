@@ -10,8 +10,8 @@ interface ImageCarouselProps {
 }
 
 /**
- * See https://stackoverflow.com/a/73617671
- *     https://stackoverflow.com/a/73102784
+ * @see https://stackoverflow.com/a/73617671
+ * @see https://stackoverflow.com/a/73102784
  * @param {ImageCarouselProps} images - a list with image links
  * @returns JSX element
  */

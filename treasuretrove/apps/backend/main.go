@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	//ignore err because sometimes the env comes from docker compose
+	// ignore err because sometimes the env comes from docker compose
 	_ = godotenv.Load()
 
 	database.ConnectToDatabase()

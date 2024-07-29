@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"apps/backend/api/models"
-	"net/http"
 	"apps/backend/api/services/database"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

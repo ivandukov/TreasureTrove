@@ -5,8 +5,8 @@ import (
 	"apps/backend/api/models"
 	"apps/backend/api/requests"
 	"apps/backend/api/services/database"
-	"log"
 	"golang.org/x/crypto/bcrypt"
+	"log"
 )
 
 type UserService struct{}

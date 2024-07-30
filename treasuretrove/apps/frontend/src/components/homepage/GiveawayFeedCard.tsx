@@ -10,19 +10,22 @@ import {
 } from "@chakra-ui/react";
 import { DropDownButton } from "../DropDownButton";
 
-export function GiveawayFeedCard({
-    index,
-    giveaway,
-}: {
+interface Giveaway {
+    imgUrl: string;
+    title: string;
+    location: string;
+}
+
+interface GiveawayFeedCardProps {
     index: number;
-    giveaway: any;
-}) {
+    giveaway: Giveaway;
+}
+
+export function GiveawayFeedCard({ index, giveaway }: GiveawayFeedCardProps) {
     return (
-        <>
-            <Card
+        <Card
                 key={index}
                 p={3}
-                h="205px"
                 _hover={{
                     boxShadow: "lg",
                     transition: "box-shadow 0.1s",
@@ -30,20 +33,19 @@ export function GiveawayFeedCard({
             >
                 <Stack>
                     <Link href="/giveaway" style={{ textDecoration: "none" }}>
-                        <Image objectFit="cover" src={giveaway.ImgUrl} />
+                        <Image objectFit="cover" src={giveaway.imgUrl} />
                         <Heading size="sm" noOfLines={2}>
-                            {giveaway.Title}
+                            {giveaway.title}
                         </Heading>
                     </Link>
                     <Flex>
                         <Text color="gray.500">
-                            <Link href="/results">{giveaway.Location}</Link>
+                            <Link href="/results">{giveaway.location}</Link>
                         </Text>
                         <Spacer />
                         <DropDownButton />
                     </Flex>
                 </Stack>
             </Card>
-        </>
     );
 }

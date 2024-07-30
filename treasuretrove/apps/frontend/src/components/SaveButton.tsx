@@ -15,8 +15,7 @@ export default function SaveButton() {
     }
 
     return (
-        <>
-            <Button
+        <Button
                 aria-label="Toggle favorite"
                 colorScheme={isFavorite ? "red" : undefined}
                 onClick={handleFavoriteClick}
@@ -30,6 +29,5 @@ export default function SaveButton() {
             >
                 {isFavorite ? "Saved" : "Save"}
             </Button>
-        </>
     );
 }

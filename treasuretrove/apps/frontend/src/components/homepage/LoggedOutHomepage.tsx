@@ -14,8 +14,7 @@ export default function LoggedOutHomepage() {
     const { colorMode } = useColorMode();
 
     return (
-        <>
-            <Stack>
+        <Stack>
                 <HStack>
                     <Link href="/register">Register</Link>
                     <Link
@@ -32,6 +31,5 @@ export default function LoggedOutHomepage() {
                 <TopCitiesBox colorMode={colorMode} />
                 <Footer />
             </Stack>
-        </>
     );
 }

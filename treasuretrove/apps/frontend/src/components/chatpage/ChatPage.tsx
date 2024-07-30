@@ -11,8 +11,7 @@ export default function ChatPage() {
     const { colorMode } = useColorMode();
 
     return (
-        <>
-            <Stack>
+        <Stack>
                 <Box
                     bg={colorMode === "dark" ? "gray.800" : "white"}
                     borderWidth="1px"
@@ -32,6 +31,5 @@ export default function ChatPage() {
                 </Box>
                 <MessageInput />
             </Stack>
-        </>
     );
 }

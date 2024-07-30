@@ -31,8 +31,7 @@ export default function AccountSettings() {
     const { colorMode } = useColorMode();
 
     return (
-        <>
-            <Card
+        <Card
                 bg={colorMode === "dark" ? "gray.800" : "white"}
                 w="75%"
                 p={2}
@@ -94,6 +93,5 @@ export default function AccountSettings() {
                     </Stack>
                 </CardBody>
             </Card>
-        </>
     );
 }

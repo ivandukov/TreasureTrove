@@ -10,7 +10,6 @@ import {
     Stack,
     useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
 
 /**
  * displays a Card containing inputs for numbers, the
@@ -20,8 +19,7 @@ import React from "react";
  */
 export default function EmailVerificationCard() {
     return (
-        <>
-            <Flex
+        <Flex
                 minH={"100vh"}
                 align={"center"}
                 justify={"center"}
@@ -83,6 +81,5 @@ export default function EmailVerificationCard() {
                     </Stack>
                 </Stack>
             </Flex>
-        </>
     );
 }

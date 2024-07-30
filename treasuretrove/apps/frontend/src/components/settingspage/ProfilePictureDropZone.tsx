@@ -33,8 +33,7 @@ export default function ProfilePictureDropZone() {
     };
 
     return (
-        <>
-            <Stack align="center">
+        <Stack align="center">
                 <Avatar size="2xl" src={uploadedImage} />
                 <Box border="2px dashed" w="390px" borderRadius="md" p={4}>
                     <Stack align="center">
@@ -59,6 +58,5 @@ export default function ProfilePictureDropZone() {
                     </Stack>
                 </Box>
             </Stack>
-        </>
     );
 }

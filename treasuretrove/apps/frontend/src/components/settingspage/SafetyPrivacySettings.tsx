@@ -25,8 +25,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 export function SafetyPrivacySettings() {
     const { colorMode } = useColorMode();
     return (
-        <>
-            <Card
+        <Card
                 bg={colorMode === "dark" ? "gray.800" : "white"}
                 w="75%"
                 p={2}
@@ -99,6 +98,5 @@ export function SafetyPrivacySettings() {
                     </Stack>
                 </CardBody>
             </Card>
-        </>
     );
 }

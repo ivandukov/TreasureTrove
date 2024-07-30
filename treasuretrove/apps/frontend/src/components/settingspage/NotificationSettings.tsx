@@ -21,8 +21,7 @@ import {
 export function NotificationSettings() {
     const { colorMode } = useColorMode();
     return (
-        <>
-            <Card
+        <Card
                 bg={colorMode === "dark" ? "gray.800" : "white"}
                 w="75%"
                 p={2}
@@ -76,6 +75,5 @@ export function NotificationSettings() {
                     </Stack>
                 </CardBody>
             </Card>
-        </>
     );
 }

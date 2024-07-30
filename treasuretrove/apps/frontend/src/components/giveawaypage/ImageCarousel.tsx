@@ -37,8 +37,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
     };
 
     return (
-        <>
-            <Swiper
+        <Swiper
                 cssMode={true}
                 style={swiperStyle}
                 navigation={true}
@@ -54,6 +53,5 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-        </>
     );
 }

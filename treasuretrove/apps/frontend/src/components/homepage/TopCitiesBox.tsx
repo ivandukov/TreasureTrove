@@ -7,11 +7,9 @@ import { Box, Heading, Link, SimpleGrid, Stack } from "@chakra-ui/react";
  */
 function CityLink({ cityName }: { cityName: string }) {
     return (
-        <>
-            <Box>
+        <Box>
                 <Link>{cityName}</Link>
             </Box>
-        </>
     );
 }
 
@@ -21,8 +19,7 @@ function CityLink({ cityName }: { cityName: string }) {
  */
 export default function TopCitiesBox({ colorMode }: { colorMode: string }) {
     return (
-        <>
-            <Box
+        <Box
                 bg={colorMode === "dark" ? "gray.800" : "white"}
                 p={5}
                 borderWidth="1px"
@@ -43,6 +40,5 @@ export default function TopCitiesBox({ colorMode }: { colorMode: string }) {
                     </SimpleGrid>
                 </Stack>
             </Box>
-        </>
     );
 }

@@ -20,18 +20,26 @@ import { DropDownButton } from "@components/DropDownButton";
 import SaveButton from "@components/SaveButton";
 import { MessageModal } from "./MessageModal";
 
+interface ProductData {
+    title: string;
+    user: string;
+    postalCode: string;
+    location: string;
+    date: string;
+    description: string;
+}
+
 /**
  *
  * @param param0
  * @returns JSX element
  */
-export function GiveawayInfoBox({ productData }: { productData: any }) {
+export function GiveawayInfoBox({ productData }: { productData: ProductData }) {
     const { colorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
-        <>
-            <Box
+        <Box
                 bg={colorMode === "dark" ? "gray.900" : "white"}
                 borderWidth="1px"
                 borderRadius="md"
@@ -84,6 +92,5 @@ export function GiveawayInfoBox({ productData }: { productData: any }) {
                     <Text fontSize="lg">{productData.description}</Text>
                 </Stack>
             </Box>
-        </>
     );
 }

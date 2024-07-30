@@ -20,8 +20,7 @@ import {
  */
 function MessageCard() {
     return (
-        <>
-            <Card>
+        <Card>
                 <CardHeader>
                     <Flex>
                         <Flex
@@ -43,7 +42,6 @@ function MessageCard() {
                     </Flex>
                 </CardHeader>
             </Card>
-        </>
     );
 }
 

@@ -22,8 +22,7 @@ export default function SavedPage() {
     const { colorMode } = useColorMode();
 
     return (
-        <>
-            <Stack>
+        <Stack>
                 <Box
                     bg={colorMode === "dark" ? "gray.800" : "white"}
                     p={3}
@@ -52,6 +51,5 @@ export default function SavedPage() {
                     </Tabs>
                 </Box>
             </Stack>
-        </>
     );
 }

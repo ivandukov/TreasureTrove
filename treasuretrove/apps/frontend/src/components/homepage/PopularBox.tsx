@@ -29,6 +29,14 @@ const fetchGiveaways = async () => {
     }
 };
 
+type ColorMode = "light" | "dark";
+
+interface Giveaway {
+    imgUrl: string;
+    title: string;
+    location: string;
+}
+
 /**
  * renders Giveaways sorted by popularity (amount of saves by users)
  * To print out raw JSON data, use:
@@ -36,51 +44,44 @@ const fetchGiveaways = async () => {
  * @param {ColorMode} colorMode
  * @returns JSX element
  */
-export function PopularBox({ colorMode }: any) {
-    interface QueryError {
-        message: string;
-    }
+export function PopularBox({ colorMode }: { colorMode: ColorMode }) {
 
-    const { data, error, isError, isLoading } = useQuery<any, QueryError>({
+    const { data, error, isError, isLoading } = useQuery({
         queryKey: ["giveaways"],
         queryFn: fetchGiveaways
     });
 
     if (isLoading) {
         return (
-            <>
-                <Spinner />
-            </>
+            <Spinner />
         );
     }
    
     if (isError) {
         return (
-            <>
-                <Text>Error: {error.message}</Text>
-            </>
+            <Text>Error: {error.message}</Text>
         );
     }
 
     return (
-        <>
-            <Box
-                bg={colorMode === "dark" ? "gray.800" : "white"}
-                p={5}
-                borderWidth="1px"
-                borderRadius="md"
-            >
-                <Stack>
-                    <Heading size="md">Popular</Heading>
-                    <SimpleGrid minChildWidth="190px" spacing={3}>
-                        {
-                            data.giveaways.map((giveaway: any, index: number) => (
-                                <GiveawayFeedCard index={index} giveaway={giveaway}/>
-                            ))
-                        }
-                    </SimpleGrid>
-                </Stack>
-            </Box>
-        </>
+        <Box
+            bg={colorMode === "dark" ? "gray.800" : "white"}
+            p={5}
+            borderWidth="1px"
+            borderRadius="md"
+        >
+            <Stack>
+                <Heading size="md">Popular</Heading>
+                <SimpleGrid minChildWidth="190px" spacing={3}>
+                    {data.giveaways.map((giveaway: Giveaway, index: number) => (
+                        <GiveawayFeedCard 
+                            key={index} 
+                            index={index} 
+                            giveaway={giveaway}
+                        />
+                    ))}
+                </SimpleGrid>
+            </Stack>
+        </Box>
     );
 }

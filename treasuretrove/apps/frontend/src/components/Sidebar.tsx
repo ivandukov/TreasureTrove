@@ -198,7 +198,8 @@ interface NavItemProps extends FlexProps {
  * @returns JSX element
  */
 const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
-    const isCurrentPath = location.pathname === path;
+    
+    const isCurrentPath = window.location.pathname === path;
 
     return (
         <Link

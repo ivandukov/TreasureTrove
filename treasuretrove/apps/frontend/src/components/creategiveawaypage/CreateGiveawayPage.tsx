@@ -28,10 +28,10 @@ export default function CreateGiveawayPage() {
     const {
         handleSubmit,
         register,
-        formState: { errors, isSubmitting },
+        formState: { isSubmitting },
     } = useForm();
 
-    function onSubmit(values: any): Promise<void> {
+    function onSubmit(values: object): Promise<void> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));
@@ -42,8 +42,7 @@ export default function CreateGiveawayPage() {
     }
 
     return (
-        <>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack>
                     <Heading as="h2" fontSize={"xl"} pl={2}>
                         Create advertisement
@@ -109,6 +108,5 @@ export default function CreateGiveawayPage() {
                     </Box>
                 </Stack>
             </form>
-        </>
     );
 }

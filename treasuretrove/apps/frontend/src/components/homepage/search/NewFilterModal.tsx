@@ -19,8 +19,7 @@ export default function NewFilterModal({
     onClose: () => void;
 }) {
     return (
-        <>
-            <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+        <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
                 <ModalOverlay />
                 <ModalContent
                     width={{ base: "100%", md: "70%", xl: "70%" }}
@@ -41,6 +40,5 @@ export default function NewFilterModal({
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-        </>
     );
 }

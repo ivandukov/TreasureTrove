@@ -21,20 +21,6 @@ import { ProfilePictureModal } from "./ProfilePictureModal";
 
 
 /**
- * retrieves user data from database
- * TODO: Retrieve data from the currently logged in user
- * @returns {Response} response - fetched data
- */
-const fetchUser = async () => {
-    const response = await fetch("http://localhost:8080/user/");
-
-    if (!response.ok) {
-        throw new Error("Fetch failed");
-    }
-    return response.json();
-};
-
-/**
  * displays settings regarding the profile:
  * - Display Name
  * - Profile Picture
@@ -46,8 +32,7 @@ export function ProfileSettings() {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
-        <>
-            <Card
+        <Card
                 bg={colorMode === "dark" ? "gray.800" : "white"}
                 w="75%"
                 p={2}
@@ -98,6 +83,5 @@ export function ProfileSettings() {
                     </Stack>
                 </CardBody>
             </Card>
-        </>
     );
 }

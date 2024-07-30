@@ -93,8 +93,7 @@ function GiveawayInformation({
     location,
 }: GiveawayInformationProps) {
     return (
-        <>
-            <Stack>
+        <Stack>
                 <Heading size="md" noOfLines={2}>
                     <Link href="/giveaway">{title}</Link>
                 </Heading>
@@ -111,7 +110,6 @@ function GiveawayInformation({
                 </Text>
                 <Text color="gray.500">2 days ago</Text>
             </Stack>
-        </>
     );
 }
 

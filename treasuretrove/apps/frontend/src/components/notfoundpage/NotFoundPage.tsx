@@ -6,8 +6,7 @@ import { Button, Heading, Stack, Text } from "@chakra-ui/react";
  */
 export default function NotFoundPage() {
     return (
-        <>
-            <Stack align="center">
+        <Stack align="center">
                 <Heading size="2xl">404</Heading>
                 <Text fontSize="18px">Page Not Found</Text>
                 <Text color={"gray.500"}>
@@ -15,6 +14,5 @@ export default function NotFoundPage() {
                 </Text>
                 <Button colorScheme="green">Go to Home</Button>
             </Stack>
-        </>
     );
 }

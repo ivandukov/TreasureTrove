@@ -15,8 +15,7 @@ interface MessageCardProps {
 
 export function MessageCard({ username, messageText }: MessageCardProps) {
     return (
-        <>
-            <Stack>
+        <Stack>
                 <Stack
                     direction="row"
                     alignItems="center"
@@ -38,6 +37,5 @@ export function MessageCard({ username, messageText }: MessageCardProps) {
                     </Flex>
                 </Stack>
             </Stack>
-        </>
     );
 }

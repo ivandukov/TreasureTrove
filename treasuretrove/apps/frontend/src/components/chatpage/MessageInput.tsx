@@ -30,8 +30,7 @@ export function MessageInput() {
     };
 
     return (
-        <>
-            <HStack>
+        <HStack>
                 <InputGroup>
                     <InputLeftElement>
                         <IconButton
@@ -70,6 +69,5 @@ export function MessageInput() {
                 </InputGroup>
                 <Button colorScheme="green">Send</Button>
             </HStack>
-        </>
     );
 }

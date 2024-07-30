@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from "react";
+import { SetStateAction, useState } from "react";
 import {
     Box,
     Button,
@@ -8,7 +8,7 @@ import {
     MenuList,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, CheckIcon } from "@chakra-ui/icons";
-import { BiSort, BiSortDown } from "react-icons/bi";
+import { BiSort } from "react-icons/bi";
 
 /**
  *
@@ -22,8 +22,7 @@ export default function SortMenu() {
     };
 
     return (
-        <>
-            <Menu>
+        <Menu>
                 <MenuButton
                     as={Button}
                     leftIcon={<BiSort />}
@@ -43,6 +42,5 @@ export default function SortMenu() {
                     ))}
                 </MenuList>
             </Menu>
-        </>
     );
 }

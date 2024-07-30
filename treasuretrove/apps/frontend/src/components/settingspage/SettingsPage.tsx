@@ -32,8 +32,7 @@ const TAB_NAMES = [
  */
 export default function UserSettingsPage() {
     return (
-        <>
-            <Box>
+        <Box>
                 <Stack>
                     <Heading>Settings</Heading>
                     <Tabs position="relative" variant="unstyled">
@@ -68,6 +67,5 @@ export default function UserSettingsPage() {
                     </Tabs>
                 </Stack>
             </Box>
-        </>
     );
 }

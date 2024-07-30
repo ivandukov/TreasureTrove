@@ -9,6 +9,7 @@
         "@chakra-ui/react": "^2.8.2",
         "@emotion/react": "^11.13.0",
         "@emotion/styled": "^11.13.0",
+        "@react-leaflet/core": "^2.1.0",
         "@tanstack/react-query": "^5.51.11",
         "@types/leaflet": "^1.9.12",
         "emoji-picker-react": "^4.11.1",

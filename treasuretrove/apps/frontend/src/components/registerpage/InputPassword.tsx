@@ -21,8 +21,7 @@ export function InputPassword({
     setShowPassword,
 }: InputPasswordProps) {
     return (
-        <>
-            <FormControl id="password" isRequired>
+        <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                     <Input
@@ -43,6 +42,5 @@ export function InputPassword({
                     </InputRightElement>
                 </InputGroup>
             </FormControl>
-        </>
     );
 }

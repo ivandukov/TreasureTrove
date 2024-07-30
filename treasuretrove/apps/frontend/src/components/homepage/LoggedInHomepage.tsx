@@ -14,14 +14,12 @@ export default function LoggedInHomepage() {
     const { colorMode } = useColorMode();
 
     return (
-        <>
-            <Stack>
+        <Stack>
                 <SearchBar />
                 <NewestBox colorMode={colorMode} />
                 <PopularBox colorMode={colorMode} />
                 <TopCitiesBox colorMode={colorMode} />
                 <Footer />
             </Stack>
-        </>
     );
 }

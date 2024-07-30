@@ -31,32 +31,25 @@ interface Category {
  * @returns JSX element
  */
 export default function CategorySelect() {
-    interface QueryError {
-        message: string;
-    }
 
-    const { data, error,  isLoading, isError } = useQuery<any, QueryError>({
+    const { data, error, isError } = useQuery({
         queryKey: ["categories"],
         queryFn: fetchCategories
     });
 
     if (isError) {
         return (
-            <>
-                <Text>Error: {error.message}</Text>
-            </>
+            <Text>Error: {error.message}</Text>
         );
     }
 
     return (
         <Select w="25%">
-            {
-                data?.categories.map((category: Category, index: number) => (
-                    <option value={index}>
+            {data?.categories.map((category: Category, index: number) => (
+                    <option key={index} value={index}>
                         {category.name}
                     </option>
-                ))
-            }
+            ))}
         </Select>
     );
 }

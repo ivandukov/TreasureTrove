@@ -6,8 +6,7 @@ import AppRouter from "../Router";
 
 export function App() {
     return (
-        <>
-            <Sidebar>
+        <Sidebar>
                 <Stack 
                     spacing={6}
                     mx={"auto"}
@@ -19,7 +18,6 @@ export function App() {
                     <AppRouter/>
                 </Stack>
             </Sidebar>
-        </>
     );
 }
 

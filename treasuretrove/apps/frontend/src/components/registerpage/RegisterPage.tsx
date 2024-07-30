@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import SmallFooter from "../homepage/SmallFooter";
@@ -26,17 +25,16 @@ import { InputPassword } from "./InputPassword";
  *          which will be displayed in the browser
  */
 export default function RegisterPage() {
-    const navigate = useNavigate();
     const { colorMode } = useColorMode();
     const [showPassword, setShowPassword] = useState(false);
 
     const {
         handleSubmit,
         register,
-        formState: { errors, isSubmitting },
+        formState: { isSubmitting },
     } = useForm();
 
-    function onSubmit(values: any): Promise<void> {
+    function onSubmit(values: object): Promise<void> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 alert(JSON.stringify(values, null, 2));

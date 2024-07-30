@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
-import { BiMailSend, BiMaleSign } from "react-icons/bi";
 import { FiMail } from "react-icons/fi";
 
 /**
@@ -23,7 +22,7 @@ import { FiMail } from "react-icons/fi";
  * @param props
  * @returns SVG with a "logoipsum"
  */
-const Logo = (props: any) => {
+const Logo: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     return (
         <svg
             height={32}

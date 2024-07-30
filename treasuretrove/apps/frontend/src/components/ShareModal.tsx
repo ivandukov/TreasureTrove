@@ -23,8 +23,7 @@ export function ShareModal({
     const toast = useToast();
 
     return (
-        <>
-            <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Share</ModalHeader>
@@ -51,6 +50,5 @@ export function ShareModal({
                     </ModalBody>
                 </ModalContent>
             </Modal>
-        </>
     );
 }

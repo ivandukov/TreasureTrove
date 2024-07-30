@@ -14,8 +14,11 @@ import {
     Stack,
     useColorMode,
 } from "@chakra-ui/react";
+
 import { useState } from "react";
 import { FiMonitor } from "react-icons/fi";
+
+type Theme = "light" | "dark" | "system";
 
 /**
  * renders a component similar to Chakra UI's Select, which
@@ -23,10 +26,10 @@ import { FiMonitor } from "react-icons/fi";
  * @returns JSX element
  */
 export default function ThemeSwitcher() {
-    const { colorMode, setColorMode } = useColorMode();
-    const [selectedTheme, setSelectedTheme] = useState(null);
+    const { setColorMode } = useColorMode();
+    const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
-    const handleThemeChange = (theme: any) => {
+    const handleThemeChange = (theme: Theme) => {
         setColorMode(theme);
         setSelectedTheme(theme);
     };

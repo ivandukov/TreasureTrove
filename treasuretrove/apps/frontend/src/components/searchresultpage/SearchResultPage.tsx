@@ -24,8 +24,7 @@ export default function SearchResultPage() {
     const { colorMode } = useColorMode();
 
     return (
-        <>
-            <Stack>
+        <Stack>
                 <SearchBar />
                 <Heading as="h5" size="sm">
                     55.000+ results for: "Sofa"
@@ -58,6 +57,5 @@ export default function SearchResultPage() {
                     </Tabs>
                 </Box>
             </Stack>
-        </>
     );
 }

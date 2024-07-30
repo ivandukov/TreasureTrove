@@ -7,16 +7,23 @@ import { useQuery } from "@tanstack/react-query";
  * @returns {Response} response - fetched data
  */
 const fetchCategories = async () => {
-    const response = await fetch("http://localhost:8080/category/");
+    try {
+        const response = await fetch("http://localhost:8080/category/");
 
-    if (!response.ok) {
-        throw new Error("Fetch failed");
+        if (!response.ok) {
+            throw new Error("Fetch failed");
+        }
+        const data = await response.json();
+        return data;
     }
-    return response.json();
+    catch(error) {
+        console.error('There has been a problem with the fetch operation:', error);
+        throw error; 
+    }
 };
 
 interface Category {
-    Name: string;
+    name: string;
 }
 
 /**
@@ -28,12 +35,12 @@ export default function CategorySelect() {
         message: string;
     }
 
-    const { status, data, error } = useQuery<any, QueryError>({
+    const { data, error,  isLoading, isError } = useQuery<any, QueryError>({
         queryKey: ["categories"],
-        queryFn: fetchCategories,
+        queryFn: fetchCategories
     });
 
-    if (status === "error") {
+    if (isError) {
         return (
             <>
                 <Text>Error: {error.message}</Text>
@@ -43,9 +50,13 @@ export default function CategorySelect() {
 
     return (
         <Select w="25%">
-            {data.categories.map((category: Category, index: number) => (
-                <option value={index}>{category.Name}</option>
-            ))}
+            {
+                data?.categories.map((category: Category, index: number) => (
+                    <option value={index}>
+                        {category.name}
+                    </option>
+                ))
+            }
         </Select>
     );
 }

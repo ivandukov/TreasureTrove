@@ -1,37 +1,39 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
-	"apps/backend/api/helper"
 	"apps/backend/api/routes"
 	"apps/backend/api/services/database"
 )
 
 func main() {
-	// ignore err because sometimes the env comes from docker compose
-	_ = godotenv.Load()
+	// load .env file
+	err := godotenv.Load()
+	if err != nil {
+		panic("Error when loading .env file")
+	}
 
 	database.ConnectToDatabase()
 	database.MigrateModels()
+
 	ginEngine := gin.Default()
 
 	config := cors.DefaultConfig()
-	allowedOrigins, configNotFound := helper.GetArrayConfigItem("ALLOWED_ORIGINS")
-
-	if configNotFound != nil {
-		config.AllowOrigins = []string{"http://localhost:5173"}
-	} else {
-		config.AllowOrigins = *allowedOrigins
-	}
+	config.AllowOrigins = []string{os.Getenv("ALLOWED_ORIGINS")}
+	config.AllowHeaders = []string{"Content-Type"}
 
 	ginEngine.Use(cors.New(config))
 
 	routes.InitRoutes(ginEngine)
-	err := ginEngine.Run()
+
+	// listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	err = ginEngine.Run()
 	if err != nil {
-		panic("Error starting gin engine")
-	} // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+		panic("Error when starting gin engine")
+	}
 }

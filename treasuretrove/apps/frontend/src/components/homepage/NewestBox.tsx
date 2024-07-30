@@ -14,12 +14,19 @@ import { useQuery } from "@tanstack/react-query";
  * @returns {Response} response - fetched data
  */
 const fetchGiveaways = async () => {
-    const response = await fetch("http://localhost:8080/giveaway/");
+    try {
+        const response = await fetch("http://localhost:8080/giveaway/");
 
-    if (!response.ok) {
-        throw new Error("Fetch failed");
+        if (!response.ok) {
+            throw new Error("Fetch failed");
+        }
+        const data = await response.json();
+        return data;
     }
-    return response.json();
+    catch(error) {
+        console.error('There has been a problem with the fetch operation:', error);
+        throw error; 
+    }
 };
 
 /**
@@ -33,22 +40,20 @@ export function NewestBox({ colorMode }: any) {
         message: string;
     }
 
-    const { status, data, error } = useQuery<any, QueryError>({
+    const { data, error, isError, isLoading } = useQuery<any, QueryError>({
         queryKey: ["giveaways"],
-        queryFn: fetchGiveaways,
+        queryFn: fetchGiveaways
     });
 
-    /*
-    if (status === "loading") {
+    if (isLoading) {
         return (
             <>
                 <Spinner />
             </>
         );
     }
-    */
 
-    if (status === "error") {
+    if (isError) {
         return (
             <>
                 <Text>Error: {error.message}</Text>
@@ -66,14 +71,12 @@ export function NewestBox({ colorMode }: any) {
             >
                 <Stack>
                     <Heading size="md">New</Heading>
-
                     <SimpleGrid minChildWidth="190px" spacing={3}>
-                        {data.giveaways.map((giveaway: any, index: number) => (
-                            <GiveawayFeedCard
-                                index={index}
-                                giveaway={giveaway}
-                            />
-                        ))}
+                        {
+                            data.giveaways.map((giveaway: any, index: number) => (
+                                <GiveawayFeedCard index={index} giveaway={giveaway}/>
+                            ))
+                        }
                     </SimpleGrid>
                 </Stack>
             </Box>

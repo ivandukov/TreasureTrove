@@ -18,14 +18,18 @@ func InitializeCategoryRoutes(ginEngine *gin.Engine) {
 	categoryGroup := ginEngine.Group("/category")
 
 	categoryGroup.GET("/", controllers.CategoryController{}.GetAllCategories)
-	categoryGroup.GET("/:id", controllers.CategoryController{}.DeleteCategoryById)
-	categoryGroup.GET("/name/:name", controllers.CategoryController{}.DeleteCategoryByUsername)
+	categoryGroup.GET("/:id", controllers.CategoryController{}.GetCategoryById)
+	categoryGroup.GET("/:name", controllers.CategoryController{}.GetCategoryByName)
+	categoryGroup.GET("/:id/giveaways", controllers.CategoryController{}.GetAllGiveawaysByCategoryId)
+	categoryGroup.GET("/:id/requests", controllers.CategoryController{}.GetAllRequestsByCategoryId)
+	categoryGroup.GET("/:name/giveaways", controllers.CategoryController{}.GetAllGiveawaysByCategoryName)
+	categoryGroup.GET("/:name/requests", controllers.CategoryController{}.GetAllRequestsByCategoryName)
 
 	categoryGroup.POST("/", controllers.CategoryController{}.CreateCategory)
 
 	categoryGroup.PUT("/:id", controllers.CategoryController{}.UpdateCategoryById)
-	categoryGroup.PUT("/name/:name", controllers.CategoryController{}.UpdateCategoryByName)
+	categoryGroup.PUT("/:name", controllers.CategoryController{}.UpdateCategoryByName)
 
 	categoryGroup.DELETE("/:id", controllers.CategoryController{}.DeleteCategoryById)
-	categoryGroup.DELETE("/name/:name", controllers.CategoryController{}.DeleteCategoryByUsername)
+	categoryGroup.DELETE("/:name", controllers.CategoryController{}.DeleteCategoryByName)
 }

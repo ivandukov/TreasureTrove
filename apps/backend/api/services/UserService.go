@@ -72,7 +72,7 @@ func (userService UserService) GetAllCreatedRequestsByUserId(userId uint64) ([]m
 
 	var createdRequests []models.Request
 
-	err := db.Where("AuthorId <> ?", userId).Find(&createdRequests).Error
+	err := db.Where("AuthorId = ?", userId).Find(&createdRequests).Error
 	if err != nil {
 		return []models.Request{}, err
 	}

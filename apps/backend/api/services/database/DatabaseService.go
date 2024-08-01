@@ -56,6 +56,7 @@ func MigrateModels() {
 		&models.Request{},
 		&models.Category{},
 	)
+
 	if autoMigrationErr != nil {
 		panic("Error migrating models to database")
 	}

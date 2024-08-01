@@ -160,7 +160,7 @@ func (userController UserController) CreateUser(context *gin.Context) {
 //
 // Parameters:
 //   - context: The context of the request
-func (userController UserController) UpdateUser(context *gin.Context) {
+func (userController UserController) UpdateUserById(context *gin.Context) {
 
 	userId := context.Param("id")
 

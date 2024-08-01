@@ -3,6 +3,7 @@ package routes
 import (
 	"apps/backend/api/controllers"
 	"apps/backend/api/services"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,8 +21,13 @@ func InitializeUserRoutes(ginEngine *gin.Engine) {
 	userGroup := ginEngine.Group("/user")
 
 	userGroup.GET("/", userController.GetAllUsers)
-	userGroup.POST("/", userController.CreateUser)
 	userGroup.GET("/:id", userController.GetUserById)
+	userGroup.GET("/:id/giveaways/created", userController.GetAllCreatedGiveawaysByUserId)
+	userGroup.GET("/:id/giveaways/saved", userController.GetAllSavedGiveawaysByUserId)
+	userGroup.GET("/:id/requests/created", userController.GetAllCreatedRequestsByUserId)
+	userGroup.GET("/:id/requests/saved", userController.GetAllSavedRequestsByUserId)
+
+	userGroup.POST("/", userController.CreateUser)
 	userGroup.PUT("/:id", userController.UpdateUser)
 	userGroup.DELETE("/:id", userController.DeleteUserById)
 }

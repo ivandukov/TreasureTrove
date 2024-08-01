@@ -13,7 +13,7 @@ type CategoryController struct{}
 
 // GetAllCategories retrieves all Categories and returns them as a JSON-Object
 //
-// HTTP-Request: GET category/
+// HTTP-Request: GET category
 //
 // Parameters:
 //   - context: The context of the request
@@ -44,7 +44,6 @@ func (categoryController CategoryController) GetCategoryById(context *gin.Contex
 	}
 
 	err := db.First(&category, categoryId).Error
-
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
 		return
@@ -63,7 +62,7 @@ func (categoryController CategoryController) GetCategoryByName(context *gin.Cont
 
 	var category models.Category
 	db := database.GetDatabase()
-	categoryName := context.Param("name") // get category-Name from request
+	categoryName := context.Param("name")
 
 	if categoryName == "" {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "No category-name provided"})
@@ -79,9 +78,62 @@ func (categoryController CategoryController) GetCategoryByName(context *gin.Cont
 	context.JSON(http.StatusOK, gin.H{"category": category})
 }
 
+func (categoryController CategoryController) GetAllGiveawaysByCategoryId(context *gin.Context) {
+	var giveaways []models.Giveaway
+	db := database.GetDatabase()
+	categoryId := context.Param("id")
+
+	err := db.Select("giveaway").Where("category.id = ?", categoryId).Find(&giveaways).Error
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": "No Giveaways found"})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways})
+}
+
+func (categoryController CategoryController) GetAllRequestsByCategoryId(context *gin.Context) {
+	var requests []models.Request
+	db := database.GetDatabase()
+	categoryId := context.Param("id")
+
+	err := db.Select("request").Where("category.id = ?", categoryId).Find(&requests).Error
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": "No Giveaways found"})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"requests": requests})
+
+}
+
+func (categoryController CategoryController) GetAllGiveawaysByCategoryName(context *gin.Context) {
+	var giveaways []models.Giveaway
+	db := database.GetDatabase()
+	categoryName := context.Param("name")
+
+	err := db.Select("giveaway").Where("category.name = ?", categoryName).Find(&giveaways).Error
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": "No Giveaways found"})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"giveaways": giveaways})
+}
+
+func (categoryController CategoryController) GetAllRequestsByCategoryName(context *gin.Context) {
+	var requests []models.Request
+	db := database.GetDatabase()
+	requestId := context.Param("id")
+
+	err := db.Select("requests").Where("category.name = ?", requestId).Find(&requests).Error
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": "No Giveaways found"})
+	}
+
+	context.JSON(http.StatusOK, gin.H{"requests": requests})
+}
+
 // CreateCategory creates a new category
 //
-// HTTP-Request: POST category/
+// HTTP-Request: POST category
 //
 // Parameters:
 //   - context: The context of the request
@@ -98,14 +150,12 @@ func (categoryController CategoryController) CreateCategory(context *gin.Context
 	}
 
 	validationErr := validate.Struct(newCategory)
-
 	if validationErr != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": validationErr.Error()})
 		return
 	}
 
 	err := db.Create(&newCategory).Error
-
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -132,7 +182,6 @@ func (categoryController CategoryController) UpdateCategoryById(context *gin.Con
 	}
 
 	err := db.First(&category, categoryId).Error
-
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
 		return
@@ -145,7 +194,6 @@ func (categoryController CategoryController) UpdateCategoryById(context *gin.Con
 	}
 
 	err = db.Save(&category).Error
-
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -212,14 +260,12 @@ func (categoryController CategoryController) DeleteCategoryById(context *gin.Con
 	}
 
 	err := db.First(&category, context.Param("id")).Error
-
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
 		return
 	}
 
 	err = db.Delete(&category).Error
-
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -234,7 +280,7 @@ func (categoryController CategoryController) DeleteCategoryById(context *gin.Con
 //
 // Parameters:
 //   - context: The context of the request
-func (categoryController CategoryController) DeleteCategoryByUsername(context *gin.Context) {
+func (categoryController CategoryController) DeleteCategoryByName(context *gin.Context) {
 	var category models.Category
 	db := database.GetDatabase()
 	categoryName := context.Param("name")
@@ -245,14 +291,12 @@ func (categoryController CategoryController) DeleteCategoryByUsername(context *g
 	}
 
 	err := db.First(&category, context.Param("id")).Error
-
 	if err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
 		return
 	}
 
 	err = db.Delete(&category).Error
-
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

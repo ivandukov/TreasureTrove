@@ -11,5 +11,4 @@ func InitRoutes(ginEngine *gin.Engine) {
 	InitializeUserRoutes(ginEngine)
 	InitializeGiveawayRoutes(ginEngine)
 	InitializeCategoryRoutes(ginEngine)
-	InitializeCommentRoutes(ginEngine)
 }

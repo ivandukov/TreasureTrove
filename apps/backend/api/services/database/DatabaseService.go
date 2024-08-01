@@ -20,13 +20,13 @@ func ConnectToDatabase() {
 		panic("Error getting DATABASE_URL from environment variables")
 	}
 
-	dbConnection, err := gorm.Open(postgres.Open(connectionString), &gorm.Config{})
+	databaseConnection, err := gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 
 	if err != nil {
 		panic("Failed to connect database")
 	}
 
-	database = dbConnection
+	database = databaseConnection
 }
 
 // GetDatabase returns the database connection
@@ -53,10 +53,10 @@ func MigrateModels() {
 	autoMigrationErr := database.AutoMigrate(
 		&models.User{},
 		&models.Giveaway{},
-		&models.UserGiveaway{},
+		&models.Request{},
 		&models.Category{},
-		&models.Comment{},
 	)
+
 	if autoMigrationErr != nil {
 		panic("Error migrating models to database")
 	}

@@ -21,9 +21,111 @@ type UserController struct {
 // Parameters:
 //   - context: The context of the request
 func (userController UserController) GetAllUsers(context *gin.Context) {
-	users := userController.IUserService.GetAllUsers()
 
+	users := userController.IUserService.GetAllUsers()
 	context.JSON(http.StatusOK, gin.H{"users": users})
+}
+
+// GetUserById retrieves a specific user by ID
+//
+// HTTP-Request: GET user/:id
+//
+// Parameters:
+//   - context: The context of the request
+func (userController UserController) GetUserById(context *gin.Context) {
+
+	id := context.Param("id")
+	uIntId, err := helper.GetIdFromParam(id)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	user, err := userController.IUserService.GetUserById(uIntId)
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"user": user})
+}
+
+func (userController UserController) GetAllCreatedGiveawaysByUserId(context *gin.Context) {
+
+	userId := context.Param("id")
+	uIntId, err := helper.GetIdFromParam(userId)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	createdGiveaways, err := userController.IUserService.GetAllCreatedGiveawaysByUserId(uIntId)
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"createdGiveaways": createdGiveaways})
+}
+
+// GetAllSavedGiveaways retrieves all saved giveaways of a user
+// and returns them as a JSON-Object
+//
+// HTTP-Request: GET user/:id/saved/giveaways
+//
+// Parameters:
+//   - context: The context of the request
+func (userController UserController) GetAllSavedGiveawaysByUserId(context *gin.Context) {
+
+	userId := context.Param("id")
+	uIntId, err := helper.GetIdFromParam(userId)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	savedGiveaways, err := userController.IUserService.GetAllSavedGiveawaysByUserId(uIntId)
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"createdGiveaways": savedGiveaways})
+}
+
+func (userController UserController) GetAllCreatedRequestsByUserId(context *gin.Context) {
+
+	userId := context.Param("id")
+	uIntId, err := helper.GetIdFromParam(userId)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	createdRequests, err := userController.IUserService.GetAllCreatedGiveawaysByUserId(uIntId)
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"createdGiveaways": createdRequests})
+}
+
+func (userController UserController) GetAllSavedRequestsByUserId(context *gin.Context) {
+	userId := context.Param("id")
+	uIntId, err := helper.GetIdFromParam(userId)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	savedRequests, err := userController.IUserService.GetAllSavedRequestsByUserId(uIntId)
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"createdGiveaways": savedRequests})
 }
 
 // CreateUser creates a new User
@@ -50,33 +152,6 @@ func (userController UserController) CreateUser(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusCreated, gin.H{"user": user})
-}
-
-// GetUserById retrieves a specific user by ID
-//
-// HTTP-Request: GET user/:id
-//
-// Parameters:
-//   - context: The context of the request
-func (userController UserController) GetUserById(context *gin.Context) {
-
-	id := context.Param("id")
-
-	uIntId, err := helper.GetIdFromParam(id)
-
-	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	user, err := userController.IUserService.GetUserById(uIntId)
-
-	if err != nil {
-		context.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
-		return
-	}
-
-	context.JSON(http.StatusOK, gin.H{"user": user})
 }
 
 // UpdateUser updates an existing User by ID
@@ -141,7 +216,7 @@ func (userController UserController) DeleteUserById(context *gin.Context) {
 
 	}
 
-	err = userController.IUserService.RemoveUser(uIntId)
+	err = userController.IUserService.DeleteUser(uIntId)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

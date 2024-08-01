@@ -5,8 +5,9 @@ import (
 	"apps/backend/api/models"
 	"apps/backend/api/requests"
 	"apps/backend/api/services/database"
-	"golang.org/x/crypto/bcrypt"
 	"log"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserService struct{}
@@ -16,9 +17,80 @@ func (userService UserService) GetAllUsers() (users []models.User) {
 	db := database.GetDatabase()
 
 	var allUsers []models.User
-	db.Find(&allUsers)
+
+	err := db.Find(&allUsers).Error
+	if err != nil {
+		return []models.User{}
+	}
 
 	return allUsers
+}
+
+// GetUserById retrieves a specific user by ID
+func (userService UserService) GetUserById(id uint64) (models.User, error) {
+	db := database.GetDatabase()
+
+	var user models.User
+
+	err := db.First(&user, id).Error
+	if err != nil {
+		return models.User{}, err
+	}
+
+	return user, nil
+}
+
+func (userService UserService) GetAllCreatedGiveawaysByUserId(userId uint64) ([]models.Giveaway, error) {
+
+	db := database.GetDatabase()
+
+	var createdGiveaways []models.Giveaway
+
+	err := db.Where("authorId = ?", userId).Find(&createdGiveaways).Error
+	if err != nil {
+		return []models.Giveaway{}, err
+	}
+	return createdGiveaways, nil
+}
+
+func (userService UserService) GetAllSavedGiveawaysByUserId(userId uint64) ([]models.Giveaway, error) {
+
+	db := database.GetDatabase()
+
+	var savedGiveaways []models.Giveaway
+
+	err := db.Select("savedGiveaways").Where("id = ?", userId).Find(&savedGiveaways).Error
+	if err != nil {
+		return []models.Giveaway{}, err
+	}
+
+	return savedGiveaways, nil
+}
+
+func (userService UserService) GetAllCreatedRequestsByUserId(userId uint64) ([]models.Request, error) {
+	db := database.GetDatabase()
+
+	var createdRequests []models.Request
+
+	err := db.Where("AuthorId = ?", userId).Find(&createdRequests).Error
+	if err != nil {
+		return []models.Request{}, err
+	}
+
+	return createdRequests, nil
+}
+
+func (userService UserService) GetAllSavedRequestsByUserId(userId uint64) ([]models.Request, error) {
+	db := database.GetDatabase()
+
+	var savedRequests []models.Request
+
+	err := db.Select("savedRequests").Where("id = ?", userId).Find(&savedRequests).Error
+	if err != nil {
+		return []models.Request{}, err
+	}
+
+	return savedRequests, nil
 }
 
 // CreateUser creates a new User entity in the database
@@ -32,12 +104,9 @@ func (userService UserService) CreateUser(request requests.UserCreateRequest) (m
 	}
 
 	user := models.User{
-		Username:  request.Username,
-		Email:     request.Email,
-		Address:   request.Address,
-		FirstName: request.FirstName,
-		LastName:  request.LastName,
-		Password:  string(hashedPassword),
+		Username: request.Username,
+		Email:    request.Email,
+		Password: string(hashedPassword),
 	}
 
 	dbErr := db.Create(&user).Error
@@ -45,20 +114,6 @@ func (userService UserService) CreateUser(request requests.UserCreateRequest) (m
 	if dbErr != nil {
 		log.Println(dbErr.Error())
 		return models.User{}, dbErr
-	}
-
-	return user, nil
-}
-
-// GetUserById retrieves a specific user by ID
-func (userService UserService) GetUserById(id uint64) (models.User, error) {
-	db := database.GetDatabase()
-
-	var user models.User
-	err := db.First(&user, id).Error
-
-	if err != nil {
-		return models.User{}, err
 	}
 
 	return user, nil
@@ -87,9 +142,12 @@ func (userService UserService) UpdateUser(id uint64, request requests.UserUpdate
 }
 
 // RemoveUser removes a specific user from the database
-func (userService UserService) RemoveUser(id uint64) error {
+func (userService UserService) DeleteUser(id uint64) error {
+
 	db := database.GetDatabase()
+
 	var user models.User
+
 	err := db.First(&user, id).Error
 
 	if err != nil {

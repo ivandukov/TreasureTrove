@@ -6,6 +6,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"net/http/httptest"
+	"regexp"
+	"strconv"
 	"testing"
 	"time"
 
@@ -31,7 +33,7 @@ func Test_GetAllUsers_ShouldBeFound(test *testing.T) {
 	)
 
 	// Define the expected query
-	sqlMock.ExpectQuery("SELECT \\* FROM \"users\"").WillReturnRows(expectedRows)
+	sqlMock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "users"`)).WillReturnRows(expectedRows)
 
 	// new instance of the controller
 	userController := controllers.UserController{}
@@ -56,28 +58,35 @@ func Test_GetUserById_ShouldBeFound(test *testing.T) {
 	fake := faker.New()
 
 	// Define the expected rows
-	expectedRows := sqlmock.NewRows([]string{"Id", "Username", "Displayname", "Email", "Password"})
+	expectedRows := sqlmock.NewRows([]string{"ID", "Username", "Displayname", "Email", "Password"})
+
+	userId := fake.UInt()
 	expectedRows.AddRow(
-		fake.UInt(),
+		userId,
 		fake.Internet().User(),
 		fake.Internet().User(),
 		fake.Internet().Email(),
 		fake.Internet().Password(),
 	)
 
-	// Define the expected query
-	sqlMock.ExpectQuery("SELECT \\* FROM \"users\" WHERE \"users\".\"id\" = \\$1 AND \"users\".\"deleted_at\" IS NULL ORDER BY \"users\".\"id\" LIMIT \\$2").
-		WithArgs(1, 1).
+	sqlMock.
+		ExpectQuery(
+			regexp.QuoteMeta(`
+				SELECT * FROM "users" 
+				WHERE "users"."id" = $1 AND "users"."deleted_at" IS NULL 
+				ORDER BY "users"."id" LIMIT $2
+			`)).
+		WithArgs(userId, 1).
 		WillReturnRows(expectedRows)
 
-	//new instance of the controller
+	// new instance of the controller
 	userController := controllers.UserController{}
 
-	//and a new test complex
+	// new test complex
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 
-	//add the id to the context
-	context.Params = append(context.Params, gin.Param{Key: "id", Value: "1"})
+	// add the id to the context
+	context.Params = append(context.Params, gin.Param{Key: "id", Value: strconv.Itoa(int(userId))})
 
 	userController.GetUserById(context)
 
@@ -99,21 +108,23 @@ func Test_CreateUser_ShouldBeCreated(test *testing.T) {
 
 	// insert query mock
 	sqlMock.
-		ExpectQuery("INSERT INTO \"users\"").
+		ExpectQuery(regexp.QuoteMeta(`INSERT INTO "users"`)).
 		WillReturnRows(sqlmock.NewRows([]string{"ID", "created_at"}).AddRow(1, time.Now()))
 
 	// transaction commit
 	sqlMock.ExpectCommit()
 
-	//new instance of the controller
+	// new instance of the controller
 	userController := controllers.UserController{}
-	//and a new test complex
+
+	// new test complex
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 
 	user := &models.User{
-		Username: fake.Internet().User(),
-		Email:    fake.Internet().Email(),
-		Password: fake.Internet().Password(),
+		Username:    fake.Internet().User(),
+		Displayname: fake.Internet().User(),
+		Email:       fake.Internet().Email(),
+		Password:    fake.Internet().Password(),
 	}
 
 	userJson, _ := json.Marshal(user)
@@ -133,37 +144,70 @@ func Test_CreateUser_ShouldBeCreated(test *testing.T) {
 }
 
 // Test_UpdateUserById_ShouldBeUpdated tests the UpdateUserById function
+// This only tests change of the user's E-Mail adress
 func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	sqlMock := ChangeToMockDb()
 	fake := faker.New()
 
-	// Define the expected rows
-	expectedRows := sqlmock.NewRows([]string{"Id", "Username", "Displayname", "Email", "Password"})
+	expectedRows := sqlmock.NewRows([]string{
+		"ID",
+		"created_at",
+		"updated_at",
+		"deleted_at",
+		"Username",
+		"Displayname",
+		"Email",
+		"Password",
+	})
+
+	userId := fake.UInt()
+	userName := fake.Internet().User()
+	userDisplayName := fake.Internet().User()
+	userMail := fake.Internet().Email()
+	userPass := fake.Internet().Password()
+	updatedMail := fake.Internet().Email()
 	expectedRows.AddRow(
-		1,
-		fake.Internet().User(),
-		fake.Internet().User(),
-		fake.Internet().Email(),
-		fake.Internet().Password(),
+		userId,
+		time.Now(),
+		time.Now(),
+		nil,
+		userName,
+		userDisplayName,
+		userMail,
+		userPass,
 	)
 
 	// Define the expected query for fetching the user
 	sqlMock.
-		ExpectQuery("SELECT \\* FROM \"users\" WHERE \"users\".\"id\" = \\$1 AND \"users\".\"deleted_at\" IS NULL ORDER BY \"users\".\"id\" LIMIT \\$2").
-		WithArgs(1, 1).
+		ExpectQuery(
+			regexp.QuoteMeta(`
+				SELECT * FROM "users"
+				WHERE "users"."id" = $1 AND "users"."deleted_at" IS NULL
+				ORDER BY "users"."id" LIMIT $2
+			`)).
+		WithArgs(userId, 1).
 		WillReturnRows(expectedRows)
 
 	// begin transaction
 	sqlMock.ExpectBegin()
 
+	// See https://pkg.go.dev/github.com/DATA-DOG/go-sqlmock#readme-matching-arguments-like-time-time
 	sqlMock.
-		ExpectExec("UPDATE \"users\" SET \"username\"=\\$1,\"displayname\"=\\$2,\"email\"=\\$3,\"password\"=\\$4 WHERE \"id\" = \\$5").
+		ExpectExec(
+			regexp.QuoteMeta(`
+				UPDATE "users"
+				SET "created_at"=$1,"updated_at"=$2,"deleted_at"=$3,"username"=$4,"displayname"=$5,"email"=$6,"password"=$7
+				WHERE "users"."deleted_at" IS NULL AND "id" = $8
+			`)).
 		WithArgs(
-			fake.Internet().User(),
-			fake.Internet().User(),
-			fake.Internet().Email(),
-			fake.Internet().Password(),
-			1,
+			AnyTime{},
+			AnyTime{},
+			nil,
+			userName,
+			userDisplayName,
+			updatedMail,
+			userPass,
+			userId,
 		).
 		WillReturnResult(sqlmock.NewResult(1, 1))
 
@@ -175,17 +219,22 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 
 	user := &models.User{
-		Email: fake.Internet().Email(),
+		Email: updatedMail,
 	}
 
 	// Convert the user to JSON
 	userJson, _ := json.Marshal(user)
 
 	// Create a new HTTP request with the user JSON
-	context.Request = httptest.NewRequest("PUT", "/user/1", bytes.NewBuffer(userJson))
+	context.Request = httptest.NewRequest(
+		"PUT",
+		"/user/"+strconv.Itoa(int(userId)),
+		bytes.NewBuffer(userJson),
+	)
+
 	context.Request.Header.Set("Content-Type", "application/json")
 
-	context.Params = append(context.Params, gin.Param{Key: "id", Value: "1"})
+	context.Params = append(context.Params, gin.Param{Key: "id", Value: strconv.Itoa(int(userId))})
 
 	userController.UpdateUserById(context)
 	assert.Equal(test, 200, context.Writer.Status())
@@ -204,8 +253,10 @@ func Test_DeleteUserById_ShouldBeDeleted(test *testing.T) {
 
 	// Define the expected rows
 	expectedRows := sqlmock.NewRows([]string{"ID", "Username", "Displayname", "Email", "Password"})
+
+	userId := fake.UInt()
 	expectedRows.AddRow(
-		fake.UInt(),
+		userId,
 		fake.Internet().User(),
 		fake.Internet().User(),
 		fake.Internet().Email(),
@@ -213,15 +264,20 @@ func Test_DeleteUserById_ShouldBeDeleted(test *testing.T) {
 	)
 
 	sqlMock.
-		ExpectQuery("SELECT \\* FROM \"users\" WHERE \"users\".\"id\" = \\$1 AND \"users\".\"deleted_at\" IS NULL ORDER BY \"users\".\"id\" LIMIT \\$2").
-		WithArgs(1, 1).
+		ExpectQuery(
+			regexp.QuoteMeta(`
+				SELECT * FROM "users" 
+				WHERE "users"."id" = $1 AND "users"."deleted_at" IS NULL 
+				ORDER BY "users"."id" LIMIT $2
+			`)).
+		WithArgs(userId, 1).
 		WillReturnRows(expectedRows)
 
 	sqlMock.ExpectBegin()
 
 	sqlMock.
-		ExpectExec("DELETE FROM \"users\" WHERE \"users\".\"id\" = \\$1").
-		WithArgs(1).
+		ExpectExec(regexp.QuoteMeta(`DELETE FROM "users" WHERE "users"."id" = $1`)).
+		WithArgs(userId).
 		WillReturnResult(sqlmock.NewResult(1, 1))
 
 	sqlMock.ExpectCommit()
@@ -230,7 +286,7 @@ func Test_DeleteUserById_ShouldBeDeleted(test *testing.T) {
 
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 
-	context.Params = append(context.Params, gin.Param{Key: "id", Value: "1"})
+	context.Params = append(context.Params, gin.Param{Key: "id", Value: strconv.Itoa(int(userId))})
 
 	userController.DeleteUserById(context)
 

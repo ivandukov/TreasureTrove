@@ -104,9 +104,10 @@ func (userService UserService) CreateUser(request requests.UserCreateRequest) (m
 	}
 
 	user := models.User{
-		Username: request.Username,
-		Email:    request.Email,
-		Password: string(hashedPassword),
+		Username:    request.Username,
+		Displayname: request.Displayname,
+		Email:       request.Email,
+		Password:    string(hashedPassword),
 	}
 
 	dbErr := db.Create(&user).Error
@@ -123,22 +124,21 @@ func (userService UserService) CreateUser(request requests.UserCreateRequest) (m
 func (userService UserService) UpdateUser(id uint64, request requests.UserUpdateRequest) (models.User, error) {
 	db := database.GetDatabase()
 
-	var prevUser models.User
-	err := db.First(&prevUser, id).Error
+	var user models.User
 
+	err := db.First(&user, id).Error
 	if err != nil {
 		return models.User{}, err
 	}
 
-	helper.UpdateFieldsFromRequest(request, &prevUser)
+	helper.UpdateFieldsFromRequest(request, &user)
 
-	err = db.Save(&prevUser).Error
-
+	err = db.Save(&user).Error
 	if err != nil {
 		return models.User{}, err
 	}
 
-	return prevUser, nil
+	return user, nil
 }
 
 // RemoveUser removes a specific user from the database
@@ -154,7 +154,7 @@ func (userService UserService) DeleteUser(id uint64) error {
 		return err
 	}
 
-	err = db.Delete(&user).Error
+	err = db.Unscoped().Delete(&user).Error // See https://gorm.io/docs/delete.html#Delete-permanently
 
 	if err != nil {
 		return err

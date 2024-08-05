@@ -3,12 +3,12 @@ package main
 import (
 	"os"
 
+	"apps/backend/api/routes"
+	"apps/backend/api/services/database"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-
-	"apps/backend/api/routes"
-	"apps/backend/api/services/database"
 )
 
 func main() {
@@ -20,6 +20,7 @@ func main() {
 
 	database.ConnectToDatabase()
 	database.MigrateModels()
+	database.Seed()
 
 	ginEngine := gin.Default()
 
@@ -36,4 +37,5 @@ func main() {
 	if err != nil {
 		panic("Error when starting gin engine")
 	}
+
 }

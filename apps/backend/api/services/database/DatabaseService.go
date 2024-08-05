@@ -2,6 +2,8 @@ package database
 
 import (
 	"apps/backend/api/models"
+	"apps/backend/seeds"
+	"log"
 	"os"
 
 	"gorm.io/driver/postgres"
@@ -59,5 +61,16 @@ func MigrateModels() {
 
 	if autoMigrationErr != nil {
 		panic("Error migrating models to database")
+	}
+}
+
+func Seed() {
+	for _, seed := range seeds.All() {
+		if !seed.HasAlreadyBeenExecuted(database) {
+			err := seed.Run(database)
+			if err != nil {
+				log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
+			}
+		}
 	}
 }

@@ -1,8 +1,8 @@
 ---
-name: "Refactoring request \U0001F6E0️"
+name: "Refactoring request \U0001F9F9"
 about: Suggest a change in the code without changing its functionality
 title: ''
-labels: "status: open \U0001F3C1, type: refactoring \U0001F6E0"
+labels: "status: open \U0001F3C1, type: refactoring \U0001F9F9"
 assignees: ''
 
 ---

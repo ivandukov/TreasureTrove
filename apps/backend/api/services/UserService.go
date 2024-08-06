@@ -18,7 +18,14 @@ func (userService UserService) GetAllUsers() (users []models.User) {
 
 	var allUsers []models.User
 
-	err := db.Find(&allUsers).Error
+	// See https://stackoverflow.com/a/59854031
+	//     https://stackoverflow.com/a/56833046
+	err := db.
+		Preload("CreatedGiveaways").
+		Preload("SavedGiveaways").
+		Preload("CreatedRequests").
+		Preload("SavedRequests").
+		Find(&allUsers).Error
 	if err != nil {
 		return []models.User{}
 	}
@@ -32,7 +39,7 @@ func (userService UserService) GetUserById(id uint64) (models.User, error) {
 
 	var user models.User
 
-	err := db.First(&user, id).Error
+	err := db.Preload("CreatedGiveaways").First(&user, id).Error
 	if err != nil {
 		return models.User{}, err
 	}

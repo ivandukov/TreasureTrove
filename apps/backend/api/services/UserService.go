@@ -39,7 +39,7 @@ func (userService UserService) GetUserById(id uint64) (models.User, error) {
 
 	var user models.User
 
-	err := db.Preload("CreatedGiveaways").First(&user, id).Error
+	err := db.Preload("createdgiveaways").First(&user, id).Error
 	if err != nil {
 		return models.User{}, err
 	}
@@ -53,7 +53,7 @@ func (userService UserService) GetAllCreatedGiveawaysByUserId(userId uint64) ([]
 
 	var createdGiveaways []models.Giveaway
 
-	err := db.Where("authorId = ?", userId).Find(&createdGiveaways).Error
+	err := db.Where("author_id = ?", userId).Find(&createdGiveaways).Error
 	if err != nil {
 		return []models.Giveaway{}, err
 	}
@@ -66,7 +66,7 @@ func (userService UserService) GetAllSavedGiveawaysByUserId(userId uint64) ([]mo
 
 	var savedGiveaways []models.Giveaway
 
-	err := db.Select("savedGiveaways").Where("id = ?", userId).Find(&savedGiveaways).Error
+	err := db.Select("saved_Giveaways").Where("id = ?", userId).Find(&savedGiveaways).Error
 	if err != nil {
 		return []models.Giveaway{}, err
 	}
@@ -79,7 +79,7 @@ func (userService UserService) GetAllCreatedRequestsByUserId(userId uint64) ([]m
 
 	var createdRequests []models.Request
 
-	err := db.Where("AuthorId = ?", userId).Find(&createdRequests).Error
+	err := db.Where("author_id = ?", userId).Find(&createdRequests).Error
 	if err != nil {
 		return []models.Request{}, err
 	}
@@ -92,7 +92,7 @@ func (userService UserService) GetAllSavedRequestsByUserId(userId uint64) ([]mod
 
 	var savedRequests []models.Request
 
-	err := db.Select("savedRequests").Where("id = ?", userId).Find(&savedRequests).Error
+	err := db.Select("savedrequests").Where("id = ?", userId).Find(&savedRequests).Error
 	if err != nil {
 		return []models.Request{}, err
 	}

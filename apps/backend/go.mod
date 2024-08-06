@@ -9,6 +9,7 @@ require (
 	github.com/jaswdr/faker v1.19.1
 	github.com/jaswdr/faker/v2 v2.3.0
 	github.com/joho/godotenv v1.5.1
+	github.com/lib/pq v1.10.9
 	github.com/stretchr/testify v1.9.0
 	gorm.io/driver/postgres v1.5.9
 )

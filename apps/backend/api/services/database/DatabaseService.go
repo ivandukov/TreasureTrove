@@ -65,12 +65,15 @@ func MigrateModels() {
 }
 
 func Seed() {
+
 	for _, seed := range seeds.All() {
 		if !seed.HasAlreadyBeenExecuted(database) {
+			log.Default().Print("Running Seed:", seed.Name)
 			err := seed.Run(database)
 			if err != nil {
-				log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
+				log.Fatalf("Error: Seed '%s', failed with error: %s", seed.Name, err)
 			}
 		}
 	}
+
 }

@@ -24,12 +24,20 @@ func Test_GetAllUsers_ShouldBeFound(test *testing.T) {
 	fake := faker.New()
 
 	// Define the expected rows
-	expectedRows := sqlmock.NewRows([]string{"Username", "Displayname", "Email", "Password"})
+	expectedRows := sqlmock.NewRows([]string{
+		"Username",
+		"Displayname",
+		"Email",
+		"Password",
+		"ProfilePicture",
+	})
+
 	expectedRows.AddRow(
 		fake.Internet().User(),
 		fake.Internet().User(),
 		fake.Internet().Email(),
 		fake.Internet().Password(),
+		fake.Internet().URL(),
 	)
 
 	// Define the expected query
@@ -58,7 +66,14 @@ func Test_GetUserById_ShouldBeFound(test *testing.T) {
 	fake := faker.New()
 
 	// Define the expected rows
-	expectedRows := sqlmock.NewRows([]string{"ID", "Username", "Displayname", "Email", "Password"})
+	expectedRows := sqlmock.NewRows([]string{
+		"ID",
+		"Username",
+		"Displayname",
+		"Email",
+		"Password",
+		"ProfilePicture",
+	})
 
 	userId := fake.UInt()
 	expectedRows.AddRow(
@@ -67,6 +82,7 @@ func Test_GetUserById_ShouldBeFound(test *testing.T) {
 		fake.Internet().User(),
 		fake.Internet().Email(),
 		fake.Internet().Password(),
+		fake.Internet().URL(),
 	)
 
 	sqlMock.
@@ -121,10 +137,11 @@ func Test_CreateUser_ShouldBeCreated(test *testing.T) {
 	context, _ := gin.CreateTestContext(httptest.NewRecorder())
 
 	user := &models.User{
-		Username:    fake.Internet().User(),
-		Displayname: fake.Internet().User(),
-		Email:       fake.Internet().Email(),
-		Password:    fake.Internet().Password(),
+		Username:       fake.Internet().User(),
+		Displayname:    fake.Internet().User(),
+		Email:          fake.Internet().Email(),
+		Password:       fake.Internet().Password(),
+		ProfilePicture: fake.Internet().URL(),
 	}
 
 	userJson, _ := json.Marshal(user)
@@ -158,6 +175,7 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 		"Displayname",
 		"Email",
 		"Password",
+		"ProfilePicture",
 	})
 
 	userId := fake.UInt()
@@ -165,7 +183,9 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 	userDisplayName := fake.Internet().User()
 	userMail := fake.Internet().Email()
 	userPass := fake.Internet().Password()
+	userProfilePic := fake.Internet().URL()
 	updatedMail := fake.Internet().Email()
+
 	expectedRows.AddRow(
 		userId,
 		time.Now(),
@@ -175,6 +195,7 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 		userDisplayName,
 		userMail,
 		userPass,
+		userProfilePic,
 	)
 
 	// Define the expected query for fetching the user
@@ -196,8 +217,15 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 		ExpectExec(
 			regexp.QuoteMeta(`
 				UPDATE "users"
-				SET "created_at"=$1,"updated_at"=$2,"deleted_at"=$3,"username"=$4,"displayname"=$5,"email"=$6,"password"=$7
-				WHERE "users"."deleted_at" IS NULL AND "id" = $8
+				SET "created_at"=$1,
+					"updated_at"=$2,
+					"deleted_at"=$3,
+					"username"=$4,
+					"displayname"=$5,
+					"email"=$6,
+					"password"=$7,
+					"profile_picture"=$8
+				WHERE "users"."deleted_at" IS NULL AND "id"=$9
 			`)).
 		WithArgs(
 			AnyTime{},
@@ -208,6 +236,7 @@ func Test_UpdateUserById_ShouldBeUpdated(test *testing.T) {
 			updatedMail,
 			userPass,
 			userId,
+			userProfilePic,
 		).
 		WillReturnResult(sqlmock.NewResult(1, 1))
 
@@ -252,7 +281,14 @@ func Test_DeleteUserById_ShouldBeDeleted(test *testing.T) {
 	fake := faker.New()
 
 	// Define the expected rows
-	expectedRows := sqlmock.NewRows([]string{"ID", "Username", "Displayname", "Email", "Password"})
+	expectedRows := sqlmock.NewRows([]string{
+		"ID",
+		"Username",
+		"Displayname",
+		"Email",
+		"Password",
+		"ProfilePicture",
+	})
 
 	userId := fake.UInt()
 	expectedRows.AddRow(

@@ -11,8 +11,8 @@ import (
 //   - https://github.com/go-gorm/gorm/issues/4498#issuecomment-874659411
 type Giveaway struct {
 	gorm.Model
-	AuthorID    uint
-	CategoryID  uint
+	AuthorID    uint           `json:"authorId"`
+	CategoryID  uint           `json:"categoryId"`
 	Category    Category       `gorm:"not null" validate:"required" json:"category"`
 	Title       string         `gorm:"size:255;not null" validate:"required,min=3,max=40" json:"title"`
 	Description string         `gorm:"size:255;not null" validate:"required,min=3,max=250" json:"description"`

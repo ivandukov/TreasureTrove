@@ -7,10 +7,10 @@ import {
     useColorMode,
     useDisclosure,
 } from "@chakra-ui/react";
-import NewFilterModal from "./NewFilterModal.tsx";
-import SearchInput from "./SearchInput.tsx";
-import CategorySelect from "../../CategorySelect.tsx";
-import LocationSearchBar from "./LocationSearchBar.tsx";
+import NewFilterModal from "./location/LocationModal.js";
+import LocationSearchBar from "./location/LocationSearchBar.js";
+import CategorySelect from "@components/CategorySelect.js";
+import SearchInput from "./SearchInput.js";
 
 /**
  * renders a separate Box with three Buttons:

@@ -72,28 +72,30 @@ func All() []seed.Seed {
 			},
 			Run: func(db *gorm.DB) error {
 
-				var randomCategory models.Category
-				db.First(&randomCategory, "id = ?", rand.Intn(10)+1)
+				for i := 0; i < 25; i++ {
+					var randomCategory models.Category
+					db.First(&randomCategory, "id = ?", rand.Intn(10)+1)
 
-				var randomUser models.User
-				db.First(&randomUser, "id = ?", rand.Intn(50)+1)
+					var randomUser models.User
+					db.First(&randomUser, "id = ?", rand.Intn(50)+1)
 
-				err := CreateGiveaway(
-					db,
-					randomCategory,
-					fake.Lorem().Word(),
-					fake.Lorem().Sentence(3),
-					fake.Address().City(),
-					[]string{
-						"https://media.istockphoto.com/id/1325006592/photo/one-closed-cardboard-box.jpg?s=612x612&w=0&k=20&c=cmqs7xjVKxcQq8_8yR5tP3KbVPB6512BqCDrFVd4VL0=",
-						"https://previews.123rf.com/images/ahirao/ahirao1605/ahirao160500002/56441569-empty-box.jpg",
-						"https://media.istockphoto.com/id/1363734940/photo/three-cardboard-boxes.jpg?s=612x612&w=0&k=20&c=Qj6K1O9O0C3afPCrCGJzR_8MRlxSgpfSs24hvVjxaq0=",
-					},
-					randomCategory.ID,
-					randomUser.ID,
-				)
-				if err != nil {
-					return err
+					err := CreateGiveaway(
+						db,
+						randomCategory,
+						fake.Lorem().Word(),
+						fake.Lorem().Sentence(3),
+						fake.Address().City(),
+						[]string{
+							"https://media.istockphoto.com/id/1325006592/photo/one-closed-cardboard-box.jpg?s=612x612&w=0&k=20&c=cmqs7xjVKxcQq8_8yR5tP3KbVPB6512BqCDrFVd4VL0=",
+							"https://previews.123rf.com/images/ahirao/ahirao1605/ahirao160500002/56441569-empty-box.jpg",
+							"https://media.istockphoto.com/id/1363734940/photo/three-cardboard-boxes.jpg?s=612x612&w=0&k=20&c=Qj6K1O9O0C3afPCrCGJzR_8MRlxSgpfSs24hvVjxaq0=",
+						},
+						randomCategory.ID,
+						randomUser.ID,
+					)
+					if err != nil {
+						return err
+					}
 				}
 
 				return nil

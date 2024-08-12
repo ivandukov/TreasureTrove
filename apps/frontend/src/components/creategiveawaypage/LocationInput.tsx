@@ -5,7 +5,7 @@ import {
     InputRightElement,
 } from "@chakra-ui/react";
 import { FaLocationDot } from "react-icons/fa6";
-import NewFilterModal from "../homepage/search/NewFilterModal";
+import NewFilterModal from "../homepage/search/location/LocationModal";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface LocationSearchBarProps {

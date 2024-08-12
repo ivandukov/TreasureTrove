@@ -26,9 +26,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.51.11
         version: 5.51.11(react@18.3.1)
-      '@types/leaflet':
-        specifier: ^1.9.12
-        version: 1.9.12
       emoji-picker-react:
         specifier: ^4.11.1
         version: 4.11.1(react@18.3.1)
@@ -111,6 +108,9 @@ importers:
       '@types/jest':
         specifier: ^29.4.0
         version: 29.5.12
+      '@types/leaflet':
+        specifier: ^1.9.12
+        version: 1.9.12
       '@types/node':
         specifier: 18.16.9
         version: 18.16.9

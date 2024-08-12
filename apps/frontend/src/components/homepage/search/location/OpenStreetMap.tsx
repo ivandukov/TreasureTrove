@@ -1,6 +1,6 @@
-import { Marker, MapContainer, Popup, TileLayer } from "react-leaflet";
+import { Marker, MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Box, Stack, VStack } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 export default function OpenStreetMap() {
 

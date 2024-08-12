@@ -6,9 +6,7 @@ export default function OpenStreetMap() {
 
     return (
         <>   
-            <Stack spacing={4}>
-            <VStack alignItems={"start"}>
-                <Box h={72} w={"100%"}>
+            <Box h={72} w={"100%"}>
                 <MapContainer 
                     center={[52.02, 8.54]}
                     zoom={17} 
@@ -16,15 +14,13 @@ export default function OpenStreetMap() {
                     style={{ height: "300px"}} 
                 > 
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <Marker position={[52.02, 8.54]}>
                     </Marker>
                 </MapContainer>
             </Box>
-            </VStack>
-            </Stack>
         </>
     );
 }

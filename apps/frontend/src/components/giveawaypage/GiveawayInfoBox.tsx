@@ -20,7 +20,7 @@ import { DropDownButton } from "@components/DropDownButton";
 import SaveButton from "@components/SaveButton";
 import { MessageModal } from "./MessageModal";
 
-interface ProductData {
+interface Giveaway {
     title: string;
     user: string;
     postalCode: string;
@@ -34,21 +34,21 @@ interface ProductData {
  * @param param0
  * @returns JSX element
  */
-export function GiveawayInfoBox({ productData }: { productData: ProductData }) {
+export function GiveawayInfoBox({ giveaway }: { giveaway: Giveaway }) {
     const { colorMode } = useColorMode();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <Box
-                bg={colorMode === "dark" ? "gray.900" : "white"}
-                borderWidth="1px"
-                borderRadius="md"
-                p={6}
-                flex="1"
-            >
+            bg={colorMode === "dark" ? "gray.900" : "white"}
+            borderWidth="1px"
+            borderRadius="md"
+            p={6}
+            flex="1"
+        >
                 <Stack>
                     <Flex>
-                        <Heading>{productData.title}</Heading>
+                        <Heading>{giveaway.title}</Heading>
                         <Spacer />
                         <HStack>
                             <Stack>
@@ -65,7 +65,7 @@ export function GiveawayInfoBox({ productData }: { productData: ProductData }) {
                     <Text fontSize="md" mr={2}>
                         by{" "}
                         <Link fontWeight="bold" href="/profile" mr={2}>
-                            {productData.user}
+                            {giveaway.user}
                         </Link>
                     </Text>
 
@@ -75,7 +75,7 @@ export function GiveawayInfoBox({ productData }: { productData: ProductData }) {
                             boxSize="13px"
                             marginRight="5px"
                         />
-                        {productData.postalCode}, {productData.location}
+                        {giveaway.postalCode}, {giveaway.location}
                     </Text>
                     <Text>
                         <Icon
@@ -83,13 +83,13 @@ export function GiveawayInfoBox({ productData }: { productData: ProductData }) {
                             boxSize="13px"
                             marginRight="5px"
                         />
-                        {productData.date}
+                        
                     </Text>
                     <Divider />
                     <Heading as="h4" size="md">
                         Description
                     </Heading>
-                    <Text fontSize="lg">{productData.description}</Text>
+                    <Text fontSize="lg">{giveaway.description}</Text>
                 </Stack>
             </Box>
     );

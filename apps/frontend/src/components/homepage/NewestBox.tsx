@@ -15,7 +15,7 @@ import { useQuery } from "@tanstack/react-query";
  */
 const fetchGiveaways = async () => {
     try {
-        const response = await fetch("http://localhost:8080/giveaway/");
+        const response = await fetch("http://localhost:8080/giveaway");
 
         if (!response.ok) {
             throw new Error("Fetch failed");
@@ -24,7 +24,7 @@ const fetchGiveaways = async () => {
         return data;
     }
     catch(error) {
-        console.error('There has been a problem with the fetch operation:', error);
+        console.error('There has been a problem with the fetch operation: ', error);
         throw error; 
     }
 };
@@ -32,14 +32,17 @@ const fetchGiveaways = async () => {
 type ColorMode = "light" | "dark";
 
 interface Giveaway {
-    imgUrl: string;
+    ID: number;
+    images: string[];
     title: string;
     location: string;
+    description: string;
 }
 
 /**
  * renders Giveaways sorted by newest
- * To print out raw JSON data, use: <Text>{JSON.stringify(data, null, 2)}</Text>
+ * To show raw JSON data on page, use: 
+ * @example <Text>{JSON.stringify(data, null, 2)}</Text>
  * @param {ColorMode} colorMode
  * @returns JSX element
  */

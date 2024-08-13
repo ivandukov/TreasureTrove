@@ -16,6 +16,7 @@ interface ImageCarouselProps {
  * @returns JSX element
  */
 export default function ImageCarousel({ images }: ImageCarouselProps) {
+
     /**
      * This affects the size of the whole component
      */
@@ -38,20 +39,20 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
     return (
         <Swiper
-                cssMode={true}
-                style={swiperStyle}
-                navigation={true}
-                modules={[Navigation]}
-                slidesPerView={1}
-                simulateTouch={false}
-                loop={true}
-                spaceBetween={10}
-            >
-                {images.map((imageUrl: string, index: number) => (
-                    <SwiperSlide key={index} style={slideStyle}>
-                        <Image src={imageUrl} style={imageStyle} />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+            cssMode={true}
+            style={swiperStyle}
+            navigation={true}
+            modules={[Navigation]}
+            slidesPerView={1}
+            simulateTouch={false}
+            loop={true}
+            spaceBetween={10}
+        >
+           {images.map((imageUrl: string, index: number) => (
+               <SwiperSlide key={index} style={slideStyle}>
+                   <Image src={imageUrl} style={imageStyle} />
+               </SwiperSlide>
+           ))}
+        </Swiper>
     );
 }

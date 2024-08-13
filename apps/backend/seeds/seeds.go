@@ -82,8 +82,8 @@ func All() []seed.Seed {
 					err := CreateGiveaway(
 						db,
 						randomCategory,
-						fake.Lorem().Word(),
-						fake.Lorem().Sentence(3),
+						fake.Lorem().Sentence(rand.Intn(7)+1),
+						fake.Lorem().Sentence(rand.Intn(25)+10),
 						fake.Address().City(),
 						[]string{
 							"https://media.istockphoto.com/id/1325006592/photo/one-closed-cardboard-box.jpg?s=612x612&w=0&k=20&c=cmqs7xjVKxcQq8_8yR5tP3KbVPB6512BqCDrFVd4VL0=",

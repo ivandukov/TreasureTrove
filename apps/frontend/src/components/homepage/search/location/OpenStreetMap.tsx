@@ -5,8 +5,7 @@ import { Box } from "@chakra-ui/react";
 export default function OpenStreetMap() {
 
     return (
-        <>   
-            <Box h={72} w={"100%"}>
+        <Box h={72} w={"100%"}>
                 <MapContainer 
                     center={[52.02, 8.54]}
                     zoom={17} 
@@ -21,6 +20,5 @@ export default function OpenStreetMap() {
                     </Marker>
                 </MapContainer>
             </Box>
-        </>
     );
 }

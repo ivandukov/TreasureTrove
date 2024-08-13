@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { GiveawayFeedCard } from "./GiveawayFeedCard";
 import { useQuery } from "@tanstack/react-query";
+import internal from "stream";
 
 /**
  * retrieves giveaways from database
@@ -32,9 +33,10 @@ const fetchGiveaways = async () => {
 type ColorMode = "light" | "dark";
 
 interface Giveaway {
-    imgUrl: string;
+    images: string[];
     title: string;
     location: string;
+    description: string;
 }
 
 /**

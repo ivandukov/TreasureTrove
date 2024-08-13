@@ -18,7 +18,7 @@ const fetchGiveaway = async (giveawayId: string) => {
     try {
         const response = await fetch(giveawayUrl);
 
-        if (!response.ok) {
+        if(!response.ok) {
             throw new Error("Fetch failed");
         }
         const data = await response.json();
@@ -38,26 +38,23 @@ const fetchGiveaway = async (giveawayId: string) => {
 export default function GiveawayPage() {
 
     const { id } = useParams();
-    console.log(id);
     
     const { data, error, isError, isLoading } = useQuery({
         queryKey: ['giveaway'], 
         queryFn: () => fetchGiveaway(id!)
     });
 
-    if (isLoading) {
+    if(isLoading) {
         return (
             <Spinner />
         );
     }
 
-    if (isError) {
+    if(isError) {
         return (
             <Text>Error: {error.message}</Text>
         );
     }
-
-    console.log(data);
 
     return (
         <Stack>

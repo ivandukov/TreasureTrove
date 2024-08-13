@@ -11,6 +11,7 @@ import {
 import { DropDownButton } from "../DropDownButton";
 
 interface Giveaway {
+    ID: number;
     images: string[];
     title: string;
     location: string;
@@ -22,6 +23,9 @@ interface GiveawayFeedCardProps {
 }
 
 export function GiveawayFeedCard({ index, giveaway }: GiveawayFeedCardProps) {
+
+    const giveawayUrl = `/giveaway/${giveaway.ID}`;
+
     return (
         <Card
             key={index}
@@ -32,7 +36,7 @@ export function GiveawayFeedCard({ index, giveaway }: GiveawayFeedCardProps) {
             }}
         >
             <Stack>
-                <Link href="/giveaway" style={{ textDecoration: "none" }}>
+                <Link href={giveawayUrl} style={{ textDecoration: "none" }}>
                     <Image objectFit="cover" src={giveaway.images[0]} />
                     <Heading size="sm" noOfLines={2}>
                         {giveaway.title}

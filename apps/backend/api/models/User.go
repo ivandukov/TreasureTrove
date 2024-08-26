@@ -15,4 +15,5 @@ type User struct {
 	SavedGiveaways   []Giveaway `gorm:"many2many:user_giveaways;" json:"savedGiveaways"`
 	CreatedRequests  []Request  `gorm:"foreignKey:AuthorID;references:ID" json:"createdRequests"`
 	SavedRequests    []Request  `gorm:"many2many:user_requests;" json:"savedRequests"`
+	Followers        []User     `gorm:"many2many:user_user;" json:"followers"`
 }

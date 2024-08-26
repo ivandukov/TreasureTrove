@@ -16,6 +16,7 @@ type Giveaway struct {
 	Category    Category       `gorm:"not null" validate:"required" json:"category"`
 	Title       string         `gorm:"size:255;not null" validate:"required,min=3,max=40" json:"title"`
 	Description string         `gorm:"size:255;not null" validate:"required,min=3,max=250" json:"description"`
+	PostalCode  uint           `gorm:"not null" validate:"required,min=3,max=10" json:"postal code"`
 	Location    string         `gorm:"size:255;not null" validate:"required" json:"location"`
 	Images      pq.StringArray `gorm:"type:text[];not null" validate:"required" json:"images"`
 }

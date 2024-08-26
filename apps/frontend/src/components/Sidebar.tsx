@@ -31,6 +31,7 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactNode, ReactText } from "react";
+import SubmitModal from "./SubmitModal";
 
 interface LinkItemProps {
     name: string;
@@ -198,44 +199,85 @@ interface NavItemProps extends FlexProps {
  * @returns JSX element
  */
 const NavItem = ({ icon, children, path, ...rest }: NavItemProps) => {
-    
+
     const isCurrentPath = window.location.pathname === path;
 
-    return (
-        <Link
-            href={path}
-            style={{ textDecoration: "none" }}
-            _focus={{ boxShadow: "none" }}
-        >
-            <Flex
-                align="center"
-                p="4"
-                mx="4"
-                borderRadius="lg"
-                role="group"
-                cursor="pointer"
-                _hover={{
-                    bg: "green.500",
-                    color: "white",
-                }}
-                {...rest}
+    if(path === "/submit") {
+
+        const { isOpen, onOpen, onClose } = useDisclosure();
+
+        return (
+            <>
+                <Flex
+                    align="center"
+                    p="4"
+                    mx="4"
+                    borderRadius="lg"
+                    role="group"
+                    cursor="pointer"
+                    _hover={{
+                        bg: "green.500",
+                        color: "white",
+                    }}
+                    {...rest}
+                    onClick={onOpen}
+                >
+                    {icon && (
+                        <Icon
+                            mr="4"
+                            fontSize="16"
+                            _groupHover={{
+                                color: "white",
+                            }}
+                            as={icon}
+                        />
+                    )}
+                    <Text fontWeight={isCurrentPath ? "bold" : "normal"}>
+                        {children}
+                    </Text>
+                </Flex>
+                <SubmitModal isOpen={isOpen} onClose={onClose}/>
+            </>
+        );
+    }
+    else {
+        return (
+            <Link
+                href={path}
+                style={{ textDecoration: "none" }}
+                _focus={{ boxShadow: "none" }}
             >
-                {icon && (
-                    <Icon
-                        mr="4"
-                        fontSize="16"
-                        _groupHover={{
-                            color: "white",
-                        }}
-                        as={icon} // TODO: fill this depending on the selected page
-                    />
-                )}
-                <Text fontWeight={isCurrentPath ? "bold" : "normal"}>
-                    {children}
-                </Text>
-            </Flex>
-        </Link>
-    );
+                <Flex
+                    align="center"
+                    p="4"
+                    mx="4"
+                    borderRadius="lg"
+                    role="group"
+                    cursor="pointer"
+                    _hover={{
+                        bg: "green.500",
+                        color: "white",
+                    }}
+                    {...rest}
+                >
+                    {icon && (
+                        <Icon
+                            mr="4"
+                            fontSize="16"
+                            _groupHover={{
+                                color: "white",
+                            }}
+                            as={icon} // TODO: fill this depending on the selected page
+                        />
+                    )}
+                    <Text fontWeight={isCurrentPath ? "bold" : "normal"}>
+                        {children}
+                    </Text>
+                </Flex>
+            </Link>
+        );
+    }
+
 };
 
 /**

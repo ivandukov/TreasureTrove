@@ -25,6 +25,7 @@ func (userService UserService) GetAllUsers() (users []models.User) {
 		Preload("SavedGiveaways").
 		Preload("CreatedRequests").
 		Preload("SavedRequests").
+		Preload("Followers").
 		Find(&allUsers).
 		Error
 	if err != nil {
@@ -45,6 +46,7 @@ func (userService UserService) GetUserById(id uint64) (models.User, error) {
 		Preload("SavedGiveaways").
 		Preload("CreatedRequests").
 		Preload("SavedRequests").
+		Preload("Followers").
 		First(&user, id).
 		Error
 	if err != nil {

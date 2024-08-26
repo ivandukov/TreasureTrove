@@ -84,6 +84,7 @@ func All() []seed.Seed {
 						randomCategory,
 						fake.Lorem().Sentence(rand.Intn(7)+1),
 						fake.Lorem().Sentence(rand.Intn(25)+10),
+						uint(rand.Intn(99999)+10000),
 						fake.Address().City(),
 						[]string{
 							"https://media.istockphoto.com/id/1325006592/photo/one-closed-cardboard-box.jpg?s=612x612&w=0&k=20&c=cmqs7xjVKxcQq8_8yR5tP3KbVPB6512BqCDrFVd4VL0=",

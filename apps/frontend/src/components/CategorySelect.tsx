@@ -44,7 +44,7 @@ export default function CategorySelect() {
     }
 
     return (
-        <Select w="25%">
+        <Select >
             {data?.categories.map((category: Category, index: number) => (
                     <option key={index} value={index}>
                         {category.name}

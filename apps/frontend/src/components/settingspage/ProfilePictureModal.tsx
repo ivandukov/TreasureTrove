@@ -9,7 +9,7 @@ import {
     ModalFooter,
     ModalCloseButton,
 } from "@chakra-ui/react";
-import ProfilePictureDropZone from "./ProfilePictureDropZone";
+import ImageDropZone from "./ProfilePictureDropZone";
 
 /**
  * displays a Modal with a Box with which
@@ -32,7 +32,7 @@ export function ProfilePictureModal({
                     <ModalHeader>Change Profile Picture</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <ProfilePictureDropZone />
+                        <ImageDropZone />
                     </ModalBody>
                     <ModalFooter>
                         <HStack>

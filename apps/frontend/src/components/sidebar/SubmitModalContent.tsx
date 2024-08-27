@@ -1,5 +1,6 @@
 import { Stack, RadioGroup, HStack, Radio, Input, Textarea, FormControl, FormLabel } from "@chakra-ui/react";
 import CategorySelect from "@components/CategorySelect";
+import ImageDropZone from "@components/ImageDropZone";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 
 /**
@@ -14,7 +15,7 @@ export default function SubmitModalContent({register} : {register: UseFormRegist
         <>
             <Stack>
                 <RadioGroup defaultValue="1" colorScheme="green">
-                    <HStack>
+                    <HStack spacing={15}>
                         <Radio value="1">Giveaway</Radio>
                         <Radio value="2">Request</Radio>
                     </HStack>
@@ -43,6 +44,7 @@ export default function SubmitModalContent({register} : {register: UseFormRegist
                         placeholder="Description"
                     />
                 </FormControl>
+                <ImageDropZone/>
             </Stack>
         </>
     );

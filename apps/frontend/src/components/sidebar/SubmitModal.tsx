@@ -28,7 +28,7 @@ export default function SubmitModal({ isOpen, onClose }: SubmitModalProps) {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Modal isOpen={isOpen} onClose={onClose}>
+                <Modal isOpen={isOpen} onClose={onClose} scrollBehavior='inside'>
                     <ModalOverlay />
                     <ModalContent>
                         <ModalHeader>

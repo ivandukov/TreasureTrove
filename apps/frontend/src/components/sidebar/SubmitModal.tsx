@@ -20,8 +20,10 @@ export default function SubmitModal({ isOpen, onClose }: SubmitModalProps) {
                     <ModalBody>
                         <Stack>
                             <RadioGroup defaultValue="1" colorScheme="green">
-                                <Radio value="1">Giveaway</Radio>
-                                <Radio value="2">Request</Radio>
+                                <HStack>
+                                    <Radio value="1">Giveaway</Radio>
+                                    <Radio value="2">Request</Radio>
+                                </HStack>
                             </RadioGroup>
                             <HStack>
                                 <Input

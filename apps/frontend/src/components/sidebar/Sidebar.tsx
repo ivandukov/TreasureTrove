@@ -31,7 +31,7 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactNode, ReactText } from "react";
-import SubmitModal from "./sidebar/SubmitModal";
+import SubmitModal from "./SubmitModal";
 
 interface LinkItemProps {
     name: string;

@@ -1,5 +1,4 @@
 import ChatPage from "@components/chatpage/ChatPage";
-import CreateGiveawayPage from "@components/creategiveawaypage/CreateGiveawayPage";
 import GiveawayPage from "@components/giveawaypage/GiveawayPage";
 import LoggedInHomepage from "@components/homepage/LoggedInHomepage";
 import LoggedOutHomepage from "@components/homepage/LoggedOutHomepage";
@@ -40,7 +39,6 @@ const routes: Array<{ path: string; element: ReactElement }> = [
     { path: "/giveaway/:id", element: <GiveawayPage /> },
     { path: "/settings", element: <SettingsPage /> },
     { path: "/results", element: <SearchResultPage /> },
-    { path: "/submit", element: <CreateGiveawayPage /> },
     { path: "/saved", element: <SavedPage /> },
     { path: "/messages", element: <MessagePage /> },
     { path: "/chat", element: <ChatPage /> },

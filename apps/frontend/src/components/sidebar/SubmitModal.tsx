@@ -1,5 +1,5 @@
 import { Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Radio, RadioGroup, Stack, Textarea } from "@chakra-ui/react";
-import CategorySelect from "./CategorySelect";
+import CategorySelect from "../CategorySelect";
 
 interface SubmitModalProps {
     isOpen: boolean;

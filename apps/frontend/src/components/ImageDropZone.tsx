@@ -1,5 +1,6 @@
-import { Box, Input, Link, Stack, Text, Image, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Box, Input, Link, Stack, Text, Image, HStack, SimpleGrid, Flex, Icon, IconButton, useColorMode, Button } from "@chakra-ui/react";
 import { createRef, useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 import { GoUpload } from "react-icons/go";
 
 export default function ImageDropZone() {
@@ -13,6 +14,10 @@ export default function ImageDropZone() {
         setUploadedImages(prevImages => [...prevImages, ...files.map(file => URL.createObjectURL(file))]);
     };
 
+    const removeImageAtIndex = (index: number) => {
+        setUploadedImages(prevImages => prevImages.filter((_, i) => i !== index));
+    };
+    
     return (
         <>
             <Box border="2px dashed" borderRadius="md" p={3}>
@@ -36,13 +41,20 @@ export default function ImageDropZone() {
             </Box>
             <SimpleGrid columns={3} gap={4} mt={3}>
                 {uploadedImages.map((src, index) => (
-                    <Image
-                        key={index}
-                        src={src}
-                        boxSize="100px"
-                        objectFit="cover"
-                        alt={`Uploaded Image ${index + 1}`}
-                    />
+                    <Box>
+                        <Image
+                            key={index}
+                            src={src}
+                            objectFit="cover"
+                            boxSize='100px'
+                        />                   
+                        <IconButton
+                            icon={<Icon as={FaTrashAlt} />}
+                            colorScheme='red'
+                            aria-label="Remove image"
+                            onClick={() => removeImageAtIndex(index)}               
+                        />
+                    </Box>
                 ))}
             </SimpleGrid>
         </>

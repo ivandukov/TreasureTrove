@@ -9,17 +9,20 @@ import { FieldValues, UseFormRegister } from "react-hook-form";
  * @param register {UseFormRegister<FieldValues>}
  * @returns JSX element
  */
-export default function SubmitModalContent({register} : {register: UseFormRegister<FieldValues>}) {
+export default function SubmitModalContent({ register }: { register: UseFormRegister<FieldValues> }) {
 
     return (
         <>
-            <Stack>
-                <RadioGroup defaultValue="1" colorScheme="green">
-                    <HStack spacing={15}>
-                        <Radio value="1">Giveaway</Radio>
-                        <Radio value="2">Request</Radio>
-                    </HStack>
-                </RadioGroup>
+            <Stack spacing={5}>
+                <FormControl as='fieldset'>
+                    <FormLabel as='legend'>Type</FormLabel>
+                    <RadioGroup defaultValue="1" colorScheme="green">
+                        <HStack spacing={15}>
+                            <Radio value="1">Giveaway</Radio>
+                            <Radio value="2">Request</Radio>
+                        </HStack>
+                    </RadioGroup>
+                </FormControl>
                 <FormControl isRequired={true}>
                     <FormLabel>Title</FormLabel>
                     <Input
@@ -34,17 +37,17 @@ export default function SubmitModalContent({register} : {register: UseFormRegist
                     />
                 </FormControl>
                 <FormControl isRequired={true}>
-                    <FormLabel>Category</FormLabel>
-                    <CategorySelect/>
-                </FormControl>
-                <FormControl isRequired={true}>
                     <FormLabel>Description</FormLabel>
                     <Textarea
                         id="description"
                         placeholder="Description"
                     />
                 </FormControl>
-                <ImageDropZone/>
+                <FormControl>
+                    <FormLabel>Category</FormLabel>
+                    <CategorySelect />
+                </FormControl>
+                <ImageDropZone />
             </Stack>
         </>
     );

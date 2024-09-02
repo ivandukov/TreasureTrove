@@ -41,12 +41,12 @@ export default function ImageDropZone() {
             </Box>
             <SimpleGrid columns={3} gap={4} mt={3}>
                 {uploadedImages.map((src, index) => (
-                    <Box>
+                    <Stack>
                         <Image
                             key={index}
                             src={src}
                             objectFit="cover"
-                            boxSize='100px'
+                            boxSize='120px'
                         />                   
                         <IconButton
                             icon={<Icon as={FaTrashAlt} />}
@@ -54,7 +54,7 @@ export default function ImageDropZone() {
                             aria-label="Remove image"
                             onClick={() => removeImageAtIndex(index)}               
                         />
-                    </Box>
+                    </Stack>
                 ))}
             </SimpleGrid>
         </>

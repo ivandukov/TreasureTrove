@@ -13,7 +13,7 @@ export default function SubmitModalContent({ register }: { register: UseFormRegi
 
     return (
         <>
-            <Stack spacing={5}>
+            <Stack>
                 <FormControl as='fieldset'>
                     <FormLabel as='legend'>Type</FormLabel>
                     <RadioGroup defaultValue="1" colorScheme="green">
@@ -31,8 +31,8 @@ export default function SubmitModalContent({ register }: { register: UseFormRegi
                             required: "This is required",
                             minLength: {
                                 value: 4,
-                                message: "Minimum length should be 4",
-                            },
+                                message: "Minimum length should be 4"
+                            }
                         })}
                     />
                 </FormControl>
@@ -41,11 +41,18 @@ export default function SubmitModalContent({ register }: { register: UseFormRegi
                     <Textarea
                         id="description"
                         placeholder="Description"
+                        {...register("description", {
+                            required: "This is required",
+                            minLength: {
+                                value: 4,
+                                message: "Minimum length should be 4"
+                            }
+                        })}
                     />
                 </FormControl>
                 <FormControl>
                     <FormLabel>Category</FormLabel>
-                    <CategorySelect />
+                    <CategorySelect/>
                 </FormControl>
                 <ImageDropZone />
             </Stack>

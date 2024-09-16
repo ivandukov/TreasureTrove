@@ -44,7 +44,7 @@ export default function CategorySelect() {
     }
 
     return (
-        <Select >
+        <Select>
             {data?.categories.map((category: Category, index: number) => (
                 <option key={index} value={index}>
                     {category.name}

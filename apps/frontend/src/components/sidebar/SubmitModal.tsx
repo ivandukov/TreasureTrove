@@ -26,32 +26,32 @@ export default function SubmitModal({ isOpen, onClose }: SubmitModalProps) {
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={onClose} scrollBehavior='inside'>
+            <Modal isOpen={isOpen} onClose={onClose} scrollBehavior='outside'>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>
-                        New advertisement
-                    </ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <form onSubmit={handleSubmit(onSubmit)}> 
-                            <SubmitModalContent register={register} />
-                        </form>
-                    </ModalBody>
-                    <ModalFooter>
-                        <HStack>
-                            <Button onClick={onClose}>Cancel</Button>
-                            <Button onClick={onClose}>Save</Button>
-                            <Button
-                                type="submit"
-                                colorScheme="green"
-                                onClick={onSubmit}
-                                isLoading={isSubmitting}
-                            >
-                                Submit
-                            </Button>
-                        </HStack>
-                    </ModalFooter>
+                    <form onSubmit={handleSubmit(onSubmit)}> 
+                        <ModalHeader>
+                            New advertisement
+                        </ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>                       
+                            <SubmitModalContent register={register} />                           
+                        </ModalBody>
+                        <ModalFooter>
+                            <HStack>
+                                <Button onClick={onClose}>Cancel</Button>
+                                <Button onClick={onClose}>Save</Button>
+                                <Button
+                                    type="submit"
+                                    colorScheme="green"
+                                    onClick={onSubmit}
+                                    isLoading={isSubmitting}
+                                >
+                                    Submit
+                                </Button>
+                            </HStack>
+                        </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
         </>
